@@ -52,6 +52,9 @@ public class Game {
 	/** Index du joueur dont c'est le tour dans la liste players */
 	private int currentPlayerIndex;
 
+	@Column(nullable = false)
+	private String name;
+
 	private LocalDateTime createdAt;
 
 	// ---- relations ----
@@ -90,9 +93,14 @@ public class Game {
 	}
 
 	public Game(GameStatus status) {
+		this(status, "Partie sans nom");
+	}
+
+	public Game(GameStatus status, String name) {
 		this.status = status;
 		this.direction = 1;
 		this.currentPlayerIndex = 0;
+		this.name = name;
 		this.createdAt = LocalDateTime.now();
 		this.players = new ArrayList<>();
 		this.chatMessages = new ArrayList<>();
@@ -141,6 +149,14 @@ public class Game {
 
 	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<GamePlayer> getPlayers() {

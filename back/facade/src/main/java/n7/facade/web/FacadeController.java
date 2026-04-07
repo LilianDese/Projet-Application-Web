@@ -3,7 +3,6 @@ package n7.facade.web;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +21,7 @@ import n7.facade.model.Joueur;
 import n7.facade.repository.GamePlayerRepository;
 import n7.facade.repository.GameRepository;
 import n7.facade.repository.JoueurRepository;
+import n7.facade.web.dto.CreateGameRequest;
 import n7.facade.web.dto.FacadeJoueurRequest;
 import n7.facade.web.dto.FacadeJoueurResponse;
 import n7.facade.web.dto.GameResponse;
@@ -37,7 +37,6 @@ public class FacadeController {
 	private final GameRepository gameRepository;
 	private final GamePlayerRepository gamePlayerRepository;
 
-	@Autowired
 	public FacadeController(
 			JoueurRepository joueurRepository,
 			GameRepository gameRepository,
@@ -76,8 +75,12 @@ public class FacadeController {
 
 	@PostMapping("/games")
 	@Transactional
-	public ResponseEntity<GameResponse> createGame() {
-		Game game = gameRepository.save(new Game(GameStatus.LOBBY));
+	public ResponseEntity<GameResponse> createGame(@RequestBody CreateGameRequest request) {
+		String name = normalize(request.getName());
+		if (name == null) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "nom de partie requis");
+		}
+		Game game = gameRepository.save(new Game(GameStatus.LOBBY, name));
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(toResponse(game));
 	}
@@ -112,7 +115,7 @@ public class FacadeController {
 
 	private GameResponse toResponse(Game game) {
 		int playerCount = (game.getPlayers() == null) ? 0 : game.getPlayers().size();
-		return new GameResponse(game.getId(), game.getStatus(), game.getCreatedAt(), playerCount);
+		return new GameResponse(game.getId(), game.getStatus(), game.getCreatedAt(), playerCount, game.getName());
 	}
 
 	private static String normalize(String value) {

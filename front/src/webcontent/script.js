@@ -244,10 +244,14 @@ function setLoggedIn(pseudo) {
   const form = document.getElementById('auth-form');
   const logout = document.getElementById('btn-logout');
   const leaderboardBtn = document.getElementById('btn-leaderboard');
+  const listGamesBtn = document.getElementById('btn-list-games');
+  const createGameBtn = document.getElementById('btn-create-game');
   if (actions) actions.style.display = 'none';
   if (form) form.style.display = 'none';
   if (logout) logout.style.display = 'inline-block';
   if (leaderboardBtn) leaderboardBtn.style.display = 'inline-block';
+  if (listGamesBtn) listGamesBtn.style.display = 'inline-block';
+  if (createGameBtn) createGameBtn.style.display = 'inline-block';
 }
 
 function setLoggedOut() {
@@ -260,13 +264,19 @@ function setLoggedOut() {
   const input = document.getElementById('pseudo');
   const logout = document.getElementById('btn-logout');
   const leaderboardBtn = document.getElementById('btn-leaderboard');
+  const listGamesBtn = document.getElementById('btn-list-games');
+  const createGameBtn = document.getElementById('btn-create-game');
   const overlay = document.getElementById('leaderboard-overlay');
+  const gamesOverlay = document.getElementById('games-overlay');
   if (actions) actions.style.display = 'flex';
   if (form) form.style.display = 'none';
   if (input) input.value = '';
   if (logout) logout.style.display = 'none';
   if (leaderboardBtn) leaderboardBtn.style.display = 'none';
+  if (listGamesBtn) listGamesBtn.style.display = 'none';
+  if (createGameBtn) createGameBtn.style.display = 'none';
   if (overlay) overlay.style.display = 'none';
+  if (gamesOverlay) gamesOverlay.style.display = 'none';
 }
 
 function renderLeaderboard(joueurs) {
@@ -332,6 +342,87 @@ async function fetchJoueurs() {
   return Array.isArray(data) ? data : [];
 }
 
+async function fetchGames() {
+  const res = await fetch('/back/games', { headers: { Accept: 'application/json' } });
+  if (!res.ok) throw new Error(String(res.status));
+  const data = await res.json();
+  return Array.isArray(data) ? data : [];
+}
+
+function renderGames(games) {
+  const container = document.getElementById('games-content');
+  if (!container) return;
+
+  if (!Array.isArray(games) || games.length === 0) {
+    container.textContent = 'Aucune partie trouvée';
+    return;
+  }
+
+  const ul = document.createElement('ul');
+  ul.className = 'leaderboard-list';
+  for (const game of games) {
+    const li = document.createElement('li');
+    const title = game?.name ? `${game.name} (ID ${game.id})` : `Partie ${game.id}`;
+    li.textContent = `${title} · ${game.status} · ${game.playerCount} joueur(s)`;
+    ul.appendChild(li);
+  }
+
+  container.innerHTML = '';
+  container.appendChild(ul);
+}
+
+async function openGamesList() {
+  if (!currentPseudo) return;
+  const overlay = document.getElementById('games-overlay');
+  const container = document.getElementById('games-content');
+  if (!overlay || !container) return;
+
+  overlay.style.display = 'grid';
+  container.textContent = 'Chargement...';
+  try {
+    const games = await fetchGames();
+    renderGames(games);
+  } catch {
+    container.textContent = 'Erreur réseau';
+  }
+}
+
+function closeGamesList() {
+  const overlay = document.getElementById('games-overlay');
+  if (overlay) overlay.style.display = 'none';
+}
+
+async function createGame(name) {
+  const res = await fetch('/back/games', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ name }),
+  });
+  return res;
+}
+
+async function askCreateGame() {
+  if (!currentPseudo) return;
+  const name = normalizePseudo(prompt('Nom de la partie ?') ?? '');
+  if (!name) {
+    setMessage('Nom de partie requis', true);
+    return;
+  }
+
+  try {
+    const res = await createGame(name);
+    if (res.status === 201) {
+      const data = await res.json();
+      setMessage(`Partie créée : ${data.name ?? data.id}`, false);
+      return;
+    }
+    const txt = await res.text();
+    setMessage(`Erreur création partie (${res.status}) ${txt || ''}`.trim(), true);
+  } catch {
+    setMessage('Erreur réseau', true);
+  }
+}
+
 async function createJoueur(pseudo) {
   const res = await fetch('/back/joueurs', {
     method: 'POST',
@@ -353,7 +444,10 @@ function initAuthUi() {
   const input = document.getElementById('pseudo');
   const logoutBtn = document.getElementById('btn-logout');
   const leaderboardBtn = document.getElementById('btn-leaderboard');
+  const listGamesBtn = document.getElementById('btn-list-games');
+  const createGameBtn = document.getElementById('btn-create-game');
   const leaderboardBackBtn = document.getElementById('btn-leaderboard-back');
+  const gamesBackBtn = document.getElementById('btn-games-back');
   if (!loginBtn || !regBtn || !form || !input) return;
 
   loginBtn.addEventListener('click', () => showAuthForm('login'));
@@ -371,9 +465,27 @@ function initAuthUi() {
     });
   }
 
+  if (listGamesBtn) {
+    listGamesBtn.addEventListener('click', () => {
+      void openGamesList();
+    });
+  }
+
+  if (createGameBtn) {
+    createGameBtn.addEventListener('click', () => {
+      void askCreateGame();
+    });
+  }
+
   if (leaderboardBackBtn) {
     leaderboardBackBtn.addEventListener('click', () => {
       closeLeaderboard();
+    });
+  }
+
+  if (gamesBackBtn) {
+    gamesBackBtn.addEventListener('click', () => {
+      closeGamesList();
     });
   }
 

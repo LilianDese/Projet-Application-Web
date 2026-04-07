@@ -51,6 +51,8 @@
 
     <div class="hud-right" aria-label="Joueur courant">
       <button id="btn-leaderboard" class="btn btn-small" type="button" style="display:none">Leaderboard</button>
+      <button id="btn-list-games" class="btn btn-small" type="button" style="display:none">Lister parties</button>
+      <button id="btn-create-game" class="btn btn-small" type="button" style="display:none">Créer partie</button>
       <button id="btn-logout" class="btn btn-small" type="button" style="display:none">Déconnexion</button>
       <div id="current-user" class="current-user"></div>
     </div>
@@ -63,6 +65,17 @@
           <div class="panel-spacer" aria-hidden="true"></div>
         </div>
         <div id="leaderboard-content" class="panel-body"></div>
+      </div>
+    </div>
+
+    <div id="games-overlay" class="overlay" style="display:none" aria-label="Parties">
+      <div class="panel">
+        <div class="panel-head">
+          <button id="btn-games-back" class="btn btn-small" type="button">Retour</button>
+          <div class="panel-title">Parties</div>
+          <div class="panel-spacer" aria-hidden="true"></div>
+        </div>
+        <div id="games-content" class="panel-body"></div>
       </div>
     </div>
 

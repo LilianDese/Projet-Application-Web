@@ -9,15 +9,17 @@ public class GameResponse {
 	private GameStatus status;
 	private LocalDateTime createdAt;
 	private int playerCount;
+	private String name;
 
 	public GameResponse() {
 	}
 
-	public GameResponse(Long id, GameStatus status, LocalDateTime createdAt, int playerCount) {
+	public GameResponse(Long id, GameStatus status, LocalDateTime createdAt, int playerCount, String name) {
 		this.id = id;
 		this.status = status;
 		this.createdAt = createdAt;
 		this.playerCount = playerCount;
+		this.name = name;
 	}
 
 	public Long getId() {
@@ -46,6 +48,14 @@ public class GameResponse {
 
 	public int getPlayerCount() {
 		return playerCount;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setPlayerCount(int playerCount) {

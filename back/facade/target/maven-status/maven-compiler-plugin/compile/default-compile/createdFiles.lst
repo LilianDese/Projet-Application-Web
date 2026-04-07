@@ -20,6 +20,7 @@ n7/facade/repository/JoueurRepository.class
 n7/facade/repository/CardRepository.class
 n7/facade/repository/GameRuleRepository.class
 n7/facade/FacadeApplication.class
+n7/facade/web/dto/CreateGameRequest.class
 n7/facade/repository/ChatMessageRepository.class
 n7/facade/model/Game.class
 n7/facade/web/dto/FacadeJoueurRequest.class
