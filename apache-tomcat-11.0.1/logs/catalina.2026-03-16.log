@@ -1,0 +1,482 @@
+16-Mar-2026 18:36:17.526 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom version serveur :              Apache Tomcat/11.0.1
+16-Mar-2026 18:36:17.532 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Serveur compilé :                  Nov 6 2024 19:08:24 UTC
+16-Mar-2026 18:36:17.532 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version du serveur :               11.0.1.0
+16-Mar-2026 18:36:17.532 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom de l'OS :                      Linux
+16-Mar-2026 18:36:17.532 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version OS :                       6.8.0-101-generic
+16-Mar-2026 18:36:17.532 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture :                     amd64
+16-Mar-2026 18:36:17.533 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home :                        /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/jdk-17.0.5
+16-Mar-2026 18:36:17.533 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version JVM :                      17.0.5+9-LTS-191
+16-Mar-2026 18:36:17.533 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Fournisseur de la JVM :            Oracle Corporation
+16-Mar-2026 18:36:17.533 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:36:17.533 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:36:17.545 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.config.file=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/conf/logging.properties
+16-Mar-2026 18:36:17.545 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+16-Mar-2026 18:36:17.546 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djdk.tls.ephemeralDHKeySize=2048
+16-Mar-2026 18:36:17.546 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+16-Mar-2026 18:36:17.546 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.lang=ALL-UNNAMED
+16-Mar-2026 18:36:17.546 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.io=ALL-UNNAMED
+16-Mar-2026 18:36:17.546 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util=ALL-UNNAMED
+16-Mar-2026 18:36:17.546 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+16-Mar-2026 18:36:17.546 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+16-Mar-2026 18:36:17.547 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --enable-native-access=ALL-UNNAMED
+16-Mar-2026 18:36:17.547 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.base=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:36:17.547 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.home=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:36:17.547 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.io.tmpdir=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/temp
+16-Mar-2026 18:36:17.551 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent La librairie Apache Tomcat Native basée sur APR qui permet des performances optimales dans les environnements de production n'a pas été trouvée sur le java.library.path : [/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib]
+16-Mar-2026 18:36:17.886 INFO [main] org.apache.coyote.AbstractProtocol.init Initialisation du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:36:17.914 INFO [main] org.apache.catalina.startup.Catalina.load L'initialisation du serveur a pris [617] millisecondes
+16-Mar-2026 18:36:17.965 INFO [main] org.apache.catalina.core.StandardService.startInternal Démarrage du service [Catalina]
+16-Mar-2026 18:36:17.965 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Démarrage du moteur de Servlets : [Apache Tomcat/11.0.1]
+16-Mar-2026 18:36:17.979 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager]
+16-Mar-2026 18:36:18.365 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager] de l'application web s'est terminé en [382] ms
+16-Mar-2026 18:36:18.365 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples]
+16-Mar-2026 18:36:18.665 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples] de l'application web s'est terminé en [300] ms
+16-Mar-2026 18:36:18.666 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager]
+16-Mar-2026 18:36:18.701 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager] de l'application web s'est terminé en [35] ms
+16-Mar-2026 18:36:18.702 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT]
+16-Mar-2026 18:36:18.740 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT] de l'application web s'est terminé en [38] ms
+16-Mar-2026 18:36:18.740 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs]
+16-Mar-2026 18:36:18.769 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs] de l'application web s'est terminé en [28] ms
+16-Mar-2026 18:36:18.776 INFO [main] org.apache.coyote.AbstractProtocol.start Démarrage du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:36:18.792 INFO [main] org.apache.catalina.startup.Catalina.start Le démarrage du serveur a pris [877] millisecondes
+16-Mar-2026 18:40:08.841 INFO [Catalina-utility-2] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] de l'application web
+16-Mar-2026 18:40:08.894 INFO [Catalina-utility-2] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] s'est terminé en [53] ms
+16-Mar-2026 18:41:34.362 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause Le gestionnaire de protocole ["http-nio-8080"] est mis en pause
+16-Mar-2026 18:41:34.366 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Arrêt du service [Catalina]
+16-Mar-2026 18:41:34.407 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Arrêt du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:41:34.424 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy Destruction du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:41:45.993 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom version serveur :              Apache Tomcat/11.0.1
+16-Mar-2026 18:41:45.999 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Serveur compilé :                  Nov 6 2024 19:08:24 UTC
+16-Mar-2026 18:41:45.999 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version du serveur :               11.0.1.0
+16-Mar-2026 18:41:45.999 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom de l'OS :                      Linux
+16-Mar-2026 18:41:45.999 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version OS :                       6.8.0-101-generic
+16-Mar-2026 18:41:46.000 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture :                     amd64
+16-Mar-2026 18:41:46.000 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home :                        /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/jdk-17.0.5
+16-Mar-2026 18:41:46.000 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version JVM :                      17.0.5+9-LTS-191
+16-Mar-2026 18:41:46.000 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Fournisseur de la JVM :            Oracle Corporation
+16-Mar-2026 18:41:46.000 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:41:46.000 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:41:46.014 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.config.file=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/conf/logging.properties
+16-Mar-2026 18:41:46.014 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+16-Mar-2026 18:41:46.014 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djdk.tls.ephemeralDHKeySize=2048
+16-Mar-2026 18:41:46.014 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+16-Mar-2026 18:41:46.014 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.lang=ALL-UNNAMED
+16-Mar-2026 18:41:46.014 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.io=ALL-UNNAMED
+16-Mar-2026 18:41:46.014 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util=ALL-UNNAMED
+16-Mar-2026 18:41:46.015 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+16-Mar-2026 18:41:46.015 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+16-Mar-2026 18:41:46.015 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --enable-native-access=ALL-UNNAMED
+16-Mar-2026 18:41:46.015 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.base=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:41:46.015 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.home=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:41:46.015 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.io.tmpdir=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/temp
+16-Mar-2026 18:41:46.017 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent La librairie Apache Tomcat Native basée sur APR qui permet des performances optimales dans les environnements de production n'a pas été trouvée sur le java.library.path : [/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib]
+16-Mar-2026 18:41:46.342 INFO [main] org.apache.coyote.AbstractProtocol.init Initialisation du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:41:46.370 INFO [main] org.apache.catalina.startup.Catalina.load L'initialisation du serveur a pris [633] millisecondes
+16-Mar-2026 18:41:46.419 INFO [main] org.apache.catalina.core.StandardService.startInternal Démarrage du service [Catalina]
+16-Mar-2026 18:41:46.420 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Démarrage du moteur de Servlets : [Apache Tomcat/11.0.1]
+16-Mar-2026 18:41:46.439 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] de l'application web
+16-Mar-2026 18:41:46.802 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] s'est terminé en [359] ms
+16-Mar-2026 18:41:46.803 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager]
+16-Mar-2026 18:41:46.848 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager] de l'application web s'est terminé en [46] ms
+16-Mar-2026 18:41:46.849 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples]
+16-Mar-2026 18:41:47.132 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples] de l'application web s'est terminé en [283] ms
+16-Mar-2026 18:41:47.132 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager]
+16-Mar-2026 18:41:47.163 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager] de l'application web s'est terminé en [30] ms
+16-Mar-2026 18:41:47.164 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT]
+16-Mar-2026 18:41:47.189 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT] de l'application web s'est terminé en [26] ms
+16-Mar-2026 18:41:47.190 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs]
+16-Mar-2026 18:41:47.217 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs] de l'application web s'est terminé en [27] ms
+16-Mar-2026 18:41:47.224 INFO [main] org.apache.coyote.AbstractProtocol.start Démarrage du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:41:47.242 INFO [main] org.apache.catalina.startup.Catalina.start Le démarrage du serveur a pris [871] millisecondes
+16-Mar-2026 18:47:19.717 INFO [main] org.apache.catalina.core.StandardServer.await Une commande d'arrêt valide a été reçue sur le port d'arrêt, arrêt de l'instance du serveur
+16-Mar-2026 18:47:19.718 INFO [main] org.apache.coyote.AbstractProtocol.pause Le gestionnaire de protocole ["http-nio-8080"] est mis en pause
+16-Mar-2026 18:47:19.722 INFO [main] org.apache.catalina.core.StandardService.stopInternal Arrêt du service [Catalina]
+16-Mar-2026 18:47:19.758 INFO [main] org.apache.coyote.AbstractProtocol.stop Arrêt du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:47:19.768 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destruction du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:47:43.533 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom version serveur :              Apache Tomcat/11.0.1
+16-Mar-2026 18:47:43.539 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Serveur compilé :                  Nov 6 2024 19:08:24 UTC
+16-Mar-2026 18:47:43.539 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version du serveur :               11.0.1.0
+16-Mar-2026 18:47:43.540 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom de l'OS :                      Linux
+16-Mar-2026 18:47:43.540 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version OS :                       6.8.0-101-generic
+16-Mar-2026 18:47:43.540 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture :                     amd64
+16-Mar-2026 18:47:43.540 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home :                        /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/jdk-17.0.5
+16-Mar-2026 18:47:43.540 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version JVM :                      17.0.5+9-LTS-191
+16-Mar-2026 18:47:43.540 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Fournisseur de la JVM :            Oracle Corporation
+16-Mar-2026 18:47:43.540 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:47:43.541 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:47:43.555 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.config.file=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/conf/logging.properties
+16-Mar-2026 18:47:43.555 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+16-Mar-2026 18:47:43.555 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djdk.tls.ephemeralDHKeySize=2048
+16-Mar-2026 18:47:43.555 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+16-Mar-2026 18:47:43.555 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.lang=ALL-UNNAMED
+16-Mar-2026 18:47:43.556 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.io=ALL-UNNAMED
+16-Mar-2026 18:47:43.556 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util=ALL-UNNAMED
+16-Mar-2026 18:47:43.556 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+16-Mar-2026 18:47:43.556 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+16-Mar-2026 18:47:43.556 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --enable-native-access=ALL-UNNAMED
+16-Mar-2026 18:47:43.556 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.base=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:47:43.556 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.home=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:47:43.557 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.io.tmpdir=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/temp
+16-Mar-2026 18:47:43.558 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent La librairie Apache Tomcat Native basée sur APR qui permet des performances optimales dans les environnements de production n'a pas été trouvée sur le java.library.path : [/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib]
+16-Mar-2026 18:47:43.896 INFO [main] org.apache.coyote.AbstractProtocol.init Initialisation du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:47:43.921 INFO [main] org.apache.catalina.startup.Catalina.load L'initialisation du serveur a pris [625] millisecondes
+16-Mar-2026 18:47:43.972 INFO [main] org.apache.catalina.core.StandardService.startInternal Démarrage du service [Catalina]
+16-Mar-2026 18:47:43.972 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Démarrage du moteur de Servlets : [Apache Tomcat/11.0.1]
+16-Mar-2026 18:47:43.992 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] de l'application web
+16-Mar-2026 18:47:44.344 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] s'est terminé en [349] ms
+16-Mar-2026 18:47:44.345 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager]
+16-Mar-2026 18:47:44.397 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager] de l'application web s'est terminé en [52] ms
+16-Mar-2026 18:47:44.398 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples]
+16-Mar-2026 18:47:44.694 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples] de l'application web s'est terminé en [295] ms
+16-Mar-2026 18:47:44.694 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager]
+16-Mar-2026 18:47:44.721 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager] de l'application web s'est terminé en [26] ms
+16-Mar-2026 18:47:44.721 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT]
+16-Mar-2026 18:47:44.742 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT] de l'application web s'est terminé en [21] ms
+16-Mar-2026 18:47:44.743 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs]
+16-Mar-2026 18:47:44.765 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs] de l'application web s'est terminé en [22] ms
+16-Mar-2026 18:47:44.771 INFO [main] org.apache.coyote.AbstractProtocol.start Démarrage du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:47:44.785 INFO [main] org.apache.catalina.startup.Catalina.start Le démarrage du serveur a pris [863] millisecondes
+16-Mar-2026 18:48:15.438 INFO [main] org.apache.catalina.core.StandardServer.await Une commande d'arrêt valide a été reçue sur le port d'arrêt, arrêt de l'instance du serveur
+16-Mar-2026 18:48:15.439 INFO [main] org.apache.coyote.AbstractProtocol.pause Le gestionnaire de protocole ["http-nio-8080"] est mis en pause
+16-Mar-2026 18:48:15.444 INFO [main] org.apache.catalina.core.StandardService.stopInternal Arrêt du service [Catalina]
+16-Mar-2026 18:48:15.475 INFO [main] org.apache.coyote.AbstractProtocol.stop Arrêt du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:48:15.490 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destruction du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:48:18.807 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom version serveur :              Apache Tomcat/11.0.1
+16-Mar-2026 18:48:18.812 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Serveur compilé :                  Nov 6 2024 19:08:24 UTC
+16-Mar-2026 18:48:18.812 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version du serveur :               11.0.1.0
+16-Mar-2026 18:48:18.812 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom de l'OS :                      Linux
+16-Mar-2026 18:48:18.813 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version OS :                       6.8.0-101-generic
+16-Mar-2026 18:48:18.813 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture :                     amd64
+16-Mar-2026 18:48:18.813 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home :                        /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/jdk-17.0.5
+16-Mar-2026 18:48:18.813 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version JVM :                      17.0.5+9-LTS-191
+16-Mar-2026 18:48:18.813 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Fournisseur de la JVM :            Oracle Corporation
+16-Mar-2026 18:48:18.813 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:48:18.813 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:48:18.824 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.config.file=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/conf/logging.properties
+16-Mar-2026 18:48:18.825 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+16-Mar-2026 18:48:18.825 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djdk.tls.ephemeralDHKeySize=2048
+16-Mar-2026 18:48:18.825 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+16-Mar-2026 18:48:18.825 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.lang=ALL-UNNAMED
+16-Mar-2026 18:48:18.825 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.io=ALL-UNNAMED
+16-Mar-2026 18:48:18.825 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util=ALL-UNNAMED
+16-Mar-2026 18:48:18.825 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+16-Mar-2026 18:48:18.826 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+16-Mar-2026 18:48:18.826 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --enable-native-access=ALL-UNNAMED
+16-Mar-2026 18:48:18.826 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.base=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:48:18.826 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.home=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:48:18.826 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.io.tmpdir=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/temp
+16-Mar-2026 18:48:18.828 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent La librairie Apache Tomcat Native basée sur APR qui permet des performances optimales dans les environnements de production n'a pas été trouvée sur le java.library.path : [/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib]
+16-Mar-2026 18:48:19.157 INFO [main] org.apache.coyote.AbstractProtocol.init Initialisation du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:48:19.187 INFO [main] org.apache.catalina.startup.Catalina.load L'initialisation du serveur a pris [594] millisecondes
+16-Mar-2026 18:48:19.242 INFO [main] org.apache.catalina.core.StandardService.startInternal Démarrage du service [Catalina]
+16-Mar-2026 18:48:19.243 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Démarrage du moteur de Servlets : [Apache Tomcat/11.0.1]
+16-Mar-2026 18:48:19.264 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] de l'application web
+16-Mar-2026 18:48:19.631 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] s'est terminé en [364] ms
+16-Mar-2026 18:48:19.632 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager]
+16-Mar-2026 18:48:19.683 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager] de l'application web s'est terminé en [51] ms
+16-Mar-2026 18:48:19.683 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples]
+16-Mar-2026 18:48:19.956 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples] de l'application web s'est terminé en [272] ms
+16-Mar-2026 18:48:19.956 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager]
+16-Mar-2026 18:48:19.987 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager] de l'application web s'est terminé en [31] ms
+16-Mar-2026 18:48:19.988 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT]
+16-Mar-2026 18:48:20.010 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT] de l'application web s'est terminé en [22] ms
+16-Mar-2026 18:48:20.011 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs]
+16-Mar-2026 18:48:20.039 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs] de l'application web s'est terminé en [27] ms
+16-Mar-2026 18:48:20.046 INFO [main] org.apache.coyote.AbstractProtocol.start Démarrage du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:48:20.061 INFO [main] org.apache.catalina.startup.Catalina.start Le démarrage du serveur a pris [874] millisecondes
+16-Mar-2026 18:50:52.140 INFO [Thread-1] org.apache.coyote.AbstractProtocol.pause Le gestionnaire de protocole ["http-nio-8080"] est mis en pause
+16-Mar-2026 18:50:52.145 INFO [Thread-1] org.apache.catalina.core.StandardService.stopInternal Arrêt du service [Catalina]
+16-Mar-2026 18:50:52.182 INFO [Thread-1] org.apache.coyote.AbstractProtocol.stop Arrêt du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:50:52.191 INFO [Thread-1] org.apache.coyote.AbstractProtocol.destroy Destruction du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:51:21.908 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom version serveur :              Apache Tomcat/11.0.1
+16-Mar-2026 18:51:21.914 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Serveur compilé :                  Nov 6 2024 19:08:24 UTC
+16-Mar-2026 18:51:21.915 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version du serveur :               11.0.1.0
+16-Mar-2026 18:51:21.915 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom de l'OS :                      Linux
+16-Mar-2026 18:51:21.915 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version OS :                       6.8.0-101-generic
+16-Mar-2026 18:51:21.915 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture :                     amd64
+16-Mar-2026 18:51:21.915 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home :                        /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/jdk-17.0.5
+16-Mar-2026 18:51:21.915 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version JVM :                      17.0.5+9-LTS-191
+16-Mar-2026 18:51:21.916 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Fournisseur de la JVM :            Oracle Corporation
+16-Mar-2026 18:51:21.916 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:51:21.916 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:51:21.929 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.config.file=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/conf/logging.properties
+16-Mar-2026 18:51:21.929 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+16-Mar-2026 18:51:21.929 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djdk.tls.ephemeralDHKeySize=2048
+16-Mar-2026 18:51:21.929 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+16-Mar-2026 18:51:21.930 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.lang=ALL-UNNAMED
+16-Mar-2026 18:51:21.930 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.io=ALL-UNNAMED
+16-Mar-2026 18:51:21.930 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util=ALL-UNNAMED
+16-Mar-2026 18:51:21.930 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+16-Mar-2026 18:51:21.930 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+16-Mar-2026 18:51:21.930 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --enable-native-access=ALL-UNNAMED
+16-Mar-2026 18:51:21.930 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.base=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:51:21.931 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.home=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:51:21.931 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.io.tmpdir=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/temp
+16-Mar-2026 18:51:21.933 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent La librairie Apache Tomcat Native basée sur APR qui permet des performances optimales dans les environnements de production n'a pas été trouvée sur le java.library.path : [/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib]
+16-Mar-2026 18:51:22.284 INFO [main] org.apache.coyote.AbstractProtocol.init Initialisation du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:51:22.309 INFO [main] org.apache.catalina.startup.Catalina.load L'initialisation du serveur a pris [662] millisecondes
+16-Mar-2026 18:51:22.356 INFO [main] org.apache.catalina.core.StandardService.startInternal Démarrage du service [Catalina]
+16-Mar-2026 18:51:22.356 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Démarrage du moteur de Servlets : [Apache Tomcat/11.0.1]
+16-Mar-2026 18:51:22.376 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] de l'application web
+16-Mar-2026 18:51:22.712 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] s'est terminé en [334] ms
+16-Mar-2026 18:51:22.713 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager]
+16-Mar-2026 18:51:22.756 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager] de l'application web s'est terminé en [43] ms
+16-Mar-2026 18:51:22.757 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples]
+16-Mar-2026 18:51:23.007 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples] de l'application web s'est terminé en [250] ms
+16-Mar-2026 18:51:23.007 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager]
+16-Mar-2026 18:51:23.035 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager] de l'application web s'est terminé en [28] ms
+16-Mar-2026 18:51:23.036 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT]
+16-Mar-2026 18:51:23.056 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT] de l'application web s'est terminé en [20] ms
+16-Mar-2026 18:51:23.057 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs]
+16-Mar-2026 18:51:23.079 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs] de l'application web s'est terminé en [22] ms
+16-Mar-2026 18:51:23.085 INFO [main] org.apache.coyote.AbstractProtocol.start Démarrage du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:51:23.097 INFO [main] org.apache.catalina.startup.Catalina.start Le démarrage du serveur a pris [787] millisecondes
+16-Mar-2026 18:58:59.512 INFO [main] org.apache.catalina.core.StandardServer.await Une commande d'arrêt valide a été reçue sur le port d'arrêt, arrêt de l'instance du serveur
+16-Mar-2026 18:58:59.513 INFO [main] org.apache.coyote.AbstractProtocol.pause Le gestionnaire de protocole ["http-nio-8080"] est mis en pause
+16-Mar-2026 18:58:59.516 INFO [main] org.apache.catalina.core.StandardService.stopInternal Arrêt du service [Catalina]
+16-Mar-2026 18:58:59.545 INFO [main] org.apache.coyote.AbstractProtocol.stop Arrêt du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:58:59.550 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destruction du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:59:02.850 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom version serveur :              Apache Tomcat/11.0.1
+16-Mar-2026 18:59:02.855 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Serveur compilé :                  Nov 6 2024 19:08:24 UTC
+16-Mar-2026 18:59:02.855 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version du serveur :               11.0.1.0
+16-Mar-2026 18:59:02.855 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom de l'OS :                      Linux
+16-Mar-2026 18:59:02.855 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version OS :                       6.8.0-101-generic
+16-Mar-2026 18:59:02.855 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture :                     amd64
+16-Mar-2026 18:59:02.856 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home :                        /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/jdk-17.0.5
+16-Mar-2026 18:59:02.856 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version JVM :                      17.0.5+9-LTS-191
+16-Mar-2026 18:59:02.856 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Fournisseur de la JVM :            Oracle Corporation
+16-Mar-2026 18:59:02.856 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:59:02.856 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:59:02.867 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.config.file=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/conf/logging.properties
+16-Mar-2026 18:59:02.867 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+16-Mar-2026 18:59:02.867 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djdk.tls.ephemeralDHKeySize=2048
+16-Mar-2026 18:59:02.867 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+16-Mar-2026 18:59:02.867 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.lang=ALL-UNNAMED
+16-Mar-2026 18:59:02.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.io=ALL-UNNAMED
+16-Mar-2026 18:59:02.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util=ALL-UNNAMED
+16-Mar-2026 18:59:02.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+16-Mar-2026 18:59:02.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+16-Mar-2026 18:59:02.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --enable-native-access=ALL-UNNAMED
+16-Mar-2026 18:59:02.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.base=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:59:02.868 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.home=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 18:59:02.869 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.io.tmpdir=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/temp
+16-Mar-2026 18:59:02.870 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent La librairie Apache Tomcat Native basée sur APR qui permet des performances optimales dans les environnements de production n'a pas été trouvée sur le java.library.path : [/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib]
+16-Mar-2026 18:59:03.173 INFO [main] org.apache.coyote.AbstractProtocol.init Initialisation du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:59:03.197 INFO [main] org.apache.catalina.startup.Catalina.load L'initialisation du serveur a pris [562] millisecondes
+16-Mar-2026 18:59:03.242 INFO [main] org.apache.catalina.core.StandardService.startInternal Démarrage du service [Catalina]
+16-Mar-2026 18:59:03.243 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Démarrage du moteur de Servlets : [Apache Tomcat/11.0.1]
+16-Mar-2026 18:59:03.261 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] de l'application web
+16-Mar-2026 18:59:03.599 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] s'est terminé en [336] ms
+16-Mar-2026 18:59:03.600 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager]
+16-Mar-2026 18:59:03.642 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager] de l'application web s'est terminé en [41] ms
+16-Mar-2026 18:59:03.642 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples]
+16-Mar-2026 18:59:03.912 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples] de l'application web s'est terminé en [270] ms
+16-Mar-2026 18:59:03.913 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager]
+16-Mar-2026 18:59:03.941 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager] de l'application web s'est terminé en [28] ms
+16-Mar-2026 18:59:03.942 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT]
+16-Mar-2026 18:59:03.964 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT] de l'application web s'est terminé en [22] ms
+16-Mar-2026 18:59:03.965 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs]
+16-Mar-2026 18:59:03.989 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs] de l'application web s'est terminé en [24] ms
+16-Mar-2026 18:59:03.995 INFO [main] org.apache.coyote.AbstractProtocol.start Démarrage du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 18:59:04.010 INFO [main] org.apache.catalina.startup.Catalina.start Le démarrage du serveur a pris [812] millisecondes
+16-Mar-2026 18:59:54.515 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.undeploy Retrait de l'application web ayant pour chemin de contexte [/hello]
+16-Mar-2026 18:59:54.535 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] de l'application web
+16-Mar-2026 18:59:54.571 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] s'est terminé en [36] ms
+16-Mar-2026 19:00:02.910 INFO [main] org.apache.catalina.core.StandardServer.await Une commande d'arrêt valide a été reçue sur le port d'arrêt, arrêt de l'instance du serveur
+16-Mar-2026 19:00:02.911 INFO [main] org.apache.coyote.AbstractProtocol.pause Le gestionnaire de protocole ["http-nio-8080"] est mis en pause
+16-Mar-2026 19:00:02.914 INFO [main] org.apache.catalina.core.StandardService.stopInternal Arrêt du service [Catalina]
+16-Mar-2026 19:00:02.933 INFO [main] org.apache.coyote.AbstractProtocol.stop Arrêt du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 19:00:02.938 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destruction du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 19:00:15.832 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom version serveur :              Apache Tomcat/11.0.1
+16-Mar-2026 19:00:15.837 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Serveur compilé :                  Nov 6 2024 19:08:24 UTC
+16-Mar-2026 19:00:15.837 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version du serveur :               11.0.1.0
+16-Mar-2026 19:00:15.837 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom de l'OS :                      Linux
+16-Mar-2026 19:00:15.837 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version OS :                       6.8.0-101-generic
+16-Mar-2026 19:00:15.837 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture :                     amd64
+16-Mar-2026 19:00:15.837 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home :                        /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/jdk-17.0.5
+16-Mar-2026 19:00:15.838 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version JVM :                      17.0.5+9-LTS-191
+16-Mar-2026 19:00:15.838 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Fournisseur de la JVM :            Oracle Corporation
+16-Mar-2026 19:00:15.838 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 19:00:15.838 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 19:00:15.850 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.config.file=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/conf/logging.properties
+16-Mar-2026 19:00:15.850 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+16-Mar-2026 19:00:15.850 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djdk.tls.ephemeralDHKeySize=2048
+16-Mar-2026 19:00:15.850 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+16-Mar-2026 19:00:15.850 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.lang=ALL-UNNAMED
+16-Mar-2026 19:00:15.850 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.io=ALL-UNNAMED
+16-Mar-2026 19:00:15.851 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util=ALL-UNNAMED
+16-Mar-2026 19:00:15.851 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+16-Mar-2026 19:00:15.851 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+16-Mar-2026 19:00:15.851 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --enable-native-access=ALL-UNNAMED
+16-Mar-2026 19:00:15.851 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.base=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 19:00:15.851 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.home=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 19:00:15.851 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.io.tmpdir=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/temp
+16-Mar-2026 19:00:15.853 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent La librairie Apache Tomcat Native basée sur APR qui permet des performances optimales dans les environnements de production n'a pas été trouvée sur le java.library.path : [/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib]
+16-Mar-2026 19:00:16.145 INFO [main] org.apache.coyote.AbstractProtocol.init Initialisation du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 19:00:16.168 INFO [main] org.apache.catalina.startup.Catalina.load L'initialisation du serveur a pris [545] millisecondes
+16-Mar-2026 19:00:16.211 INFO [main] org.apache.catalina.core.StandardService.startInternal Démarrage du service [Catalina]
+16-Mar-2026 19:00:16.211 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Démarrage du moteur de Servlets : [Apache Tomcat/11.0.1]
+16-Mar-2026 19:00:16.228 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] de l'application web
+16-Mar-2026 19:00:16.562 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] s'est terminé en [331] ms
+16-Mar-2026 19:00:16.563 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager]
+16-Mar-2026 19:00:16.605 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager] de l'application web s'est terminé en [42] ms
+16-Mar-2026 19:00:16.605 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples]
+16-Mar-2026 19:00:16.850 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples] de l'application web s'est terminé en [245] ms
+16-Mar-2026 19:00:16.850 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager]
+16-Mar-2026 19:00:16.877 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager] de l'application web s'est terminé en [27] ms
+16-Mar-2026 19:00:16.877 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT]
+16-Mar-2026 19:00:16.897 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT] de l'application web s'est terminé en [20] ms
+16-Mar-2026 19:00:16.897 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs]
+16-Mar-2026 19:00:16.920 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs] de l'application web s'est terminé en [23] ms
+16-Mar-2026 19:00:16.926 INFO [main] org.apache.coyote.AbstractProtocol.start Démarrage du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 19:00:16.939 INFO [main] org.apache.catalina.startup.Catalina.start Le démarrage du serveur a pris [770] millisecondes
+16-Mar-2026 19:07:40.477 INFO [main] org.apache.catalina.core.StandardServer.await Une commande d'arrêt valide a été reçue sur le port d'arrêt, arrêt de l'instance du serveur
+16-Mar-2026 19:07:40.478 INFO [main] org.apache.coyote.AbstractProtocol.pause Le gestionnaire de protocole ["http-nio-8080"] est mis en pause
+16-Mar-2026 19:07:40.481 INFO [main] org.apache.catalina.core.StandardService.stopInternal Arrêt du service [Catalina]
+16-Mar-2026 19:07:40.512 INFO [main] org.apache.coyote.AbstractProtocol.stop Arrêt du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 19:07:40.527 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destruction du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 19:07:42.174 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom version serveur :              Apache Tomcat/11.0.1
+16-Mar-2026 19:07:42.180 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Serveur compilé :                  Nov 6 2024 19:08:24 UTC
+16-Mar-2026 19:07:42.181 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version du serveur :               11.0.1.0
+16-Mar-2026 19:07:42.181 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom de l'OS :                      Linux
+16-Mar-2026 19:07:42.181 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version OS :                       6.8.0-101-generic
+16-Mar-2026 19:07:42.181 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture :                     amd64
+16-Mar-2026 19:07:42.181 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home :                        /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/jdk-17.0.5
+16-Mar-2026 19:07:42.181 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version JVM :                      17.0.5+9-LTS-191
+16-Mar-2026 19:07:42.181 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Fournisseur de la JVM :            Oracle Corporation
+16-Mar-2026 19:07:42.182 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 19:07:42.182 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 19:07:42.196 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.config.file=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/conf/logging.properties
+16-Mar-2026 19:07:42.197 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+16-Mar-2026 19:07:42.197 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djdk.tls.ephemeralDHKeySize=2048
+16-Mar-2026 19:07:42.197 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+16-Mar-2026 19:07:42.197 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.lang=ALL-UNNAMED
+16-Mar-2026 19:07:42.197 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.io=ALL-UNNAMED
+16-Mar-2026 19:07:42.197 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util=ALL-UNNAMED
+16-Mar-2026 19:07:42.198 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+16-Mar-2026 19:07:42.198 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+16-Mar-2026 19:07:42.198 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --enable-native-access=ALL-UNNAMED
+16-Mar-2026 19:07:42.198 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.base=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 19:07:42.198 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.home=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 19:07:42.198 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.io.tmpdir=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/temp
+16-Mar-2026 19:07:42.201 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent La librairie Apache Tomcat Native basée sur APR qui permet des performances optimales dans les environnements de production n'a pas été trouvée sur le java.library.path : [/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib]
+16-Mar-2026 19:07:42.556 INFO [main] org.apache.coyote.AbstractProtocol.init Initialisation du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 19:07:42.585 INFO [main] org.apache.catalina.startup.Catalina.load L'initialisation du serveur a pris [695] millisecondes
+16-Mar-2026 19:07:42.638 INFO [main] org.apache.catalina.core.StandardService.startInternal Démarrage du service [Catalina]
+16-Mar-2026 19:07:42.638 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Démarrage du moteur de Servlets : [Apache Tomcat/11.0.1]
+16-Mar-2026 19:07:42.661 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] de l'application web
+16-Mar-2026 19:07:43.035 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] s'est terminé en [371] ms
+16-Mar-2026 19:07:43.036 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager]
+16-Mar-2026 19:07:43.087 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager] de l'application web s'est terminé en [50] ms
+16-Mar-2026 19:07:43.087 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples]
+16-Mar-2026 19:07:43.372 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples] de l'application web s'est terminé en [284] ms
+16-Mar-2026 19:07:43.372 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager]
+16-Mar-2026 19:07:43.403 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager] de l'application web s'est terminé en [30] ms
+16-Mar-2026 19:07:43.403 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT]
+16-Mar-2026 19:07:43.426 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT] de l'application web s'est terminé en [23] ms
+16-Mar-2026 19:07:43.427 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs]
+16-Mar-2026 19:07:43.450 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs] de l'application web s'est terminé en [24] ms
+16-Mar-2026 19:07:43.457 INFO [main] org.apache.coyote.AbstractProtocol.start Démarrage du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 19:07:43.471 INFO [main] org.apache.catalina.startup.Catalina.start Le démarrage du serveur a pris [885] millisecondes
+16-Mar-2026 19:07:53.458 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.undeploy Retrait de l'application web ayant pour chemin de contexte [/hello]
+16-Mar-2026 19:07:53.475 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] de l'application web
+16-Mar-2026 19:07:53.507 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] s'est terminé en [32] ms
+16-Mar-2026 19:08:03.511 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.undeploy Retrait de l'application web ayant pour chemin de contexte [/hello]
+16-Mar-2026 19:08:13.524 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] de l'application web
+16-Mar-2026 19:08:13.561 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] s'est terminé en [37] ms
+16-Mar-2026 19:08:26.742 INFO [main] org.apache.catalina.core.StandardServer.await Une commande d'arrêt valide a été reçue sur le port d'arrêt, arrêt de l'instance du serveur
+16-Mar-2026 19:08:26.743 INFO [main] org.apache.coyote.AbstractProtocol.pause Le gestionnaire de protocole ["http-nio-8080"] est mis en pause
+16-Mar-2026 19:08:26.746 INFO [main] org.apache.catalina.core.StandardService.stopInternal Arrêt du service [Catalina]
+16-Mar-2026 19:08:26.767 INFO [main] org.apache.coyote.AbstractProtocol.stop Arrêt du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 19:08:26.781 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destruction du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 19:08:55.582 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom version serveur :              Apache Tomcat/11.0.1
+16-Mar-2026 19:08:55.588 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Serveur compilé :                  Nov 6 2024 19:08:24 UTC
+16-Mar-2026 19:08:55.588 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version du serveur :               11.0.1.0
+16-Mar-2026 19:08:55.588 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom de l'OS :                      Linux
+16-Mar-2026 19:08:55.588 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version OS :                       6.8.0-101-generic
+16-Mar-2026 19:08:55.588 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture :                     amd64
+16-Mar-2026 19:08:55.588 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home :                        /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/jdk-17.0.5
+16-Mar-2026 19:08:55.589 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version JVM :                      17.0.5+9-LTS-191
+16-Mar-2026 19:08:55.589 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Fournisseur de la JVM :            Oracle Corporation
+16-Mar-2026 19:08:55.589 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 19:08:55.589 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 19:08:55.602 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.config.file=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/conf/logging.properties
+16-Mar-2026 19:08:55.603 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+16-Mar-2026 19:08:55.603 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djdk.tls.ephemeralDHKeySize=2048
+16-Mar-2026 19:08:55.603 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+16-Mar-2026 19:08:55.603 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.lang=ALL-UNNAMED
+16-Mar-2026 19:08:55.603 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.io=ALL-UNNAMED
+16-Mar-2026 19:08:55.603 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util=ALL-UNNAMED
+16-Mar-2026 19:08:55.604 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+16-Mar-2026 19:08:55.604 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+16-Mar-2026 19:08:55.604 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --enable-native-access=ALL-UNNAMED
+16-Mar-2026 19:08:55.604 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.base=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 19:08:55.604 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.home=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 19:08:55.604 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.io.tmpdir=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/temp
+16-Mar-2026 19:08:55.606 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent La librairie Apache Tomcat Native basée sur APR qui permet des performances optimales dans les environnements de production n'a pas été trouvée sur le java.library.path : [/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib]
+16-Mar-2026 19:08:55.933 INFO [main] org.apache.coyote.AbstractProtocol.init Initialisation du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 19:08:55.960 INFO [main] org.apache.catalina.startup.Catalina.load L'initialisation du serveur a pris [606] millisecondes
+16-Mar-2026 19:08:56.008 INFO [main] org.apache.catalina.core.StandardService.startInternal Démarrage du service [Catalina]
+16-Mar-2026 19:08:56.009 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Démarrage du moteur de Servlets : [Apache Tomcat/11.0.1]
+16-Mar-2026 19:08:56.019 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager]
+16-Mar-2026 19:08:56.373 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager] de l'application web s'est terminé en [351] ms
+16-Mar-2026 19:08:56.374 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples]
+16-Mar-2026 19:08:56.648 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples] de l'application web s'est terminé en [273] ms
+16-Mar-2026 19:08:56.648 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager]
+16-Mar-2026 19:08:56.676 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager] de l'application web s'est terminé en [28] ms
+16-Mar-2026 19:08:56.677 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT]
+16-Mar-2026 19:08:56.705 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT] de l'application web s'est terminé en [28] ms
+16-Mar-2026 19:08:56.706 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs]
+16-Mar-2026 19:08:56.728 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs] de l'application web s'est terminé en [21] ms
+16-Mar-2026 19:08:56.736 INFO [main] org.apache.coyote.AbstractProtocol.start Démarrage du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 19:08:56.753 INFO [main] org.apache.catalina.startup.Catalina.start Le démarrage du serveur a pris [793] millisecondes
+16-Mar-2026 19:10:26.762 INFO [Catalina-utility-2] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] de l'application web
+16-Mar-2026 19:10:26.803 INFO [Catalina-utility-2] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] s'est terminé en [40] ms
+16-Mar-2026 19:13:43.824 INFO [main] org.apache.catalina.core.StandardServer.await Une commande d'arrêt valide a été reçue sur le port d'arrêt, arrêt de l'instance du serveur
+16-Mar-2026 19:13:43.825 INFO [main] org.apache.coyote.AbstractProtocol.pause Le gestionnaire de protocole ["http-nio-8080"] est mis en pause
+16-Mar-2026 19:13:43.829 INFO [main] org.apache.catalina.core.StandardService.stopInternal Arrêt du service [Catalina]
+16-Mar-2026 19:13:43.856 INFO [main] org.apache.coyote.AbstractProtocol.stop Arrêt du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 19:13:43.864 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destruction du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 19:14:05.346 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom version serveur :              Apache Tomcat/11.0.1
+16-Mar-2026 19:14:05.351 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Serveur compilé :                  Nov 6 2024 19:08:24 UTC
+16-Mar-2026 19:14:05.352 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version du serveur :               11.0.1.0
+16-Mar-2026 19:14:05.352 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom de l'OS :                      Linux
+16-Mar-2026 19:14:05.352 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version OS :                       6.8.0-101-generic
+16-Mar-2026 19:14:05.352 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture :                     amd64
+16-Mar-2026 19:14:05.352 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home :                        /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/jdk-17.0.5
+16-Mar-2026 19:14:05.352 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version JVM :                      17.0.5+9-LTS-191
+16-Mar-2026 19:14:05.352 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Fournisseur de la JVM :            Oracle Corporation
+16-Mar-2026 19:14:05.353 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 19:14:05.353 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME :                    /home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 19:14:05.363 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.config.file=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/conf/logging.properties
+16-Mar-2026 19:14:05.363 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+16-Mar-2026 19:14:05.363 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djdk.tls.ephemeralDHKeySize=2048
+16-Mar-2026 19:14:05.364 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dorg.apache.catalina.security.SecurityListener.UMASK=0027
+16-Mar-2026 19:14:05.364 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.lang=ALL-UNNAMED
+16-Mar-2026 19:14:05.364 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.io=ALL-UNNAMED
+16-Mar-2026 19:14:05.364 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util=ALL-UNNAMED
+16-Mar-2026 19:14:05.364 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+16-Mar-2026 19:14:05.364 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+16-Mar-2026 19:14:05.364 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --enable-native-access=ALL-UNNAMED
+16-Mar-2026 19:14:05.364 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.base=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 19:14:05.365 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.home=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1
+16-Mar-2026 19:14:05.365 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.io.tmpdir=/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/temp
+16-Mar-2026 19:14:05.367 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent La librairie Apache Tomcat Native basée sur APR qui permet des performances optimales dans les environnements de production n'a pas été trouvée sur le java.library.path : [/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib]
+16-Mar-2026 19:14:05.706 INFO [main] org.apache.coyote.AbstractProtocol.init Initialisation du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 19:14:05.737 INFO [main] org.apache.catalina.startup.Catalina.load L'initialisation du serveur a pris [642] millisecondes
+16-Mar-2026 19:14:05.791 INFO [main] org.apache.catalina.core.StandardService.startInternal Démarrage du service [Catalina]
+16-Mar-2026 19:14:05.792 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Démarrage du moteur de Servlets : [Apache Tomcat/11.0.1]
+16-Mar-2026 19:14:05.811 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] de l'application web
+16-Mar-2026 19:14:06.194 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/hello.war] s'est terminé en [380] ms
+16-Mar-2026 19:14:06.196 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager]
+16-Mar-2026 19:14:06.242 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/host-manager] de l'application web s'est terminé en [47] ms
+16-Mar-2026 19:14:06.243 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples]
+16-Mar-2026 19:14:06.513 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/examples] de l'application web s'est terminé en [270] ms
+16-Mar-2026 19:14:06.513 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager]
+16-Mar-2026 19:14:06.541 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/manager] de l'application web s'est terminé en [28] ms
+16-Mar-2026 19:14:06.542 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT]
+16-Mar-2026 19:14:06.568 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/ROOT] de l'application web s'est terminé en [25] ms
+16-Mar-2026 19:14:06.568 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs]
+16-Mar-2026 19:14:06.595 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [/home/lilian/Documents/N7/Annee2/s2/Application_web/TP/apache-tomcat-11.0.1/webapps/docs] de l'application web s'est terminé en [26] ms
+16-Mar-2026 19:14:06.601 INFO [main] org.apache.coyote.AbstractProtocol.start Démarrage du gestionnaire de protocole ["http-nio-8080"]
+16-Mar-2026 19:14:06.616 INFO [main] org.apache.catalina.startup.Catalina.start Le démarrage du serveur a pris [878] millisecondes
