@@ -1,15 +1,16 @@
 package n7.facade.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
 
-import n7.facade.game.model.Card;
-import n7.facade.game.model.CardColor;
-import n7.facade.game.model.CardType;
-import n7.facade.game.repository.CardRepository;
-import n7.facade.joueur.model.Joueur;
-import n7.facade.joueur.repository.JoueurRepository;
+import n7.facade.model.Card;
+import n7.facade.model.CardColor;
+import n7.facade.model.CardType;
+import n7.facade.model.Joueur;
+import n7.facade.repository.CardRepository;
+import n7.facade.repository.JoueurRepository;
 
 /**
  * Initialise la base de données au démarrage de l'application.
@@ -28,6 +29,7 @@ public class DataInitializer {
 	private final CardRepository cardRepository;
 	private final JoueurRepository joueurRepository;
 
+	@Autowired
 	public DataInitializer(CardRepository cardRepository, JoueurRepository joueurRepository) {
 		this.cardRepository = cardRepository;
 		this.joueurRepository = joueurRepository;
@@ -93,10 +95,6 @@ public class DataInitializer {
 		if (joueurRepository.count() > 0) {
 			return;
 		}
-
-		joueurRepository.save(new Joueur("Alice", "pass123"));
-		joueurRepository.save(new Joueur("Bob", "pass123"));
-		joueurRepository.save(new Joueur("Charlie", "pass123"));
 
 		System.out.println("=== " + joueurRepository.count() + " joueurs de test créés ===");
 	}

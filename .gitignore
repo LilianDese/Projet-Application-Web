@@ -1,0 +1,11 @@
+# Local runtime databases
+/DB/*
+!/DB/.gitkeep
+
+# HSQLDB artifacts
+/DB/**/*.lck
+/DB/**/*.log
+/DB/**/*.script
+/DB/**/*.properties
+/DB/**/*.data
+/DB/**/*.backup

@@ -3,29 +3,75 @@ const ctx = canvas.getContext('2d', { alpha: false });
 
 const BG = '#050a24';
 
+let authMode = null; // 'login' | 'register'
+let currentPseudo = null;
+let messageTimer = null;
+
 function initBackgroundMusic() {
   /** @type {HTMLAudioElement | null} */
   const audio = document.getElementById('bg-music');
   if (!audio) return;
 
-  audio.volume = 0.009;
+  audio.volume = 0.050;
+  audio.loop = true;
+  audio.preload = 'auto';
 
-  const tryPlay = () => {
-    if (!audio.paused) return;
-    const p = audio.play();
-    if (p && typeof p.then === 'function') {
-      p.then(() => {
-        window.removeEventListener('pointerdown', tryPlay, true);
-        window.removeEventListener('keydown', tryPlay, true);
-      }).catch(() => {
-        // Autoplay still blocked until a user gesture; keep listeners
-      });
+  // NOTE: Les navigateurs modernes peuvent bloquer l'audio sans geste utilisateur.
+  // Ici: best-effort -> on tente autoplay, sinon on démarre en muet, puis on démute au 1er geste.
+  const tryPlay = async () => {
+    if (!audio.paused) return true;
+    try {
+      await audio.play();
+      return true;
+    } catch {
+      return false;
     }
   };
 
+  const start = async () => {
+    const ok = await tryPlay();
+    if (ok) return;
+
+    // fallback: autoplay muet
+    const wasMuted = audio.muted;
+    audio.muted = true;
+    const okMuted = await tryPlay();
+    if (!okMuted) {
+      audio.muted = wasMuted;
+      return;
+    }
+
+    // démute dès qu'on a un geste utilisateur
+    const unmuteOnGesture = () => {
+      audio.muted = false;
+      window.removeEventListener('pointerdown', unmuteOnGesture, true);
+      window.removeEventListener('keydown', unmuteOnGesture, true);
+    };
+    window.addEventListener('pointerdown', unmuteOnGesture, true);
+    window.addEventListener('keydown', unmuteOnGesture, true);
+  };
+
   // Navigateurs: lecture audio autorisée uniquement après geste utilisateur
-  window.addEventListener('pointerdown', tryPlay, true);
-  window.addEventListener('keydown', tryPlay, true);
+  window.addEventListener('pointerdown', () => { void tryPlay(); }, true);
+  window.addEventListener('keydown', () => { void tryPlay(); }, true);
+
+  // Tente un démarrage immédiat (best-effort)
+  void start();
+}
+
+function initVolumeSlider() {
+  const audio = document.getElementById('bg-music');
+  const slider = document.getElementById('volume');
+  if (!audio || !slider) return;
+
+  const setVolume = (v01) => {
+    audio.volume = Math.max(0, Math.min(1, v01));
+  };
+
+  setVolume((Number(slider.value) || 0) / 100);
+  slider.addEventListener('input', () => {
+    setVolume((Number(slider.value) || 0) / 100);
+  });
 }
 
 // Petit mouvement des cartes (JS léger) : update d'une variable CSS
@@ -159,4 +205,218 @@ function frame(now) {
 window.addEventListener('resize', resize, { passive: true });
 resize();
 initBackgroundMusic();
+initVolumeSlider();
 requestAnimationFrame(frame);
+
+function setMessage(text, isError) {
+  const el = document.getElementById('auth-message');
+  if (!el) return;
+
+  if (messageTimer) {
+    clearTimeout(messageTimer);
+    messageTimer = null;
+  }
+
+  el.textContent = text || '';
+  el.classList.toggle('error', !!isError);
+
+  if (text) {
+    const ms = isError ? 5000 : 3200;
+    messageTimer = setTimeout(() => {
+      el.textContent = '';
+      el.classList.remove('error');
+      messageTimer = null;
+    }, ms);
+  }
+}
+
+function setCurrentUser(pseudo) {
+  const el = document.getElementById('current-user');
+  if (!el) return;
+  el.textContent = pseudo ? `Connecté : ${pseudo}` : '';
+}
+
+function setLoggedIn(pseudo) {
+  currentPseudo = pseudo;
+  setCurrentUser(pseudo);
+
+  const actions = document.getElementById('menu-actions');
+  const form = document.getElementById('auth-form');
+  const logout = document.getElementById('btn-logout');
+  const leaderboardBtn = document.getElementById('btn-leaderboard');
+  if (actions) actions.style.display = 'none';
+  if (form) form.style.display = 'none';
+  if (logout) logout.style.display = 'inline-block';
+  if (leaderboardBtn) leaderboardBtn.style.display = 'inline-block';
+}
+
+function setLoggedOut() {
+  currentPseudo = null;
+  setCurrentUser('');
+  setMessage('', false);
+
+  const actions = document.getElementById('menu-actions');
+  const form = document.getElementById('auth-form');
+  const input = document.getElementById('pseudo');
+  const logout = document.getElementById('btn-logout');
+  const leaderboardBtn = document.getElementById('btn-leaderboard');
+  const overlay = document.getElementById('leaderboard-overlay');
+  if (actions) actions.style.display = 'flex';
+  if (form) form.style.display = 'none';
+  if (input) input.value = '';
+  if (logout) logout.style.display = 'none';
+  if (leaderboardBtn) leaderboardBtn.style.display = 'none';
+  if (overlay) overlay.style.display = 'none';
+}
+
+function renderLeaderboard(joueurs) {
+  const container = document.getElementById('leaderboard-content');
+  if (!container) return;
+
+  if (!Array.isArray(joueurs) || joueurs.length === 0) {
+    container.textContent = 'Aucun joueur';
+    return;
+  }
+
+  const ul = document.createElement('ul');
+  ul.className = 'leaderboard-list';
+  for (const j of joueurs) {
+    const li = document.createElement('li');
+    li.textContent = j?.pseudo ?? String(j?.id ?? '');
+    ul.appendChild(li);
+  }
+  container.innerHTML = '';
+  container.appendChild(ul);
+}
+
+async function openLeaderboard() {
+  if (!currentPseudo) return;
+  const overlay = document.getElementById('leaderboard-overlay');
+  const container = document.getElementById('leaderboard-content');
+  if (!overlay || !container) return;
+
+  overlay.style.display = 'grid';
+  container.textContent = 'Chargement...';
+  try {
+    const joueurs = await fetchJoueurs();
+    renderLeaderboard(joueurs);
+  } catch {
+    container.textContent = 'Erreur réseau';
+  }
+}
+
+function closeLeaderboard() {
+  const overlay = document.getElementById('leaderboard-overlay');
+  if (overlay) overlay.style.display = 'none';
+}
+
+function showAuthForm(mode) {
+  authMode = mode;
+  const form = document.getElementById('auth-form');
+  const submit = document.getElementById('btn-submit');
+  const input = document.getElementById('pseudo');
+  if (!form || !submit || !input) return;
+
+  if (currentPseudo) return;
+
+  form.style.display = 'flex';
+  submit.textContent = mode === 'login' ? 'Se connecter' : 'Créer';
+  setMessage('', false);
+  input.focus();
+}
+
+async function fetchJoueurs() {
+  const res = await fetch('api/joueurs', { headers: { Accept: 'application/json' } });
+  if (!res.ok) throw new Error(String(res.status));
+  const data = await res.json();
+  return Array.isArray(data) ? data : [];
+}
+
+async function createJoueur(pseudo) {
+  const res = await fetch('api/joueurs', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ pseudo, password: '' }),
+  });
+  return res;
+}
+
+function normalizePseudo(value) {
+  const s = (value ?? '').trim();
+  return s.length ? s : null;
+}
+
+function initAuthUi() {
+  const loginBtn = document.getElementById('btn-login');
+  const regBtn = document.getElementById('btn-register');
+  const form = document.getElementById('auth-form');
+  const input = document.getElementById('pseudo');
+  const logoutBtn = document.getElementById('btn-logout');
+  const leaderboardBtn = document.getElementById('btn-leaderboard');
+  const leaderboardBackBtn = document.getElementById('btn-leaderboard-back');
+  if (!loginBtn || !regBtn || !form || !input) return;
+
+  loginBtn.addEventListener('click', () => showAuthForm('login'));
+  regBtn.addEventListener('click', () => showAuthForm('register'));
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      setLoggedOut();
+    });
+  }
+
+  if (leaderboardBtn) {
+    leaderboardBtn.addEventListener('click', () => {
+      void openLeaderboard();
+    });
+  }
+
+  if (leaderboardBackBtn) {
+    leaderboardBackBtn.addEventListener('click', () => {
+      closeLeaderboard();
+    });
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const pseudo = normalizePseudo(input.value);
+    if (!pseudo) {
+      setMessage('Pseudo requis', true);
+      return;
+    }
+
+    try {
+      if (authMode === 'login') {
+        const joueurs = await fetchJoueurs();
+        const exists = joueurs.some((j) => (j?.pseudo ?? '').toLowerCase() === pseudo.toLowerCase());
+        if (!exists) {
+          setMessage('Pseudo introuvable', true);
+          return;
+        }
+        setLoggedIn(pseudo);
+        setMessage('Connexion OK', false);
+        return;
+      }
+
+      if (authMode === 'register') {
+        const res = await createJoueur(pseudo);
+        if (res.status === 201) {
+          setLoggedIn(pseudo);
+          setMessage('Joueur créé', false);
+          return;
+        }
+        if (res.status === 409) {
+          setMessage('Pseudo déjà utilisé', true);
+          return;
+        }
+        const txt = await res.text();
+        setMessage(`Erreur (${res.status}) ${txt || ''}`.trim(), true);
+        return;
+      }
+    } catch (err) {
+      setMessage('Erreur réseau', true);
+    }
+  });
+}
+
+initAuthUi();
