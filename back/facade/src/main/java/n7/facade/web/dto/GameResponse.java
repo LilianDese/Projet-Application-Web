@@ -10,16 +10,20 @@ public class GameResponse {
 	private LocalDateTime createdAt;
 	private int playerCount;
 	private String name;
+	private Long creatorId;
+	private java.util.List<String> playerPseudos;
 
 	public GameResponse() {
 	}
 
-	public GameResponse(Long id, GameStatus status, LocalDateTime createdAt, int playerCount, String name) {
+	public GameResponse(Long id, GameStatus status, LocalDateTime createdAt, int playerCount, String name, Long creatorId, java.util.List<String> playerPseudos) {
 		this.id = id;
 		this.status = status;
 		this.createdAt = createdAt;
 		this.playerCount = playerCount;
 		this.name = name;
+		this.creatorId = creatorId;
+		this.playerPseudos = playerPseudos;
 	}
 
 	public Long getId() {
@@ -60,5 +64,21 @@ public class GameResponse {
 
 	public void setPlayerCount(int playerCount) {
 		this.playerCount = playerCount;
+	}
+
+	public Long getCreatorId() {
+		return creatorId;
+	}
+
+	public void setCreatorId(Long creatorId) {
+		this.creatorId = creatorId;
+	}
+
+	public java.util.List<String> getPlayerPseudos() {
+		return playerPseudos;
+	}
+
+	public void setPlayerPseudos(java.util.List<String> playerPseudos) {
+		this.playerPseudos = playerPseudos;
 	}
 }

@@ -87,6 +87,24 @@
       </div>
     </div>
 
+    <div id="lobby-overlay" class="overlay" style="display:none" aria-label="Salon">
+      <div class="panel">
+        <div class="panel-head">
+          <button id="btn-lobby-quit" class="btn btn-small" type="button">Quitter</button>
+          <div id="lobby-title" class="panel-title">Salon</div>
+          <div class="panel-spacer" aria-hidden="true"></div>
+        </div>
+        <div class="panel-body">
+          <h3>Joueurs présents :</h3>
+          <ul id="lobby-players" class="leaderboard-list"></ul>
+          <div style="margin-top: 1rem; text-align: center;">
+            <button id="btn-lobby-start" class="btn btn-primary" type="button" style="display:none;">Lancer la partie</button>
+            <div id="lobby-message" class="message" style="margin-top: 0.5rem"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="./script.js"></script>
   </body>
 </html>

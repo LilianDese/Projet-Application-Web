@@ -80,7 +80,21 @@ public class FacadeController {
 		if (name == null) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "nom de partie requis");
 		}
-		Game game = gameRepository.save(new Game(GameStatus.LOBBY, name));
+		Game game = new Game(GameStatus.LOBBY, name);
+
+		if (request.getCreatorId() != null) {
+			Joueur creator = joueurRepository.findById(request.getCreatorId())
+					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "créateur introuvable"));
+			game.setCreator(creator);
+			game = gameRepository.save(game);
+			
+			GamePlayer participation = new GamePlayer(game, creator, 0);
+			game.addPlayer(participation);
+			gamePlayerRepository.save(participation);
+		} else {
+			game = gameRepository.save(game);
+		}
+
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(toResponse(game));
 	}
@@ -91,6 +105,13 @@ public class FacadeController {
 		return games.stream()
 				.map(this::toResponse)
 				.collect(Collectors.toList());
+	}
+
+	@GetMapping("/games/{gameId}")
+	public ResponseEntity<GameResponse> getGame(@PathVariable("gameId") Long gameId) {
+		Game game = gameRepository.findById(gameId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "game introuvable"));
+		return ResponseEntity.ok(toResponse(game));
 	}
 
 	@PostMapping("/games/{gameId}/join")
@@ -113,9 +134,38 @@ public class FacadeController {
 				.body(new JoinGameResponse(saved.getId(), game.getId(), joueur.getId(), saved.getTurnOrder()));
 	}
 
+	@PostMapping("/games/{gameId}/start")
+	@Transactional
+	public ResponseEntity<GameResponse> startGame(
+			@PathVariable("gameId") Long gameId,
+			@RequestParam("joueurId") Long joueurId) {
+		Game game = gameRepository.findById(gameId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "game introuvable"));
+
+		if (game.getStatus() != GameStatus.LOBBY) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La partie n'est pas dans le salon");
+		}
+
+		if (game.getCreator() == null || !game.getCreator().getId().equals(joueurId)) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Seul le créateur peut lancer la partie");
+		}
+
+		if (game.getPlayers() == null || game.getPlayers().size() < 3) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Il faut au moins 3 joueurs pour lancer la partie");
+		}
+
+		game.setStatus(GameStatus.IN_PROGRESS);
+		gameRepository.save(game);
+
+		return ResponseEntity.ok(toResponse(game));
+	}
+
 	private GameResponse toResponse(Game game) {
 		int playerCount = (game.getPlayers() == null) ? 0 : game.getPlayers().size();
-		return new GameResponse(game.getId(), game.getStatus(), game.getCreatedAt(), playerCount, game.getName());
+		Long creatorId = (game.getCreator() != null) ? game.getCreator().getId() : null;
+		List<String> playerPseudos = (game.getPlayers() == null) ? java.util.Collections.emptyList() :
+				game.getPlayers().stream().map(gp -> gp.getJoueur().getPseudo()).collect(Collectors.toList());
+		return new GameResponse(game.getId(), game.getStatus(), game.getCreatedAt(), playerCount, game.getName(), creatorId, playerPseudos);
 	}
 
 	private static String normalize(String value) {

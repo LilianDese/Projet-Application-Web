@@ -59,6 +59,11 @@ public class Game {
 
 	// ---- relations ----
 
+	/** Le créateur de la partie (qui peut la lancer) */
+	@ManyToOne
+	@JoinColumn(name = "creator_id")
+	private Joueur creator;
+
 	/** Joueurs participant à la partie (bidirectionnelle, mappedBy côté Game) */
 	@OneToMany(mappedBy = "game", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<GamePlayer> players;
@@ -205,6 +210,14 @@ public class Game {
 
 	public void setTopCard(Card topCard) {
 		this.topCard = topCard;
+	}
+
+	public Joueur getCreator() {
+		return creator;
+	}
+
+	public void setCreator(Joueur creator) {
+		this.creator = creator;
 	}
 
 	// utilitaires

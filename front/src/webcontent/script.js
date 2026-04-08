@@ -5,6 +5,7 @@ const BG = '#050a24';
 
 let authMode = null; // 'login' | 'register'
 let currentPseudo = null;
+let currentJoueurId = null;
 let messageTimer = null;
 
 function initBackgroundMusic() {
@@ -258,8 +259,9 @@ function setCurrentUser(pseudo) {
   el.textContent = pseudo ? `Connecté : ${pseudo}` : '';
 }
 
-function setLoggedIn(pseudo) {
+function setLoggedIn(pseudo, id) {
   currentPseudo = pseudo;
+  currentJoueurId = id;
   setCurrentUser(pseudo);
 
   const actions = document.getElementById('menu-actions');
@@ -278,6 +280,7 @@ function setLoggedIn(pseudo) {
 
 function setLoggedOut() {
   currentPseudo = null;
+  currentJoueurId = null;
   setCurrentUser('');
   setMessage('', false);
 
@@ -394,8 +397,23 @@ function renderGames(games) {
   ul.className = 'leaderboard-list';
   for (const game of games) {
     const li = document.createElement('li');
+    li.style.display = 'flex';
+    li.style.justifyContent = 'space-between';
+    li.style.alignItems = 'center';
+
     const title = game?.name ? `${game.name} (ID ${game.id})` : `Partie ${game.id}`;
-    li.textContent = `${title} · ${game.status} · ${game.playerCount} joueur(s)`;
+    const span = document.createElement('span');
+    span.textContent = `${title} · ${game.status} · ${game.playerCount} joueur(s)`;
+    li.appendChild(span);
+
+    if (game.status === 'LOBBY') {
+       const btn = document.createElement('button');
+       btn.className = 'btn btn-small';
+       btn.textContent = 'Rejoindre';
+       btn.onclick = () => joinGameAndLobby(game.id);
+       li.appendChild(btn);
+    }
+
     ul.appendChild(li);
   }
 
@@ -428,7 +446,7 @@ async function createGame(name) {
   const res = await fetch('/back/games', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({ name }),
+    body: JSON.stringify({ name, creatorId: currentJoueurId }),
   });
   return res;
 }
@@ -515,12 +533,12 @@ function initAuthUi() {
     try {
       if (authMode === 'login') {
         const joueurs = await fetchJoueurs();
-        const exists = joueurs.some((j) => (j?.pseudo ?? '').toLowerCase() === pseudo.toLowerCase());
-        if (!exists) {
+        const joueur = joueurs.find((j) => (j?.pseudo ?? '').toLowerCase() === pseudo.toLowerCase());
+        if (!joueur) {
           setMessage('Pseudo introuvable', true);
           return;
         }
-        setLoggedIn(pseudo);
+        setLoggedIn(joueur.pseudo, joueur.id);
         setMessage('Connexion OK', false);
         return;
       }
@@ -528,7 +546,8 @@ function initAuthUi() {
       if (authMode === 'register') {
         const res = await createJoueur(pseudo);
         if (res.status === 201) {
-          setLoggedIn(pseudo);
+          const data = await res.json();
+          setLoggedIn(data.pseudo, data.id);
           setMessage('Joueur créé', false);
           return;
         }
@@ -564,6 +583,7 @@ if (partForm && partInput) {
         setPartMessage(`Partie créée : ${data.name ?? data.id}`, false);
         partForm.style.display = 'none';
         partInput.value = '';
+        openLobby(data.id);
         return;
       }
       const txt = await res.text();
@@ -573,5 +593,96 @@ if (partForm && partInput) {
     }
   });
 }
+
+let lobbyTimer = null;
+let activeLobbyGameId = null;
+
+async function joinGame(gameId) {
+  const res = await fetch(`/back/games/${gameId}/join?joueurId=${currentJoueurId}`, { method: 'POST' });
+  if (!res.ok) throw new Error('Erreur join');
+  return res;
+}
+
+async function joinGameAndLobby(gameId) {
+   try {
+     await joinGame(gameId);
+     closeGamesList();
+     openLobby(gameId);
+   } catch(e) {
+     alert('Erreur: impossible de rejoindre. ' + e.message);
+   }
+}
+
+async function fetchGame(gameId) {
+  const res = await fetch(`/back/games/${gameId}`);
+  if (!res.ok) throw new Error('Erreur fetch game');
+  return await res.json();
+}
+
+async function startGame(gameId) {
+  const res = await fetch(`/back/games/${gameId}/start?joueurId=${currentJoueurId}`, { method: 'POST' });
+  if (!res.ok) {
+     const t = await res.text();
+     alert('Erreur: ' + (t || 'Impossible de lancer la partie'));
+  }
+}
+
+function openLobby(gameId) {
+  activeLobbyGameId = gameId;
+  const overlay = document.getElementById('lobby-overlay');
+  if (overlay) overlay.style.display = 'grid';
+  
+  if (lobbyTimer) clearInterval(lobbyTimer);
+  updateLobby();
+  lobbyTimer = setInterval(updateLobby, 2000);
+}
+
+function closeLobby() {
+  activeLobbyGameId = null;
+  if (lobbyTimer) clearInterval(lobbyTimer);
+  const overlay = document.getElementById('lobby-overlay');
+  if (overlay) overlay.style.display = 'none';
+}
+
+async function updateLobby() {
+   if (!activeLobbyGameId) return;
+   try {
+     const game = await fetchGame(activeLobbyGameId);
+     document.getElementById('lobby-title').textContent = `Salon: ${game.name || game.id}`;
+     
+     if (game.status === 'IN_PROGRESS') {
+       closeLobby();
+       alert('Partie lancée - Le jeu commence !');
+       return;
+     }
+     
+     const ul = document.getElementById('lobby-players');
+     if (ul) {
+       ul.innerHTML = '';
+       for (const p of (game.playerPseudos || [])) {
+         const li = document.createElement('li');
+         li.textContent = p;
+         ul.appendChild(li);
+       }
+     }
+     
+     const btnStart = document.getElementById('btn-lobby-start');
+     if (btnStart) {
+       if (game.creatorId === currentJoueurId) {
+          btnStart.style.display = 'inline-block';
+          btnStart.disabled = game.playerCount < 3;
+       } else {
+          btnStart.style.display = 'none';
+       }
+     }
+   } catch (e) {
+     console.error(e);
+   }
+}
+
+document.getElementById('btn-lobby-quit')?.addEventListener('click', closeLobby);
+document.getElementById('btn-lobby-start')?.addEventListener('click', () => {
+    if (activeLobbyGameId) startGame(activeLobbyGameId);
+});
 
 initAuthUi();
