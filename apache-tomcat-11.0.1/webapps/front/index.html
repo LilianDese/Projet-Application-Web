@@ -57,6 +57,14 @@
       <div id="current-user" class="current-user"></div>
     </div>
 
+    <div class="auth-panel" aria-label="Creation">
+      <form id="part-form" class="auth-form" style="display:none" autocomplete="off">
+        <input id="part-name" class="input" type="text" placeholder="Nom de la partie" />
+        <button id="btn-part-submit" class="btn btn-primary" type="submit">Valider</button>
+      </form>
+      <div id="part-message" class="message" aria-live="polite"></div>
+    </div>
+
     <div id="leaderboard-overlay" class="overlay" style="display:none" aria-label="Leaderboard">
       <div class="panel">
         <div class="panel-head">

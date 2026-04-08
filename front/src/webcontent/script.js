@@ -230,6 +230,28 @@ function setMessage(text, isError) {
   }
 }
 
+function setPartMessage(text, isError) {
+  const el = document.getElementById('part-message');
+  if (!el) return;
+
+  if (messageTimer) {
+    clearTimeout(messageTimer);
+    messageTimer = null;
+  }
+
+  el.textContent = text || '';
+  el.classList.toggle('error', !!isError);
+
+  if (text) {
+    const ms = isError ? 5000 : 3200;
+    messageTimer = setTimeout(() => {
+      el.textContent = '';
+      el.classList.remove('error');
+      messageTimer = null;
+    }, ms);
+  }
+}
+
 function setCurrentUser(pseudo) {
   const el = document.getElementById('current-user');
   if (!el) return;
@@ -335,6 +357,16 @@ function showAuthForm(mode) {
   input.focus();
 }
 
+function showPartForm() {
+  const form = document.getElementById('part-form');
+  const input = document.getElementById('part-name');
+  if (!form || !input) return;
+
+  form.style.display = 'flex';
+  setPartMessage('', false);
+  input.focus();
+}
+
 async function fetchJoueurs() {
   const res = await fetch('/back/joueurs', { headers: { Accept: 'application/json' } });
   if (!res.ok) throw new Error(String(res.status));
@@ -403,24 +435,7 @@ async function createGame(name) {
 
 async function askCreateGame() {
   if (!currentPseudo) return;
-  const name = normalizePseudo(prompt('Nom de la partie ?') ?? '');
-  if (!name) {
-    setMessage('Nom de partie requis', true);
-    return;
-  }
-
-  try {
-    const res = await createGame(name);
-    if (res.status === 201) {
-      const data = await res.json();
-      setMessage(`Partie créée : ${data.name ?? data.id}`, false);
-      return;
-    }
-    const txt = await res.text();
-    setMessage(`Erreur création partie (${res.status}) ${txt || ''}`.trim(), true);
-  } catch {
-    setMessage('Erreur réseau', true);
-  }
+  showPartForm();
 }
 
 async function createJoueur(pseudo) {
@@ -527,6 +542,34 @@ function initAuthUi() {
       }
     } catch (err) {
       setMessage('Erreur réseau', true);
+    }
+  });
+}
+
+const partForm = document.getElementById('part-form');
+const partInput = document.getElementById('part-name');
+if (partForm && partInput) {
+  partForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = normalizePseudo(partInput.value);
+    if (!name) {
+      setPartMessage('Nom de partie requis', true);
+      return;
+    }
+
+    try {
+      const res = await createGame(name);
+      if (res.status === 201) {
+        const data = await res.json();
+        setPartMessage(`Partie créée : ${data.name ?? data.id}`, false);
+        partForm.style.display = 'none';
+        partInput.value = '';
+        return;
+      }
+      const txt = await res.text();
+      setPartMessage(`Erreur création partie (${res.status}) ${txt || ''}`.trim(), true);
+    } catch {
+      setPartMessage('Erreur réseau', true);
     }
   });
 }
