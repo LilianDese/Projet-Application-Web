@@ -155,6 +155,7 @@ initAudio();
 
 let gameTimer        = null;
 let pendingWildCardId = null;
+const CARD_IMG_BASE = 'assets/images';
 
 // ---- polling ----
 
@@ -188,6 +189,37 @@ function cardLabel(card) {
   return { NUMBER: String(card.value), SKIP: '⊘', REVERSE: '↺', DRAW_TWO: '+2', WILD: '🃏', WILD_DRAW_FOUR: '+4' }[card.type] ?? '?';
 }
 
+function normalizeColorName(color) {
+  return { RED: 'Red', BLUE: 'Blue', GREEN: 'Green', YELLOW: 'Yellow' }[color] ?? 'Red';
+}
+
+function cardImageFile(card) {
+  if (!card || !card.type) return 'Deck.png';
+
+  if (card.type === 'WILD') return 'Wild.png';
+  if (card.type === 'WILD_DRAW_FOUR') return 'Wild_Draw.png';
+
+  const color = normalizeColorName(card.color);
+  if (card.type === 'NUMBER') return `${color}_${card.value}.png`;
+  if (card.type === 'SKIP') return `${color}_Skip.png`;
+  if (card.type === 'REVERSE') return `${color}_Reverse.png`;
+  if (card.type === 'DRAW_TWO') return `${color}_Draw.png`;
+  return 'Deck.png';
+}
+
+function cardImageSrc(card) {
+  return `${CARD_IMG_BASE}/${cardImageFile(card)}`;
+}
+
+function makeCardImage(card, altText) {
+  const img = document.createElement('img');
+  img.className = 'card-img';
+  img.src = cardImageSrc(card);
+  img.alt = altText;
+  img.draggable = false;
+  return img;
+}
+
 function isCardPlayable(card, currentColor, topCard) {
   if (card.type === 'WILD' || card.type === 'WILD_DRAW_FOUR') return true;
   if (card.color === currentColor) return true;
@@ -208,9 +240,14 @@ function renderGameState(state) {
 
   // Carte du dessus
   const topCardEl = document.getElementById('game-top-card');
-  if (topCardEl && state.topCard) {
-    topCardEl.className = `card-visual card-large ${cardColorClass(state.currentColor ?? state.topCard.color)}`;
-    topCardEl.textContent = cardLabel(state.topCard);
+  if (topCardEl) {
+    topCardEl.className = 'card-visual card-large card-back';
+    topCardEl.innerHTML = '';
+    if (state.topCard) {
+      topCardEl.appendChild(makeCardImage(state.topCard, 'Carte au sommet de la défausse'));
+    } else {
+      topCardEl.appendChild(makeCardImage(null, 'Pioche'));
+    }
   }
 
   // Couleur active
@@ -249,9 +286,9 @@ function renderGameState(state) {
       const playable = state.myTurn && isCardPlayable(card, state.currentColor, state.topCard);
       const btn      = document.createElement('button');
       btn.type        = 'button';
-      btn.className   = `card-visual ${cardColorClass(card.color)} ${playable ? 'card-playable' : 'card-unplayable'}`;
-      btn.textContent = cardLabel(card);
+      btn.className   = `card-visual ${playable ? 'card-playable' : 'card-unplayable'}`;
       btn.title       = `${card.color} ${card.type}${card.type === 'NUMBER' ? ' ' + card.value : ''}`;
+      btn.appendChild(makeCardImage(card, btn.title));
       if (playable) btn.onclick = () => onCardClick(card);
       handEl.appendChild(btn);
     }

@@ -3,7 +3,9 @@
 
   --card-w: clamp(120px, 18vw, 190px);
   --spread: clamp(85px, 12vw, 150px);
+  /* Ratio visuel proche d'une carte UNO */
   --card-h: calc(var(--card-w) * 1.35);
+  /* Point d'ancrage vertical du hero (cartes + UI) */
   --cards-top: 120px;
 }
 
@@ -52,6 +54,7 @@ audio {
   inset: 0;
   display: block;
   z-index: 5;
+  /* Les interactions sont réactivées seulement sur les enfants utiles */
   pointer-events: none;
 }
 
@@ -64,6 +67,7 @@ audio {
   top: 0;
   transform: translateX(-50%);
 
+  /* 2 cartes latérales + l'écart de part et d'autre de la carte centrale */
   width: calc(var(--card-w) * 2 + var(--spread) * 2);
   height: var(--card-h);
 }
@@ -157,6 +161,7 @@ audio {
 .menu-panel {
   position: fixed;
   left: 50%;
+  /* Placé sous le hero, en suivant les variables de taille */
   top: calc(var(--cards-top) + var(--card-h) + 130px);
   transform: translateX(-50%);
   z-index: 30;
@@ -332,7 +337,7 @@ audio {
   margin: 0 0 8px;
 }
 
-/* Parties (affichage permanent après connexion) */
+/* Parties  */
 .games-dock {
   position: fixed;
   left: 50%;
@@ -340,6 +345,7 @@ audio {
   transform: translate(-50%, -50%);
   z-index: 40;
   width: min(980px, calc(100vw - 32px));
+  /* Le conteneur est pass-through, seule la panel capte les clics */
   pointer-events: none;
   display: none;
 }
@@ -352,6 +358,7 @@ audio {
 
 .games-layout {
   display: grid;
+  /* Zone principale (liste) + colonne d'actions (création) */
   grid-template-columns: 1fr 240px;
   gap: 14px;
   align-items: start;
@@ -359,6 +366,7 @@ audio {
 
 .games-grid {
   display: grid;
+  /* 4 parties par ligne tant que l'espace le permet */
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
   align-content: start;
