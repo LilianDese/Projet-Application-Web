@@ -20,9 +20,12 @@ C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\mai
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\repository\HandCardRepository.java
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\repository\JoueurRepository.java
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\ServletInitializer.java
+C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\web\dto\CardDto.java
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\web\dto\CreateGameRequest.java
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\web\dto\FacadeJoueurRequest.java
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\web\dto\FacadeJoueurResponse.java
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\web\dto\GameResponse.java
+C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\web\dto\GameStateResponse.java
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\web\dto\JoinGameResponse.java
+C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\web\dto\PlayerStateDto.java
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\web\FacadeController.java

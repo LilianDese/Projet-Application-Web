@@ -1,0 +1,277 @@
+/* ===================================================
+   MISE EN PAGE PRINCIPALE
+   =================================================== */
+
+.game-layout {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  gap: 10px;
+  padding: 12px 16px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.game-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.game-title {
+  text-align: center;
+  font: 700 20px/1 system-ui, sans-serif;
+  color: #fff;
+}
+
+.game-direction {
+  font: 14px/1 system-ui, sans-serif;
+  color: rgba(255, 255, 255, 0.55);
+  text-align: right;
+}
+
+/* ===================================================
+   JOUEURS
+   =================================================== */
+
+.game-players {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.game-player {
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.65);
+  font: 13px/1 system-ui, sans-serif;
+}
+
+.game-player-active {
+  background: rgba(77, 255, 145, 0.15);
+  border-color: rgba(77, 255, 145, 0.45);
+  color: #4dff91;
+  font-weight: 700;
+}
+
+/* ===================================================
+   ZONE CENTRALE (DÉFAUSSE + PIOCHE)
+   =================================================== */
+
+.game-area {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.game-pile-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.game-pile-label {
+  font: 11px/1 system-ui, sans-serif;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.game-color-label {
+  font: 13px/1 system-ui, sans-serif;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ===================================================
+   INDICATEUR DE TOUR
+   =================================================== */
+
+.game-turn {
+  text-align: center;
+  font: 700 17px/1 system-ui, sans-serif;
+  color: rgba(255, 255, 255, 0.8);
+  min-height: 20px;
+  flex-shrink: 0;
+}
+
+/* ===================================================
+   MAIN DU JOUEUR
+   =================================================== */
+
+.game-hand-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.game-hand {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 8px 4px 12px;
+  width: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+/* ===================================================
+   BOUTONS D'ACTION
+   =================================================== */
+
+.game-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-shrink: 0;
+  padding-bottom: 4px;
+}
+
+/* ===================================================
+   CARTES VISUELLES
+   =================================================== */
+
+.card-visual {
+  width: 52px;
+  height: 78px;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 18px/1.1 system-ui, sans-serif;
+  text-align: center;
+  color: #fff;
+  flex-shrink: 0;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  transition: transform 0.12s, box-shadow 0.12s;
+  user-select: none;
+}
+
+.card-large {
+  width: 76px;
+  height: 114px;
+  font-size: 24px;
+  border-radius: 10px;
+}
+
+.card-red    { background: #c0392b; }
+.card-blue   { background: #2471a3; }
+.card-green  { background: #1e8449; }
+.card-yellow { background: #d4ac0d; color: #111; text-shadow: none; }
+.card-wild   {
+  background: conic-gradient(#c0392b 0deg 90deg, #2471a3 90deg 180deg, #1e8449 180deg 270deg, #d4ac0d 270deg 360deg);
+  border-color: rgba(255, 255, 255, 0.85);
+}
+.card-back   {
+  background: radial-gradient(ellipse at 50% 40%, #22246e 0%, #080820 100%);
+  border-color: rgba(255, 255, 255, 0.35);
+  font-size: 11px;
+  letter-spacing: 1px;
+  font-weight: 800;
+}
+
+.card-playable {
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+.card-playable:hover {
+  transform: translateY(-10px) scale(1.06);
+  box-shadow: 0 10px 24px rgba(255, 255, 255, 0.45);
+}
+
+.card-unplayable {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ===================================================
+   SÉLECTEUR DE COULEUR (WILD)
+   =================================================== */
+
+.color-picker {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+.color-picker-panel {
+  background: rgba(5, 10, 36, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 28px 32px;
+  text-align: center;
+  color: #fff;
+}
+
+.color-picker-panel p {
+  margin: 0 0 18px;
+  font: 700 16px/1 system-ui, sans-serif;
+}
+
+.color-picker-btns {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+}
+
+.color-btn {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: transform 0.1s, border-color 0.1s;
+}
+.color-btn:hover {
+  transform: scale(1.12);
+  border-color: #fff;
+}
+.color-btn-red    { background: #c0392b; }
+.color-btn-blue   { background: #2471a3; }
+.color-btn-green  { background: #1e8449; }
+.color-btn-yellow { background: #d4ac0d; }
+
+/* ===================================================
+   ÉCRAN DE VICTOIRE
+   =================================================== */
+
+.game-victory {
+  position: fixed;
+  inset: 0;
+  z-index: 75;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+}
+
+.game-victory-inner {
+  text-align: center;
+  color: #fff;
+  font: 700 36px/1.3 system-ui, sans-serif;
+  padding: 40px;
+  border-radius: 20px;
+  background: rgba(5, 10, 36, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
