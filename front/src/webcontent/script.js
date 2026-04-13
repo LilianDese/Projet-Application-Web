@@ -651,8 +651,9 @@ async function updateLobby() {
      document.getElementById('lobby-title').textContent = `Salon: ${game.name || game.id}`;
      
      if (game.status === 'IN_PROGRESS') {
+       const gameId = activeLobbyGameId; // sauvegarder avant que closeLobby() ne le mette à null
        closeLobby();
-       alert('Partie lancée - Le jeu commence !');
+       openGamePage(gameId);
        return;
      }
      
@@ -684,5 +685,13 @@ document.getElementById('btn-lobby-quit')?.addEventListener('click', closeLobby)
 document.getElementById('btn-lobby-start')?.addEventListener('click', () => {
     if (activeLobbyGameId) startGame(activeLobbyGameId);
 });
+
+function openGamePage(gameId) {
+  const url = new URL('./game.html', window.location.href);
+  url.searchParams.set('gameId',  gameId);
+  url.searchParams.set('joueurId', currentJoueurId);
+  url.searchParams.set('pseudo',   currentPseudo ?? '');
+  window.location.href = url.toString();
+}
 
 initAuthUi();
