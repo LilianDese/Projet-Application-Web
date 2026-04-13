@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -122,8 +123,18 @@ public class FacadeController {
 		Game game = gameRepository.findById(gameId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "game introuvable"));
 
+		if (game.getStatus() != GameStatus.LOBBY) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La partie n'est pas dans le salon");
+		}
+
 		Joueur joueur = joueurRepository.findById(joueurId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "joueur introuvable"));
+
+		var existing = gamePlayerRepository.findTopByGameIdAndJoueurIdOrderByIdAsc(gameId, joueurId);
+		if (existing.isPresent()) {
+			GamePlayer gp = existing.get();
+			return ResponseEntity.ok(new JoinGameResponse(gp.getId(), game.getId(), joueur.getId(), gp.getTurnOrder()));
+		}
 
 		int turnOrder = game.getPlayers().size();
 		GamePlayer participation = new GamePlayer(game, joueur, turnOrder);
@@ -146,18 +157,74 @@ public class FacadeController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La partie n'est pas dans le salon");
 		}
 
-		if (game.getCreator() == null || !game.getCreator().getId().equals(joueurId)) {
-			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Seul le créateur peut lancer la partie");
+		if (game.getCreator() == null || game.getCreator().getId() == null) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Partie sans créateur");
+		}
+		if (!game.getCreator().getId().equals(joueurId)) {
+			throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+					"Seul le créateur peut lancer la partie (creatorId=" + game.getCreator().getId() + ")");
 		}
 
-		if (game.getPlayers() == null || game.getPlayers().size() < 3) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Il faut au moins 3 joueurs pour lancer la partie");
+		int playerCount = (game.getPlayers() == null) ? 0 : game.getPlayers().size();
+		if (playerCount < 3) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+					"Il faut au moins 3 joueurs pour lancer la partie (actuellement " + playerCount + ")");
 		}
 
 		game.setStatus(GameStatus.IN_PROGRESS);
 		gameRepository.save(game);
 
 		return ResponseEntity.ok(toResponse(game));
+	}
+
+	@PostMapping("/games/{gameId}/leave")
+	@Transactional
+	public ResponseEntity<GameResponse> leaveGame(
+			@PathVariable("gameId") Long gameId,
+			@RequestParam("joueurId") Long joueurId) {
+		Game game = gameRepository.findById(gameId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "game introuvable"));
+
+		var gps = gamePlayerRepository.findAllByGameIdAndJoueurId(gameId, joueurId);
+		if (gps.isEmpty()) {
+			// leave idempotent: si déjà sorti, on ne renvoie pas d'erreur
+			return ResponseEntity.noContent().build();
+		}
+
+		// retirer de la liste en mémoire (pour un GameResponse cohérent)
+		if (game.getPlayers() != null) {
+			game.getPlayers().removeIf(p -> p.getJoueur() != null && joueurId.equals(p.getJoueur().getId()));
+		}
+
+		gamePlayerRepository.deleteAll(gps);
+
+		// si le créateur quitte, passer la main au 1er joueur restant (sinon la partie est bloquée)
+		if (game.getCreator() != null && game.getCreator().getId() != null && game.getCreator().getId().equals(joueurId)) {
+			if (game.getPlayers() != null && !game.getPlayers().isEmpty()) {
+				game.setCreator(game.getPlayers().get(0).getJoueur());
+			} else {
+				game.setCreator(null);
+			}
+		}
+
+		// suppression automatique si plus aucun joueur
+		long remaining = gamePlayerRepository.countByGameId(gameId);
+		if (remaining <= 0) {
+			gameRepository.delete(game);
+			return ResponseEntity.noContent().build();
+		}
+
+		gameRepository.save(game);
+		return ResponseEntity.ok(toResponse(game));
+	}
+
+	@DeleteMapping("/games/{gameId}")
+	@Transactional
+	public ResponseEntity<Void> deleteGame(@PathVariable("gameId") Long gameId) {
+		Game game = gameRepository.findById(gameId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "game introuvable"));
+		gameRepository.delete(game);
+		return ResponseEntity.noContent().build();
 	}
 
 	private GameResponse toResponse(Game game) {

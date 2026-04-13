@@ -9,9 +9,9 @@ cd ../../
 
 # Build front
 echo "Building front..."
-mkdir -p tmp/WEB_INF/classes
-cp -r front/bin/pack tmp/WEB_INF/classes/.
-cp -r front/lib/ tmp/WEB_INF/.
+mkdir -p tmp/WEB-INF/classes
+cp -r front/bin/pack tmp/WEB-INF/classes/.
+cp -r front/lib/ tmp/WEB-INF/.
 cp -r front/src/webcontent/* tmp/.
 jar cf front.war -C tmp .
 rm -rf tmp
