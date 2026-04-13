@@ -119,6 +119,13 @@ public class Main extends HttpServlet {
             return;
         }
 
+        // /api/games/{id}/state
+        if (pathInfo.matches("/\\d+/state")) {
+            String[] segs = pathInfo.substring(1).split("/");
+            proxyGetGameState(request, response, Long.parseLong(segs[0]));
+            return;
+        }
+
         Long gameId = parseGameId(pathInfo);
         if (gameId == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -166,6 +173,18 @@ public class Main extends HttpServlet {
 			proxyLeaveGame(request, response, gameId.longValue());
 			return;
 		}
+        if ("play".equals(action)) {
+            proxyPlayCard(request, response, gameId.longValue());
+            return;
+        }
+        if ("draw".equals(action)) {
+            proxyDrawCard(request, response, gameId.longValue());
+            return;
+        }
+        if ("uno".equals(action)) {
+            proxyCallUno(request, response, gameId.longValue());
+            return;
+        }
 
         response.setStatus(HttpServletResponse.SC_NOT_FOUND);
     }
@@ -317,6 +336,92 @@ public class Main extends HttpServlet {
         javax.ws.rs.core.Response backResponse = null;
         try {
             backResponse = facade.deleteGame(gameId);
+            pipeBackResponse(backResponse, response, "text/plain");
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
+            response.setContentType("text/plain");
+            response.getWriter().write("backend unavailable");
+        } finally {
+            closeQuietly(backResponse);
+        }
+    }
+
+    private void proxyGetGameState(HttpServletRequest request, HttpServletResponse response, long gameId) throws IOException {
+        Long joueurId = parseLongQueryParam(request, "joueurId");
+        if (joueurId == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.setContentType("text/plain");
+            response.getWriter().write("joueurId requis");
+            return;
+        }
+        javax.ws.rs.core.Response backResponse = null;
+        try {
+            backResponse = facade.getGameState(gameId, joueurId.longValue());
+            pipeBackResponse(backResponse, response, "application/json");
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
+            response.setContentType("text/plain");
+            response.getWriter().write("backend unavailable");
+        } finally {
+            closeQuietly(backResponse);
+        }
+    }
+
+    private void proxyPlayCard(HttpServletRequest request, HttpServletResponse response, long gameId) throws IOException {
+        Long joueurId = parseLongQueryParam(request, "joueurId");
+        Long cardId   = parseLongQueryParam(request, "cardId");
+        if (joueurId == null || cardId == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.setContentType("text/plain");
+            response.getWriter().write("joueurId et cardId requis");
+            return;
+        }
+        String chosenColor = request.getParameter("chosenColor");
+        javax.ws.rs.core.Response backResponse = null;
+        try {
+            backResponse = facade.playCard(gameId, joueurId.longValue(), cardId.longValue(), chosenColor);
+            pipeBackResponse(backResponse, response, "application/json");
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
+            response.setContentType("text/plain");
+            response.getWriter().write("backend unavailable");
+        } finally {
+            closeQuietly(backResponse);
+        }
+    }
+
+    private void proxyDrawCard(HttpServletRequest request, HttpServletResponse response, long gameId) throws IOException {
+        Long joueurId = parseLongQueryParam(request, "joueurId");
+        if (joueurId == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.setContentType("text/plain");
+            response.getWriter().write("joueurId requis");
+            return;
+        }
+        javax.ws.rs.core.Response backResponse = null;
+        try {
+            backResponse = facade.drawCard(gameId, joueurId.longValue());
+            pipeBackResponse(backResponse, response, "application/json");
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
+            response.setContentType("text/plain");
+            response.getWriter().write("backend unavailable");
+        } finally {
+            closeQuietly(backResponse);
+        }
+    }
+
+    private void proxyCallUno(HttpServletRequest request, HttpServletResponse response, long gameId) throws IOException {
+        Long joueurId = parseLongQueryParam(request, "joueurId");
+        if (joueurId == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.setContentType("text/plain");
+            response.getWriter().write("joueurId requis");
+            return;
+        }
+        javax.ws.rs.core.Response backResponse = null;
+        try {
+            backResponse = facade.callUno(gameId, joueurId.longValue());
             pipeBackResponse(backResponse, response, "text/plain");
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);

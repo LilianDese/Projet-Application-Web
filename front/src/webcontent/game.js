@@ -1,20 +1,11 @@
-// =====================================================
-// PARAMÈTRES URL
-// =====================================================
-
 const params       = new URLSearchParams(window.location.search);
 const activeGameId = params.get('gameId');
 const joueurId     = params.get('joueurId');
 const currentPseudo = params.get('pseudo');
 
 if (!activeGameId || !joueurId) {
-  // Paramètres manquants → retour au menu
   window.location.replace('./index.html');
 }
-
-// =====================================================
-// FOND ANIMÉ (canvas lava-lamp)
-// =====================================================
 
 const canvas = document.getElementById('rondFond');
 const ctx    = canvas.getContext('2d', { alpha: false });
@@ -103,10 +94,6 @@ window.addEventListener('resize', resize, { passive: true });
 resize();
 requestAnimationFrame(frame);
 
-// =====================================================
-// AUDIO
-// =====================================================
-
 function initAudio() {
   const audio = document.getElementById('bg-music');
   const slider = document.getElementById('volume');
@@ -149,14 +136,9 @@ function initAudio() {
 
 initAudio();
 
-// =====================================================
-// LOGIQUE DE JEU
-// =====================================================
-
 let gameTimer        = null;
 let pendingWildCardId = null;
 
-// ---- polling ----
 
 function startPolling() {
   updateGameState();
@@ -166,15 +148,13 @@ function startPolling() {
 async function updateGameState() {
   if (!activeGameId || !joueurId) return;
   try {
-    const res = await fetch(`/back/games/${activeGameId}/state?joueurId=${joueurId}`);
+    const res = await fetch(`./api/games/${activeGameId}/state?joueurId=${joueurId}`);
     if (!res.ok) return;
     renderGameState(await res.json());
   } catch (e) {
     console.error('Erreur fetch state:', e);
   }
 }
-
-// ---- rendu ----
 
 function cardColorClass(color) {
   return { RED: 'card-red', BLUE: 'card-blue', GREEN: 'card-green', YELLOW: 'card-yellow', WILD: 'card-wild' }[color] ?? 'card-back';
@@ -199,25 +179,23 @@ function isCardPlayable(card, currentColor, topCard) {
 }
 
 function renderGameState(state) {
-  // Titre et direction
   const titleEl = document.getElementById('game-title');
   if (titleEl) titleEl.textContent = `Partie #${state.gameId}`;
 
   const dirEl = document.getElementById('game-direction');
   if (dirEl) dirEl.textContent = state.direction === 1 ? '→ sens horaire' : '← sens anti-horaire';
 
-  // Carte du dessus
   const topCardEl = document.getElementById('game-top-card');
   if (topCardEl && state.topCard) {
     topCardEl.className = `card-visual card-large ${cardColorClass(state.currentColor ?? state.topCard.color)}`;
     topCardEl.textContent = cardLabel(state.topCard);
   }
 
-  // Couleur active
+  //Couleur active
   const colorEl = document.getElementById('game-current-color');
   if (colorEl) colorEl.textContent = `Couleur : ${cardColorLabel(state.currentColor)}`;
 
-  // Indicateur de tour
+  //Indicateur de tour
   const turnEl = document.getElementById('game-current-turn');
   if (turnEl) {
     if (state.myTurn) {
@@ -229,7 +207,7 @@ function renderGameState(state) {
     }
   }
 
-  // Joueurs
+  //Joueurs
   const playersEl = document.getElementById('game-players');
   if (playersEl) {
     playersEl.innerHTML = '';
@@ -241,7 +219,7 @@ function renderGameState(state) {
     }
   }
 
-  // Main du joueur
+  //Main du joueur
   const handEl = document.getElementById('game-hand');
   if (handEl) {
     handEl.innerHTML = '';
@@ -257,7 +235,7 @@ function renderGameState(state) {
     }
   }
 
-  // Boutons action
+  //Boutons action
   const btnDraw = document.getElementById('btn-game-draw');
   if (btnDraw) btnDraw.disabled = !state.myTurn;
   const btnUno = document.getElementById('btn-game-uno');
@@ -273,8 +251,6 @@ function renderGameState(state) {
   }
 }
 
-// ---- actions ----
-
 function onCardClick(card) {
   if (card.type === 'WILD' || card.type === 'WILD_DRAW_FOUR') {
     pendingWildCardId = card.id;
@@ -285,7 +261,7 @@ function onCardClick(card) {
 }
 
 async function playCard(cardId, chosenColor) {
-  let url = `/back/games/${activeGameId}/play?joueurId=${joueurId}&cardId=${cardId}`;
+  let url = `./api/games/${activeGameId}/play?joueurId=${joueurId}&cardId=${cardId}`;
   if (chosenColor) url += `&chosenColor=${chosenColor}`;
   try {
     const res = await fetch(url, { method: 'POST' });
@@ -296,7 +272,7 @@ async function playCard(cardId, chosenColor) {
 
 async function drawCard() {
   try {
-    const res = await fetch(`/back/games/${activeGameId}/draw?joueurId=${joueurId}`, { method: 'POST' });
+    const res = await fetch(`./api/games/${activeGameId}/draw?joueurId=${joueurId}`, { method: 'POST' });
     if (!res.ok) { console.error('draw error', res.status, await res.text()); return; }
     renderGameState(await res.json());
   } catch (e) { console.error('Erreur draw:', e); }
@@ -304,7 +280,7 @@ async function drawCard() {
 
 async function callUno() {
   try {
-    await fetch(`/back/games/${activeGameId}/uno?joueurId=${joueurId}`, { method: 'POST' });
+    await fetch(`./api/games/${activeGameId}/uno?joueurId=${joueurId}`, { method: 'POST' });
   } catch (e) { console.error('Erreur uno:', e); }
 }
 
@@ -316,7 +292,6 @@ function onColorChosen(color) {
   }
 }
 
-// ---- listeners ----
 
 document.getElementById('btn-game-quit')?.addEventListener('click', () => {
   if (gameTimer) clearInterval(gameTimer);
@@ -328,5 +303,5 @@ document.getElementById('btn-victory-quit')?.addEventListener('click', () => {
   window.location.href = './index.html';
 });
 
-// ---- démarrage ----
+
 startPolling();

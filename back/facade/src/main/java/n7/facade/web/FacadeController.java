@@ -41,9 +41,6 @@ import n7.facade.web.dto.GameStateResponse;
 import n7.facade.web.dto.JoinGameResponse;
 import n7.facade.web.dto.PlayerStateDto;
 
-/**
- * Facade REST 
- */
 @RestController
 public class FacadeController {
     
@@ -66,8 +63,9 @@ public class FacadeController {
 		this.handCardRepository = handCardRepository;
 	}
 
-	// ---- joueurs ----
+	//@Transactional regroupe ttes les opé en db d'un coup (permet d'eviter de casser ld db)
 
+	//permet d'ajouter un joueur (pseudo requis 409/pseudo invalide 400)
 	@PostMapping("/joueurs")
 	@Transactional
 	public ResponseEntity<FacadeJoueurResponse> addJoueur(@RequestBody FacadeJoueurRequest request) {
@@ -84,6 +82,7 @@ public class FacadeController {
 				.body(new FacadeJoueurResponse(saved.getId(), saved.getPseudo()));
 	}
 
+	//permet de lister les joueurs
 	@GetMapping("/joueurs")
 	public List<FacadeJoueurResponse> listJoueurs() {
 		return joueurRepository.findAll().stream()
@@ -91,8 +90,7 @@ public class FacadeController {
 				.collect(Collectors.toList());
 	}
 
-	// ---- games ----
-
+	//permet de créer une partie
 	@PostMapping("/games")
 	@Transactional
 	public ResponseEntity<GameResponse> createGame(@RequestBody CreateGameRequest request) {
@@ -119,6 +117,7 @@ public class FacadeController {
 				.body(toResponse(game));
 	}
 
+	//permet de lister les games
 	@GetMapping("/games")
 	public List<GameResponse> listGames(@RequestParam(name = "status", required = false) GameStatus status) {
 		List<Game> games = (status == null) ? gameRepository.findAll() : gameRepository.findByStatus(status);
@@ -134,6 +133,7 @@ public class FacadeController {
 		return ResponseEntity.ok(toResponse(game));
 	}
 
+	//permet de join une game
 	@PostMapping("/games/{gameId}/join")
 	@Transactional
 	public ResponseEntity<JoinGameResponse> joinGame(
@@ -143,7 +143,7 @@ public class FacadeController {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "game introuvable"));
 
 		if (game.getStatus() != GameStatus.LOBBY) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La partie n'est pas dans le salon");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La partie n'est pas au début");
 		}
 
 		Joueur joueur = joueurRepository.findById(joueurId)
@@ -164,6 +164,7 @@ public class FacadeController {
 				.body(new JoinGameResponse(saved.getId(), game.getId(), joueur.getId(), saved.getTurnOrder()));
 	}
 
+	//permet de start une game
 	@PostMapping("/games/{gameId}/start")
 	@Transactional
 	public ResponseEntity<GameResponse> startGame(
@@ -192,11 +193,11 @@ public class FacadeController {
 					"Il faut au moins 3 joueurs pour lancer la partie (actuellement " + playerCount + ")");
 		}
 
-		// 1. Charger et mélanger le deck complet (108 cartes)
+		//charger et mélanger le deck
 		List<Card> deck = new ArrayList<>(cardRepository.findAll());
 		Collections.shuffle(deck);
 
-		// 2. Distribuer 7 cartes à chaque joueur dans l'ordre de tour
+		//distribuer 7 cartes à chaque joueur
 		players.sort(Comparator.comparingInt(GamePlayer::getTurnOrder));
 		int cardIndex = 0;
 		List<HandCard> allHandCards = new ArrayList<>();
@@ -209,15 +210,15 @@ public class FacadeController {
 		}
 		handCardRepository.saveAll(allHandCards);
 
-		// 3. Première carte de la défausse : ne peut pas être WILD ni WILD_DRAW_FOUR
+		//première carte de la défausse, ni wild ni wild draw four
 		List<Card> remaining = new ArrayList<>(deck.subList(cardIndex, deck.size()));
 		Card firstDiscard = remaining.stream()
 				.filter(c -> c.getType() != CardType.WILD && c.getType() != CardType.WILD_DRAW_FOUR)
 				.findFirst()
-				.orElse(remaining.get(0)); // fallback (cas théoriquement impossible)
+				.orElse(remaining.get(0));
 		remaining.remove(firstDiscard);
 
-		// 4. Configurer la pioche et la défausse
+		//configurer la pioche et la défausse
 		game.setDrawPile(remaining);
 		List<Card> discardPile = new ArrayList<>();
 		discardPile.add(firstDiscard);
@@ -225,16 +226,17 @@ public class FacadeController {
 		game.setTopCard(firstDiscard);
 		game.setCurrentColor(firstDiscard.getColor());
 
-		// 5. Joueur de départ aléatoire
+		//joueur début random
 		game.setCurrentPlayerIndex(new Random().nextInt(players.size()));
 
-		// 6. Lancer la partie
+		//lance la partie
 		game.setStatus(GameStatus.IN_PROGRESS);
 		gameRepository.save(game);
 
 		return ResponseEntity.ok(toResponse(game));
 	}
 
+	//permet de quitter la partie
 	@PostMapping("/games/{gameId}/leave")
 	@Transactional
 	public ResponseEntity<GameResponse> leaveGame(
@@ -245,18 +247,16 @@ public class FacadeController {
 
 		var gps = gamePlayerRepository.findAllByGameIdAndJoueurId(gameId, joueurId);
 		if (gps.isEmpty()) {
-			// leave idempotent: si déjà sorti, on ne renvoie pas d'erreur
 			return ResponseEntity.noContent().build();
 		}
 
-		// retirer de la liste en mémoire (pour un GameResponse cohérent)
 		if (game.getPlayers() != null) {
 			game.getPlayers().removeIf(p -> p.getJoueur() != null && joueurId.equals(p.getJoueur().getId()));
 		}
 
 		gamePlayerRepository.deleteAll(gps);
 
-		// si le créateur quitte, passer la main au 1er joueur restant (sinon la partie est bloquée)
+		//si créateur leave, donne la main a un joueur
 		if (game.getCreator() != null && game.getCreator().getId() != null && game.getCreator().getId().equals(joueurId)) {
 			if (game.getPlayers() != null && !game.getPlayers().isEmpty()) {
 				game.setCreator(game.getPlayers().get(0).getJoueur());
@@ -265,7 +265,7 @@ public class FacadeController {
 			}
 		}
 
-		// suppression automatique si plus aucun joueur
+		// suppression si plus aucun joueur
 		long remaining = gamePlayerRepository.countByGameId(gameId);
 		if (remaining <= 0) {
 			gameRepository.delete(game);
@@ -276,6 +276,7 @@ public class FacadeController {
 		return ResponseEntity.ok(toResponse(game));
 	}
 
+	//delete une partie
 	@DeleteMapping("/games/{gameId}")
 	@Transactional
 	public ResponseEntity<Void> deleteGame(@PathVariable("gameId") Long gameId) {
@@ -285,8 +286,7 @@ public class FacadeController {
 		return ResponseEntity.noContent().build();
 	}
 
-	// ---- état et actions en jeu ----
-
+	//recup letat du jeu
 	@GetMapping("/games/{gameId}/state")
 	@Transactional
 	public ResponseEntity<GameStateResponse> getGameState(
@@ -325,7 +325,6 @@ public class FacadeController {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Ce n'est pas votre tour");
 		}
 
-		// Trouver la carte dans la main du joueur
 		HandCard hcToPlay = currentGP.getHand().stream()
 				.filter(hc -> hc.getCard().getId().equals(cardId))
 				.findFirst()
@@ -333,42 +332,34 @@ public class FacadeController {
 
 		Card card = hcToPlay.getCard();
 
-		// Vérifier que la carte est jouable
 		if (!isPlayable(card, game.getCurrentColor(), game.getTopCard())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cette carte n'est pas jouable");
 		}
 
-		// WILD sans couleur choisie → erreur
 		if ((card.getType() == CardType.WILD || card.getType() == CardType.WILD_DRAW_FOUR) && chosenColor == null) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Vous devez choisir une couleur pour ce joker");
 		}
-
-		// Jouer la carte : retirer de la main, ajouter à la défausse
 		currentGP.getHand().remove(hcToPlay);
 		handCardRepository.delete(hcToPlay);
 		game.getDiscardPile().add(card);
 		game.setTopCard(card);
 
-		// Mettre à jour la couleur active
 		if (card.getType() == CardType.WILD || card.getType() == CardType.WILD_DRAW_FOUR) {
 			game.setCurrentColor(chosenColor);
 		} else {
 			game.setCurrentColor(card.getColor());
 		}
 
-		// Réinitialiser le flag UNO du joueur si sa main n'est pas vide
 		if (!currentGP.getHand().isEmpty()) {
 			currentGP.setHasCalledUno(false);
 		}
 
-		// Vérifier la victoire
 		if (currentGP.getHand().isEmpty()) {
 			game.setStatus(GameStatus.FINISHED);
 			gameRepository.save(game);
 			return ResponseEntity.ok(toStateResponse(game, joueurId));
 		}
 
-		// Appliquer les effets et passer la main
 		applyCardEffect(game, sorted, card, chosenColor);
 
 		gameRepository.save(game);
@@ -395,20 +386,17 @@ public class FacadeController {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Ce n'est pas votre tour");
 		}
 
-		// Recharger la pioche si vide
 		rechargePiocheIfNeeded(game);
 
 		if (game.getDrawPile().isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Plus de cartes disponibles");
 		}
 
-		// Piocher la première carte
 		Card drawn = game.getDrawPile().remove(0);
 		HandCard hc = new HandCard(currentGP, drawn);
 		currentGP.addCard(hc);
 		handCardRepository.save(hc);
 
-		// Piocher termine le tour
 		game.setCurrentPlayerIndex(nextIndex(game, sorted, 0));
 		currentGP.setHasCalledUno(false);
 
@@ -440,25 +428,19 @@ public class FacadeController {
 		return ResponseEntity.ok().build();
 	}
 
-	// ---- méthodes utilitaires ----
+//methodes utilitaires (pas link a des endpoints)
 
-	/** Retourne les joueurs triés par turnOrder (ordre de jeu stable). */
 	private List<GamePlayer> sortedPlayers(Game game) {
 		return game.getPlayers().stream()
 				.sorted(Comparator.comparingInt(GamePlayer::getTurnOrder))
 				.collect(Collectors.toList());
 	}
 
-	/** Calcule l'index du prochain joueur en tenant compte de la direction et d'un éventuel skip. */
 	private int nextIndex(Game game, List<GamePlayer> sorted, int extraSkip) {
 		int n = sorted.size();
 		return ((game.getCurrentPlayerIndex() + game.getDirection() * (1 + extraSkip)) % n + n) % n;
 	}
 
-	/**
-	 * Vérifie si une carte est jouable.
-	 * Règles UNO : même couleur active, même type d'action, même valeur numérique, ou carte WILD.
-	 */
 	private boolean isPlayable(Card card, CardColor currentColor, Card topCard) {
 		if (card.getType() == CardType.WILD || card.getType() == CardType.WILD_DRAW_FOUR) {
 			return true;
@@ -467,11 +449,9 @@ public class FacadeController {
 			return true;
 		}
 		if (topCard != null) {
-			// Même type d'action (Skip sur Skip, Reverse sur Reverse, etc.)
 			if (card.getType() != CardType.NUMBER && card.getType() == topCard.getType()) {
 				return true;
 			}
-			// Même valeur numérique
 			if (card.getType() == CardType.NUMBER && topCard.getType() == CardType.NUMBER
 					&& card.getValue() == topCard.getValue()) {
 				return true;
@@ -480,48 +460,40 @@ public class FacadeController {
 		return false;
 	}
 
-	/** Applique l'effet de la carte jouée et avance le tour. */
 	private void applyCardEffect(Game game, List<GamePlayer> sorted, Card card, CardColor chosenColor) {
 		switch (card.getType()) {
 			case SKIP -> {
-				// Le prochain joueur passe son tour
 				game.setCurrentPlayerIndex(nextIndex(game, sorted, 1));
 			}
 			case REVERSE -> {
 				game.reverseDirection();
 				if (sorted.size() == 2) {
-					// À 2 joueurs, Reverse agit comme un Skip
 					game.setCurrentPlayerIndex(nextIndex(game, sorted, 0));
 				} else {
 					game.setCurrentPlayerIndex(nextIndex(game, sorted, 0));
 				}
 			}
 			case DRAW_TWO -> {
-				// Le prochain joueur pioche 2 cartes et passe son tour
 				int nextIdx = nextIndex(game, sorted, 0);
 				GamePlayer nextGP = sorted.get(nextIdx);
 				forceDraw(game, nextGP, 2);
 				game.setCurrentPlayerIndex(nextIndex(game, sorted, 1));
 			}
 			case WILD -> {
-				// Couleur déjà mise à jour, on avance normalement
 				game.setCurrentPlayerIndex(nextIndex(game, sorted, 0));
 			}
 			case WILD_DRAW_FOUR -> {
-				// Le prochain joueur pioche 4 cartes et passe son tour
 				int nextIdx = nextIndex(game, sorted, 0);
 				GamePlayer nextGP = sorted.get(nextIdx);
 				forceDraw(game, nextGP, 4);
 				game.setCurrentPlayerIndex(nextIndex(game, sorted, 1));
 			}
 			default -> {
-				// Carte numéro : on avance normalement
 				game.setCurrentPlayerIndex(nextIndex(game, sorted, 0));
 			}
 		}
 	}
 
-	/** Force un joueur à piocher {@code count} cartes (effets +2 / +4). */
 	private void forceDraw(Game game, GamePlayer target, int count) {
 		for (int i = 0; i < count; i++) {
 			rechargePiocheIfNeeded(game);
@@ -533,13 +505,10 @@ public class FacadeController {
 		}
 	}
 
-	/** Remet la défausse (sauf la topCard) dans la pioche si celle-ci est vide. */
 	private void rechargePiocheIfNeeded(Game game) {
 		if (!game.getDrawPile().isEmpty()) return;
 		List<Card> discard = game.getDiscardPile();
-		if (discard.size() <= 1) return; // seul la topCard reste, rien à faire
-
-		// Garder uniquement la topCard dans la défausse
+		if (discard.size() <= 1) return;
 		Card top = game.getTopCard();
 		List<Card> toReshuffle = new ArrayList<>(discard.subList(0, discard.size() - 1));
 		discard.clear();
@@ -549,7 +518,6 @@ public class FacadeController {
 		game.setDrawPile(toReshuffle);
 	}
 
-	/** Construit le GameStateResponse vu par un joueur donné. */
 	private GameStateResponse toStateResponse(Game game, Long joueurId) {
 		List<GamePlayer> sorted = sortedPlayers(game);
 
@@ -574,7 +542,6 @@ public class FacadeController {
 		List<CardDto> myHand = (me == null) ? new ArrayList<>() :
 				me.getHand().stream().map(hc -> new CardDto(hc.getCard())).collect(Collectors.toList());
 
-		// Chercher le vainqueur (joueur avec 0 carte si partie FINISHED)
 		String winnerPseudo = null;
 		if (game.getStatus() == GameStatus.FINISHED) {
 			winnerPseudo = sorted.stream()

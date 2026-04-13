@@ -1,7 +1,3 @@
-/* ===================================================
-   MISE EN PAGE PRINCIPALE
-   =================================================== */
-
 .game-layout {
   position: relative;
   z-index: 10;
@@ -36,10 +32,6 @@
   text-align: right;
 }
 
-/* ===================================================
-   JOUEURS
-   =================================================== */
-
 .game-players {
   display: flex;
   gap: 8px;
@@ -63,10 +55,6 @@
   color: #4dff91;
   font-weight: 700;
 }
-
-/* ===================================================
-   ZONE CENTRALE (DÉFAUSSE + PIOCHE)
-   =================================================== */
 
 .game-area {
   display: flex;
@@ -95,10 +83,6 @@
   color: rgba(255, 255, 255, 0.7);
 }
 
-/* ===================================================
-   INDICATEUR DE TOUR
-   =================================================== */
-
 .game-turn {
   text-align: center;
   font: 700 17px/1 system-ui, sans-serif;
@@ -106,10 +90,6 @@
   min-height: 20px;
   flex-shrink: 0;
 }
-
-/* ===================================================
-   MAIN DU JOUEUR
-   =================================================== */
 
 .game-hand-wrap {
   flex: 1;
@@ -129,10 +109,6 @@
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
 
-/* ===================================================
-   BOUTONS D'ACTION
-   =================================================== */
-
 .game-actions {
   display: flex;
   gap: 12px;
@@ -140,10 +116,6 @@
   flex-shrink: 0;
   padding-bottom: 4px;
 }
-
-/* ===================================================
-   CARTES VISUELLES
-   =================================================== */
 
 .card-visual {
   width: 52px;
@@ -199,10 +171,6 @@
   cursor: default;
 }
 
-/* ===================================================
-   SÉLECTEUR DE COULEUR (WILD)
-   =================================================== */
-
 .color-picker {
   position: fixed;
   inset: 0;
@@ -250,10 +218,6 @@
 .color-btn-blue   { background: #2471a3; }
 .color-btn-green  { background: #1e8449; }
 .color-btn-yellow { background: #d4ac0d; }
-
-/* ===================================================
-   ÉCRAN DE VICTOIRE
-   =================================================== */
 
 .game-victory {
   position: fixed;
