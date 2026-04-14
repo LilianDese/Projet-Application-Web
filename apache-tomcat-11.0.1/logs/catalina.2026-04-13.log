@@ -1,0 +1,306 @@
+13-Apr-2026 11:06:08.704 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom version serveur :              Apache Tomcat/11.0.1
+13-Apr-2026 11:06:08.710 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Serveur compilé :                  Nov 6 2024 19:08:24 UTC
+13-Apr-2026 11:06:08.727 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version du serveur :               11.0.1.0
+13-Apr-2026 11:06:08.744 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom de l'OS :                      Windows 11
+13-Apr-2026 11:06:08.777 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version OS :                       10.0
+13-Apr-2026 11:06:08.802 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture :                     amd64
+13-Apr-2026 11:06:08.804 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home :                        C:\Program Files\Java\jdk-24
+13-Apr-2026 11:06:08.804 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version JVM :                      24+36-3646
+13-Apr-2026 11:06:08.805 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Fournisseur de la JVM :            Oracle Corporation
+13-Apr-2026 11:06:08.805 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE :                    D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1
+13-Apr-2026 11:06:08.806 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME :                    D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1
+13-Apr-2026 11:06:08.807 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.config.file=D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\conf\logging.properties
+13-Apr-2026 11:06:08.808 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+13-Apr-2026 11:06:08.808 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djdk.tls.ephemeralDHKeySize=2048
+13-Apr-2026 11:06:08.810 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.lang=ALL-UNNAMED
+13-Apr-2026 11:06:08.810 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.io=ALL-UNNAMED
+13-Apr-2026 11:06:08.811 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util=ALL-UNNAMED
+13-Apr-2026 11:06:08.812 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+13-Apr-2026 11:06:08.813 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+13-Apr-2026 11:06:08.813 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --enable-native-access=ALL-UNNAMED
+13-Apr-2026 11:06:08.814 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.base=D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1
+13-Apr-2026 11:06:08.815 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.home=D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1
+13-Apr-2026 11:06:08.815 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.io.tmpdir=D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\temp
+13-Apr-2026 11:06:08.837 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent La librairie Apache Tomcat Native basée sur APR qui permet des performances optimales dans les environnements de production n'a pas été trouvée sur le java.library.path : [C:\Program Files\Java\jdk-24\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Users\pilot\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\pilot\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Users\pilot\AppData\Local\Muse Hub\lib;C:\Users\pilot\AppData\Local\Programs\Python\Launcher;C:\Users\pilot\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm 2023.3.2\bin;C:\Users\pilot\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\pilot\AppData\Local\Programs\Antigravity\bin;C:\Users\pilot\.rokit\bin;C:\Users\pilot\AppData\Local\Muse Hub\lib;C:\Users\pilot\AppData\Local\Programs\Python\Python312;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl;C:\Users\pilot\AppData\Roaming\Claude\local-agent-mode-sessions\skills-plugin\81561386-a5e8-4380-9e57-2756c8cff3dc\25f4c7d7-82db-42bd-935e-570476ea1c9b\bin;.]
+13-Apr-2026 11:06:09.109 INFO [main] org.apache.coyote.AbstractProtocol.init Initialisation du gestionnaire de protocole ["http-nio-8080"]
+13-Apr-2026 11:06:09.132 INFO [main] org.apache.catalina.startup.Catalina.load L'initialisation du serveur a pris [636] millisecondes
+13-Apr-2026 11:06:09.184 INFO [main] org.apache.catalina.core.StandardService.startInternal Démarrage du service [Catalina]
+13-Apr-2026 11:06:09.186 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Démarrage du moteur de Servlets : [Apache Tomcat/11.0.1]
+13-Apr-2026 11:06:09.203 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\back.war] de l'application web
+13-Apr-2026 11:06:09.224 INFO [main] org.apache.catalina.startup.ExpandWar.expand Un répertoire décompressé [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\back] a été trouvé avec une date de dernière modification qui ne correspond pas au WAR associé, il sera effacé
+13-Apr-2026 11:06:14.125 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars Au moins un fichier JAR a été analysé pour trouver des TLDs mais il n'en contenait pas, le mode "debug" du journal peut être activé pour obtenir une liste complète de JAR scannés sans succès ; éviter d'analyser des JARs inutilement peut améliorer sensiblement le temps de démarrage et le temps de compilation des JSPs
+13-Apr-2026 11:06:21.982 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\back.war] s'est terminé en [12 777] ms
+13-Apr-2026 11:06:21.995 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front.war] de l'application web
+13-Apr-2026 11:06:21.999 INFO [main] org.apache.catalina.startup.ExpandWar.expand Un répertoire décompressé [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front] a été trouvé avec une date de dernière modification qui ne correspond pas au WAR associé, il sera effacé
+13-Apr-2026 11:06:22.378 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front.war] s'est terminé en [383] ms
+13-Apr-2026 11:06:22.385 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\docs]
+13-Apr-2026 11:06:22.408 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\docs] de l'application web s'est terminé en [23] ms
+13-Apr-2026 11:06:22.409 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\examples]
+13-Apr-2026 11:06:22.888 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\examples] de l'application web s'est terminé en [479] ms
+13-Apr-2026 11:06:22.890 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\host-manager]
+13-Apr-2026 11:06:22.915 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\host-manager] de l'application web s'est terminé en [25] ms
+13-Apr-2026 11:06:22.917 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\manager]
+13-Apr-2026 11:06:22.943 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\manager] de l'application web s'est terminé en [26] ms
+13-Apr-2026 11:06:22.944 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\ROOT]
+13-Apr-2026 11:06:22.969 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\ROOT] de l'application web s'est terminé en [25] ms
+13-Apr-2026 11:06:22.974 INFO [main] org.apache.coyote.AbstractProtocol.start Démarrage du gestionnaire de protocole ["http-nio-8080"]
+13-Apr-2026 11:06:22.994 INFO [main] org.apache.catalina.startup.Catalina.start Le démarrage du serveur a pris [13860] millisecondes
+13-Apr-2026 11:13:03.106 INFO [Catalina-utility-2] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front copy.war] de l'application web
+13-Apr-2026 11:13:09.953 INFO [Catalina-utility-2] org.apache.jasper.servlet.TldScanner.scanJars Au moins un fichier JAR a été analysé pour trouver des TLDs mais il n'en contenait pas, le mode "debug" du journal peut être activé pour obtenir une liste complète de JAR scannés sans succès ; éviter d'analyser des JARs inutilement peut améliorer sensiblement le temps de démarrage et le temps de compilation des JSPs
+13-Apr-2026 11:13:09.968 INFO [Catalina-utility-2] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front copy.war] s'est terminé en [6 861] ms
+13-Apr-2026 11:13:19.971 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.undeploy Retrait de l'application web ayant pour chemin de contexte [/front copy]
+13-Apr-2026 11:13:20.062 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.undeploy Retrait de l'application web ayant pour chemin de contexte [/front]
+13-Apr-2026 11:13:20.164 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front.war] de l'application web
+13-Apr-2026 11:13:26.640 INFO [Catalina-utility-1] org.apache.jasper.servlet.TldScanner.scanJars Au moins un fichier JAR a été analysé pour trouver des TLDs mais il n'en contenait pas, le mode "debug" du journal peut être activé pour obtenir une liste complète de JAR scannés sans succès ; éviter d'analyser des JARs inutilement peut améliorer sensiblement le temps de démarrage et le temps de compilation des JSPs
+13-Apr-2026 11:13:26.650 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front.war] s'est terminé en [6 485] ms
+13-Apr-2026 11:13:36.662 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.undeploy Retrait de l'application web ayant pour chemin de contexte [/back]
+13-Apr-2026 11:13:36.997 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\back.war] de l'application web
+13-Apr-2026 11:13:41.027 INFO [Catalina-utility-1] org.apache.jasper.servlet.TldScanner.scanJars Au moins un fichier JAR a été analysé pour trouver des TLDs mais il n'en contenait pas, le mode "debug" du journal peut être activé pour obtenir une liste complète de JAR scannés sans succès ; éviter d'analyser des JARs inutilement peut améliorer sensiblement le temps de démarrage et le temps de compilation des JSPs
+13-Apr-2026 11:13:48.022 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\back.war] s'est terminé en [11 025] ms
+13-Apr-2026 11:30:53.963 INFO [main] org.apache.catalina.core.StandardServer.await Une commande d'arrêt valide a été reçue sur le port d'arrêt, arrêt de l'instance du serveur
+13-Apr-2026 11:30:53.964 INFO [main] org.apache.coyote.AbstractProtocol.pause Le gestionnaire de protocole ["http-nio-8080"] est mis en pause
+13-Apr-2026 11:30:53.970 INFO [main] org.apache.catalina.core.StandardService.stopInternal Arrêt du service [Catalina]
+13-Apr-2026 11:30:54.257 INFO [main] org.apache.coyote.AbstractProtocol.stop Arrêt du gestionnaire de protocole ["http-nio-8080"]
+13-Apr-2026 11:30:54.269 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destruction du gestionnaire de protocole ["http-nio-8080"]
+13-Apr-2026 11:31:07.222 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom version serveur :              Apache Tomcat/11.0.1
+13-Apr-2026 11:31:07.225 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Serveur compilé :                  Nov 6 2024 19:08:24 UTC
+13-Apr-2026 11:31:07.226 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version du serveur :               11.0.1.0
+13-Apr-2026 11:31:07.227 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom de l'OS :                      Windows 11
+13-Apr-2026 11:31:07.227 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version OS :                       10.0
+13-Apr-2026 11:31:07.227 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture :                     amd64
+13-Apr-2026 11:31:07.229 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home :                        C:\Program Files\Java\jdk-24
+13-Apr-2026 11:31:07.230 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version JVM :                      24+36-3646
+13-Apr-2026 11:31:07.230 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Fournisseur de la JVM :            Oracle Corporation
+13-Apr-2026 11:31:07.231 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE :                    D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1
+13-Apr-2026 11:31:07.232 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME :                    D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1
+13-Apr-2026 11:31:07.236 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.config.file=D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\conf\logging.properties
+13-Apr-2026 11:31:07.237 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+13-Apr-2026 11:31:07.238 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djdk.tls.ephemeralDHKeySize=2048
+13-Apr-2026 11:31:07.238 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.lang=ALL-UNNAMED
+13-Apr-2026 11:31:07.239 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.io=ALL-UNNAMED
+13-Apr-2026 11:31:07.240 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util=ALL-UNNAMED
+13-Apr-2026 11:31:07.241 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+13-Apr-2026 11:31:07.241 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+13-Apr-2026 11:31:07.242 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --enable-native-access=ALL-UNNAMED
+13-Apr-2026 11:31:07.242 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.base=D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1
+13-Apr-2026 11:31:07.243 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.home=D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1
+13-Apr-2026 11:31:07.244 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.io.tmpdir=D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\temp
+13-Apr-2026 11:31:07.264 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent La librairie Apache Tomcat Native basée sur APR qui permet des performances optimales dans les environnements de production n'a pas été trouvée sur le java.library.path : [C:\Program Files\Java\jdk-24\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Users\pilot\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\pilot\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Users\pilot\AppData\Local\Muse Hub\lib;C:\Users\pilot\AppData\Local\Programs\Python\Launcher;C:\Users\pilot\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm 2023.3.2\bin;C:\Users\pilot\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\pilot\AppData\Local\Programs\Antigravity\bin;C:\Users\pilot\.rokit\bin;C:\Users\pilot\AppData\Local\Muse Hub\lib;C:\Users\pilot\AppData\Local\Programs\Python\Python312;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl;C:\Users\pilot\AppData\Roaming\Claude\local-agent-mode-sessions\skills-plugin\81561386-a5e8-4380-9e57-2756c8cff3dc\25f4c7d7-82db-42bd-935e-570476ea1c9b\bin;.]
+13-Apr-2026 11:31:07.484 INFO [main] org.apache.coyote.AbstractProtocol.init Initialisation du gestionnaire de protocole ["http-nio-8080"]
+13-Apr-2026 11:31:07.505 INFO [main] org.apache.catalina.startup.Catalina.load L'initialisation du serveur a pris [463] millisecondes
+13-Apr-2026 11:31:07.550 INFO [main] org.apache.catalina.core.StandardService.startInternal Démarrage du service [Catalina]
+13-Apr-2026 11:31:07.551 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Démarrage du moteur de Servlets : [Apache Tomcat/11.0.1]
+13-Apr-2026 11:31:07.566 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\back.war] de l'application web
+13-Apr-2026 11:31:12.293 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars Au moins un fichier JAR a été analysé pour trouver des TLDs mais il n'en contenait pas, le mode "debug" du journal peut être activé pour obtenir une liste complète de JAR scannés sans succès ; éviter d'analyser des JARs inutilement peut améliorer sensiblement le temps de démarrage et le temps de compilation des JSPs
+13-Apr-2026 11:31:20.956 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\back.war] s'est terminé en [13 388] ms
+13-Apr-2026 11:31:20.958 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front.war] de l'application web
+13-Apr-2026 11:31:24.512 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars Au moins un fichier JAR a été analysé pour trouver des TLDs mais il n'en contenait pas, le mode "debug" du journal peut être activé pour obtenir une liste complète de JAR scannés sans succès ; éviter d'analyser des JARs inutilement peut améliorer sensiblement le temps de démarrage et le temps de compilation des JSPs
+13-Apr-2026 11:31:24.523 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front.war] s'est terminé en [3 565] ms
+13-Apr-2026 11:31:24.525 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\docs]
+13-Apr-2026 11:31:24.564 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\docs] de l'application web s'est terminé en [39] ms
+13-Apr-2026 11:31:24.565 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\examples]
+13-Apr-2026 11:31:24.897 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\examples] de l'application web s'est terminé en [332] ms
+13-Apr-2026 11:31:24.898 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\host-manager]
+13-Apr-2026 11:31:24.940 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\host-manager] de l'application web s'est terminé en [42] ms
+13-Apr-2026 11:31:24.941 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\manager]
+13-Apr-2026 11:31:24.972 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\manager] de l'application web s'est terminé en [31] ms
+13-Apr-2026 11:31:24.973 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\ROOT]
+13-Apr-2026 11:31:25.005 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\ROOT] de l'application web s'est terminé en [32] ms
+13-Apr-2026 11:31:25.010 INFO [main] org.apache.coyote.AbstractProtocol.start Démarrage du gestionnaire de protocole ["http-nio-8080"]
+13-Apr-2026 11:31:25.026 INFO [main] org.apache.catalina.startup.Catalina.start Le démarrage du serveur a pris [17516] millisecondes
+13-Apr-2026 11:38:19.553 INFO [main] org.apache.catalina.core.StandardServer.await Une commande d'arrêt valide a été reçue sur le port d'arrêt, arrêt de l'instance du serveur
+13-Apr-2026 11:38:19.555 INFO [main] org.apache.coyote.AbstractProtocol.pause Le gestionnaire de protocole ["http-nio-8080"] est mis en pause
+13-Apr-2026 11:38:19.561 INFO [main] org.apache.catalina.core.StandardService.stopInternal Arrêt du service [Catalina]
+13-Apr-2026 11:38:20.032 INFO [main] org.apache.coyote.AbstractProtocol.stop Arrêt du gestionnaire de protocole ["http-nio-8080"]
+13-Apr-2026 11:38:20.044 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destruction du gestionnaire de protocole ["http-nio-8080"]
+13-Apr-2026 11:38:35.616 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom version serveur :              Apache Tomcat/11.0.1
+13-Apr-2026 11:38:35.620 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Serveur compilé :                  Nov 6 2024 19:08:24 UTC
+13-Apr-2026 11:38:35.620 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version du serveur :               11.0.1.0
+13-Apr-2026 11:38:35.621 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom de l'OS :                      Windows 11
+13-Apr-2026 11:38:35.621 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version OS :                       10.0
+13-Apr-2026 11:38:35.622 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture :                     amd64
+13-Apr-2026 11:38:35.623 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home :                        C:\Program Files\Java\jdk-24
+13-Apr-2026 11:38:35.623 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version JVM :                      24+36-3646
+13-Apr-2026 11:38:35.624 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Fournisseur de la JVM :            Oracle Corporation
+13-Apr-2026 11:38:35.624 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE :                    D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1
+13-Apr-2026 11:38:35.626 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME :                    D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1
+13-Apr-2026 11:38:35.630 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.config.file=D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\conf\logging.properties
+13-Apr-2026 11:38:35.630 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+13-Apr-2026 11:38:35.632 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djdk.tls.ephemeralDHKeySize=2048
+13-Apr-2026 11:38:35.633 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.lang=ALL-UNNAMED
+13-Apr-2026 11:38:35.634 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.io=ALL-UNNAMED
+13-Apr-2026 11:38:35.634 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util=ALL-UNNAMED
+13-Apr-2026 11:38:35.635 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+13-Apr-2026 11:38:35.636 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+13-Apr-2026 11:38:35.636 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --enable-native-access=ALL-UNNAMED
+13-Apr-2026 11:38:35.638 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.base=D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1
+13-Apr-2026 11:38:35.639 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.home=D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1
+13-Apr-2026 11:38:35.639 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.io.tmpdir=D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\temp
+13-Apr-2026 11:38:35.659 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent La librairie Apache Tomcat Native basée sur APR qui permet des performances optimales dans les environnements de production n'a pas été trouvée sur le java.library.path : [C:\Program Files\Java\jdk-24\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Users\pilot\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\pilot\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Users\pilot\AppData\Local\Muse Hub\lib;C:\Users\pilot\AppData\Local\Programs\Python\Launcher;C:\Users\pilot\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm 2023.3.2\bin;C:\Users\pilot\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\pilot\AppData\Local\Programs\Antigravity\bin;C:\Users\pilot\.rokit\bin;C:\Users\pilot\AppData\Local\Muse Hub\lib;C:\Users\pilot\AppData\Local\Programs\Python\Python312;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl;C:\Users\pilot\AppData\Roaming\Claude\local-agent-mode-sessions\skills-plugin\81561386-a5e8-4380-9e57-2756c8cff3dc\25f4c7d7-82db-42bd-935e-570476ea1c9b\bin;.]
+13-Apr-2026 11:38:35.893 INFO [main] org.apache.coyote.AbstractProtocol.init Initialisation du gestionnaire de protocole ["http-nio-8080"]
+13-Apr-2026 11:38:35.913 INFO [main] org.apache.catalina.startup.Catalina.load L'initialisation du serveur a pris [473] millisecondes
+13-Apr-2026 11:38:35.950 INFO [main] org.apache.catalina.core.StandardService.startInternal Démarrage du service [Catalina]
+13-Apr-2026 11:38:35.959 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Démarrage du moteur de Servlets : [Apache Tomcat/11.0.1]
+13-Apr-2026 11:38:35.981 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\back.war] de l'application web
+13-Apr-2026 11:38:40.702 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars Au moins un fichier JAR a été analysé pour trouver des TLDs mais il n'en contenait pas, le mode "debug" du journal peut être activé pour obtenir une liste complète de JAR scannés sans succès ; éviter d'analyser des JARs inutilement peut améliorer sensiblement le temps de démarrage et le temps de compilation des JSPs
+13-Apr-2026 11:38:49.307 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\back.war] s'est terminé en [13 325] ms
+13-Apr-2026 11:38:49.310 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front.war] de l'application web
+13-Apr-2026 11:38:51.331 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars Au moins un fichier JAR a été analysé pour trouver des TLDs mais il n'en contenait pas, le mode "debug" du journal peut être activé pour obtenir une liste complète de JAR scannés sans succès ; éviter d'analyser des JARs inutilement peut améliorer sensiblement le temps de démarrage et le temps de compilation des JSPs
+13-Apr-2026 11:38:51.344 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front.war] s'est terminé en [2 034] ms
+13-Apr-2026 11:38:51.345 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\docs]
+13-Apr-2026 11:38:51.381 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\docs] de l'application web s'est terminé en [36] ms
+13-Apr-2026 11:38:51.382 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\examples]
+13-Apr-2026 11:38:51.691 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\examples] de l'application web s'est terminé en [309] ms
+13-Apr-2026 11:38:51.692 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\host-manager]
+13-Apr-2026 11:38:51.720 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\host-manager] de l'application web s'est terminé en [28] ms
+13-Apr-2026 11:38:51.721 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\manager]
+13-Apr-2026 11:38:51.747 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\manager] de l'application web s'est terminé en [26] ms
+13-Apr-2026 11:38:51.748 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\ROOT]
+13-Apr-2026 11:38:51.768 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\ROOT] de l'application web s'est terminé en [19] ms
+13-Apr-2026 11:38:51.773 INFO [main] org.apache.coyote.AbstractProtocol.start Démarrage du gestionnaire de protocole ["http-nio-8080"]
+13-Apr-2026 11:38:51.792 INFO [main] org.apache.catalina.startup.Catalina.start Le démarrage du serveur a pris [15877] millisecondes
+13-Apr-2026 11:44:51.901 INFO [Catalina-utility-2] org.apache.catalina.startup.HostConfig.undeploy Retrait de l'application web ayant pour chemin de contexte [/back]
+13-Apr-2026 11:44:52.242 INFO [Catalina-utility-2] org.apache.catalina.startup.HostConfig.undeploy Retrait de l'application web ayant pour chemin de contexte [/front]
+13-Apr-2026 11:44:52.299 INFO [Catalina-utility-2] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\back.war] de l'application web
+13-Apr-2026 11:44:57.015 INFO [main] org.apache.catalina.core.StandardServer.await Une commande d'arrêt valide a été reçue sur le port d'arrêt, arrêt de l'instance du serveur
+13-Apr-2026 11:44:57.016 INFO [main] org.apache.coyote.AbstractProtocol.pause Le gestionnaire de protocole ["http-nio-8080"] est mis en pause
+13-Apr-2026 11:44:57.024 INFO [main] org.apache.catalina.core.StandardService.stopInternal Arrêt du service [Catalina]
+13-Apr-2026 11:44:57.027 INFO [Catalina-utility-2] org.apache.jasper.servlet.TldScanner.scanJars Au moins un fichier JAR a été analysé pour trouver des TLDs mais il n'en contenait pas, le mode "debug" du journal peut être activé pour obtenir une liste complète de JAR scannés sans succès ; éviter d'analyser des JARs inutilement peut améliorer sensiblement le temps de démarrage et le temps de compilation des JSPs
+13-Apr-2026 11:45:01.615 SEVERE [Catalina-utility-2] org.apache.catalina.startup.HostConfig.deployWAR Erreur lors du déploiement de l'archive [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\back.war] de l'application web
+	java.lang.IllegalStateException: Erreur lors du démarrage du conteneur fils
+		at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:569)
+		at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:653)
+		at org.apache.catalina.startup.HostConfig.deployWAR(HostConfig.java:933)
+		at org.apache.catalina.startup.HostConfig$DeployWar.run(HostConfig.java:1875)
+		at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)
+		at org.apache.tomcat.util.threads.InlineExecutorService.execute(InlineExecutorService.java:75)
+		at java.base/java.util.concurrent.AbstractExecutorService.submit(AbstractExecutorService.java:124)
+		at org.apache.catalina.startup.HostConfig.deployWARs(HostConfig.java:735)
+		at org.apache.catalina.startup.HostConfig.deployApps(HostConfig.java:387)
+		at org.apache.catalina.startup.HostConfig.check(HostConfig.java:1642)
+		at org.apache.catalina.startup.HostConfig.lifecycleEvent(HostConfig.java:263)
+		at org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(LifecycleBase.java:109)
+		at org.apache.catalina.core.ContainerBase.backgroundProcess(ContainerBase.java:940)
+		at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1139)
+		at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1143)
+		at org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1121)
+		at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+		at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:369)
+		at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:310)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1095)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:619)
+		at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+		at java.base/java.lang.Thread.run(Thread.java:1447)
+	Caused by: org.apache.catalina.LifecycleException: Echec de démarrage du composant [StandardEngine[Catalina].StandardHost[localhost].StandardContext[/back]]
+		at org.apache.catalina.util.LifecycleBase.handleSubClassException(LifecycleBase.java:406)
+		at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:179)
+		at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:566)
+		... 23 more
+	Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: n7/facade/model/CardColor
+		at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1817)
+		at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+		at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+		at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+		at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+		at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+		at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+		at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:977)
+		at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
+		at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+		at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+		at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+		at org.springframework.boot.web.servlet.support.SpringBootServletInitializer.run(SpringBootServletInitializer.java:205)
+		at org.springframework.boot.web.servlet.support.SpringBootServletInitializer.createRootApplicationContext(SpringBootServletInitializer.java:181)
+		at org.springframework.boot.web.servlet.support.SpringBootServletInitializer.onStartup(SpringBootServletInitializer.java:109)
+		at org.springframework.web.SpringServletContainerInitializer.onStartup(SpringServletContainerInitializer.java:171)
+		at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:4393)
+		at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)
+		... 24 more
+	Caused by: java.lang.NoClassDefFoundError: n7/facade/model/CardColor
+		at java.base/java.lang.Class.getDeclaredMethods0(Native Method)
+		at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3035)
+		at java.base/java.lang.Class.getDeclaredMethods(Class.java:2331)
+		at org.hibernate.models.internal.jdk.JdkClassDetails.getMethods(JdkClassDetails.java:216)
+		at org.hibernate.boot.model.internal.InheritanceState.determineDefaultAccessType(InheritanceState.java:268)
+		at org.hibernate.boot.model.internal.InheritanceState.getElementsToProcess(InheritanceState.java:233)
+		at org.hibernate.boot.model.internal.InheritanceState.postProcess(InheritanceState.java:166)
+		at org.hibernate.boot.model.internal.EntityBinder.handleIdentifier(EntityBinder.java:371)
+		at org.hibernate.boot.model.internal.EntityBinder.bindEntityClass(EntityBinder.java:217)
+		at org.hibernate.boot.model.internal.AnnotationBinder.bindClass(AnnotationBinder.java:247)
+		at org.hibernate.boot.model.source.internal.annotations.AnnotationMetadataSourceProcessorImpl.processEntityHierarchies(AnnotationMetadataSourceProcessorImpl.java:167)
+		at org.hibernate.boot.model.process.spi.MetadataBuildingProcess$1.processEntityHierarchies(MetadataBuildingProcess.java:318)
+		at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.coordinateProcessors(MetadataBuildingProcess.java:352)
+		at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:201)
+		at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1392)
+		at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.populateSessionFactoryBuilder(EntityManagerFactoryBuilderImpl.java:1472)
+		at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1454)
+		at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:93)
+		at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:443)
+		at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:436)
+		at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:411)
+		at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:419)
+		at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1864)
+		at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1813)
+		... 41 more
+	Caused by: java.lang.ClassNotFoundException: n7.facade.model.CardColor
+		at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1212)
+		at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1043)
+		... 65 more
+13-Apr-2026 11:45:01.619 INFO [Catalina-utility-2] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\back.war] s'est terminé en [9 320] ms
+13-Apr-2026 11:45:01.620 INFO [Catalina-utility-2] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front.war] de l'application web
+13-Apr-2026 11:45:02.004 INFO [Catalina-utility-2] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front.war] s'est terminé en [384] ms
+13-Apr-2026 11:45:02.026 INFO [main] org.apache.coyote.AbstractProtocol.stop Arrêt du gestionnaire de protocole ["http-nio-8080"]
+13-Apr-2026 11:45:02.040 INFO [main] org.apache.coyote.AbstractProtocol.destroy Destruction du gestionnaire de protocole ["http-nio-8080"]
+13-Apr-2026 11:45:02.042 WARNING [main] org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesJdbc L'application web [back] a enregistré un pilote JDBC [org.hsqldb.jdbc.JDBCDriver], mais ne l'a pas désenregistré avant l'arrêt de l'application.  Pour éviter une fuite de mémoire, le pilote JDBC a été désenregistré de force.
+13-Apr-2026 11:45:20.584 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom version serveur :              Apache Tomcat/11.0.1
+13-Apr-2026 11:45:20.587 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Serveur compilé :                  Nov 6 2024 19:08:24 UTC
+13-Apr-2026 11:45:20.589 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version du serveur :               11.0.1.0
+13-Apr-2026 11:45:20.589 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Nom de l'OS :                      Windows 11
+13-Apr-2026 11:45:20.590 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version OS :                       10.0
+13-Apr-2026 11:45:20.591 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture :                     amd64
+13-Apr-2026 11:45:20.591 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home :                        C:\Program Files\Java\jdk-24
+13-Apr-2026 11:45:20.592 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Version JVM :                      24+36-3646
+13-Apr-2026 11:45:20.593 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Fournisseur de la JVM :            Oracle Corporation
+13-Apr-2026 11:45:20.593 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE :                    D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1
+13-Apr-2026 11:45:20.595 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME :                    D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1
+13-Apr-2026 11:45:20.599 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.config.file=D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\conf\logging.properties
+13-Apr-2026 11:45:20.600 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+13-Apr-2026 11:45:20.600 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djdk.tls.ephemeralDHKeySize=2048
+13-Apr-2026 11:45:20.602 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.lang=ALL-UNNAMED
+13-Apr-2026 11:45:20.603 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.io=ALL-UNNAMED
+13-Apr-2026 11:45:20.604 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util=ALL-UNNAMED
+13-Apr-2026 11:45:20.605 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.base/java.util.concurrent=ALL-UNNAMED
+13-Apr-2026 11:45:20.605 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --add-opens=java.rmi/sun.rmi.transport=ALL-UNNAMED
+13-Apr-2026 11:45:20.606 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : --enable-native-access=ALL-UNNAMED
+13-Apr-2026 11:45:20.606 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.base=D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1
+13-Apr-2026 11:45:20.607 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Dcatalina.home=D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1
+13-Apr-2026 11:45:20.608 INFO [main] org.apache.catalina.startup.VersionLoggerListener.log Argument de la ligne de commande : -Djava.io.tmpdir=D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\temp
+13-Apr-2026 11:45:20.630 INFO [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent La librairie Apache Tomcat Native basée sur APR qui permet des performances optimales dans les environnements de production n'a pas été trouvée sur le java.library.path : [C:\Program Files\Java\jdk-24\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Users\pilot\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\pilot\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\java8path;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\Program Files\dotnet;C:\Users\pilot\AppData\Local\Muse Hub\lib;C:\Users\pilot\AppData\Local\Programs\Python\Launcher;C:\Users\pilot\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\PyCharm 2023.3.2\bin;C:\Users\pilot\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\pilot\AppData\Local\Programs\Antigravity\bin;C:\Users\pilot\.rokit\bin;C:\Users\pilot\AppData\Local\Muse Hub\lib;C:\Users\pilot\AppData\Local\Programs\Python\Python312;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl;C:\Users\pilot\AppData\Roaming\Claude\local-agent-mode-sessions\skills-plugin\81561386-a5e8-4380-9e57-2756c8cff3dc\25f4c7d7-82db-42bd-935e-570476ea1c9b\bin;.]
+13-Apr-2026 11:45:20.908 INFO [main] org.apache.coyote.AbstractProtocol.init Initialisation du gestionnaire de protocole ["http-nio-8080"]
+13-Apr-2026 11:45:20.932 INFO [main] org.apache.catalina.startup.Catalina.load L'initialisation du serveur a pris [562] millisecondes
+13-Apr-2026 11:45:20.989 INFO [main] org.apache.catalina.core.StandardService.startInternal Démarrage du service [Catalina]
+13-Apr-2026 11:45:20.990 INFO [main] org.apache.catalina.core.StandardEngine.startInternal Démarrage du moteur de Servlets : [Apache Tomcat/11.0.1]
+13-Apr-2026 11:45:21.010 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\back.war] de l'application web
+13-Apr-2026 11:45:26.772 INFO [main] org.apache.jasper.servlet.TldScanner.scanJars Au moins un fichier JAR a été analysé pour trouver des TLDs mais il n'en contenait pas, le mode "debug" du journal peut être activé pour obtenir une liste complète de JAR scannés sans succès ; éviter d'analyser des JARs inutilement peut améliorer sensiblement le temps de démarrage et le temps de compilation des JSPs
+13-Apr-2026 11:45:35.436 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\back.war] s'est terminé en [14 424] ms
+13-Apr-2026 11:45:35.438 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front.war] de l'application web
+13-Apr-2026 11:45:35.866 INFO [main] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front.war] s'est terminé en [428] ms
+13-Apr-2026 11:45:35.872 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\docs]
+13-Apr-2026 11:45:35.897 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\docs] de l'application web s'est terminé en [25] ms
+13-Apr-2026 11:45:35.898 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\examples]
+13-Apr-2026 11:45:36.312 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\examples] de l'application web s'est terminé en [414] ms
+13-Apr-2026 11:45:36.314 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\host-manager]
+13-Apr-2026 11:45:36.355 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\host-manager] de l'application web s'est terminé en [41] ms
+13-Apr-2026 11:45:36.357 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\manager]
+13-Apr-2026 11:45:36.391 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\manager] de l'application web s'est terminé en [35] ms
+13-Apr-2026 11:45:36.393 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Déploiement du répertoire d'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\ROOT]
+13-Apr-2026 11:45:36.413 INFO [main] org.apache.catalina.startup.HostConfig.deployDirectory Le déploiement du répertoire [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\ROOT] de l'application web s'est terminé en [21] ms
+13-Apr-2026 11:45:36.417 INFO [main] org.apache.coyote.AbstractProtocol.start Démarrage du gestionnaire de protocole ["http-nio-8080"]
+13-Apr-2026 11:45:36.435 INFO [main] org.apache.catalina.startup.Catalina.start Le démarrage du serveur a pris [15500] millisecondes
+13-Apr-2026 11:53:16.679 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.undeploy Retrait de l'application web ayant pour chemin de contexte [/front]
+13-Apr-2026 11:53:16.699 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front.war] de l'application web
+13-Apr-2026 11:53:17.016 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front.war] s'est terminé en [317] ms
+13-Apr-2026 11:59:07.711 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.undeploy Retrait de l'application web ayant pour chemin de contexte [/front]
+13-Apr-2026 11:59:07.725 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployWAR Déploiement de l'archive [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front.war] de l'application web
+13-Apr-2026 11:59:08.026 INFO [Catalina-utility-1] org.apache.catalina.startup.HostConfig.deployWAR Le déploiement de l'archive de l'application web [D:\CODING\Projet-Application-Web\apache-tomcat-11.0.1\webapps\front.war] s'est terminé en [301] ms

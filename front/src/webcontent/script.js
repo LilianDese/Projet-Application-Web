@@ -8,6 +8,12 @@ let currentPseudo = null;
 let currentJoueurId = null;
 let messageTimer = null;
 
+
+//=======================================
+//MUSIQUE
+//=======================================
+
+//init
 function initBackgroundMusic() {
   /** @type {HTMLAudioElement | null} */
   const audio = document.getElementById('bg-music');
@@ -17,8 +23,7 @@ function initBackgroundMusic() {
   audio.loop = true;
   audio.preload = 'auto';
 
-  // NOTE: Les navigateurs modernes peuvent bloquer l'audio sans geste utilisateur.
-  // Ici: best-effort -> on tente autoplay, sinon on démarre en muet, puis on démute au 1er geste.
+  //jouer dès le début si possible
   const tryPlay = async () => {
     if (!audio.paused) return true;
     try {
@@ -29,11 +34,11 @@ function initBackgroundMusic() {
     }
   };
 
+//débute la musique
   const start = async () => {
     const ok = await tryPlay();
     if (ok) return;
 
-    // fallback: autoplay muet
     const wasMuted = audio.muted;
     audio.muted = true;
     const okMuted = await tryPlay();
@@ -52,14 +57,15 @@ function initBackgroundMusic() {
     window.addEventListener('keydown', unmuteOnGesture, true);
   };
 
-  // Navigateurs: lecture audio autorisée uniquement après geste utilisateur
   window.addEventListener('pointerdown', () => { void tryPlay(); }, true);
   window.addEventListener('keydown', () => { void tryPlay(); }, true);
 
-  // Tente un démarrage immédiat (best-effort)
+ 
   void start();
 }
 
+
+//bouton de volume
 function initVolumeSlider() {
   const audio = document.getElementById('bg-music');
   const slider = document.getElementById('volume');
@@ -75,7 +81,12 @@ function initVolumeSlider() {
   });
 }
 
-// Petit mouvement des cartes (JS léger) : update d'une variable CSS
+
+//=====================================
+//ANIMATIONS CARTES
+//=====================================
+
+// Petit mouvement des cartes
 const animCarte = Array.from(document.querySelectorAll('.card')).map((el) => {
   const css = getComputedStyle(el);
   const amp = parseFloat(css.getPropertyValue('--animCarte')) || 10;
@@ -95,7 +106,12 @@ function updateAnimCarte(timeSec) {
   }
 }
 
-// Palette de couleurs
+
+//=======================================
+//FONDS ANIME
+//=======================================
+
+//couleurs
 const COLORS = [
   'rgba(120, 170, 255, 0.22)',
   'rgba(90, 220, 255, 0.16)',
@@ -111,6 +127,7 @@ let width = 0;
 let height = 0;
 let dpr = 1;
 
+
 function rand(min, max) {
   return Math.random() * (max - min) + min;
 }
@@ -119,6 +136,8 @@ function clamp(v, min, max) {
   return Math.min(max, Math.max(min, v));
 }
 
+
+//initialisation des fonds
 function resize() {
   width = Math.max(1, window.innerWidth);
   height = Math.max(1, window.innerHeight);
@@ -153,7 +172,7 @@ function resize() {
     };
   });
 }
-
+//fait rebondir les fonds sur les bords
 function wrap(Fond) {
   const m = Fond.r * 1.8;
   if (Fond.x < -m) Fond.x = width + m;
@@ -162,6 +181,7 @@ function wrap(Fond) {
   if (Fond.y > height + m) Fond.y = -m;
 }
 
+//dessine un fond
 function drawFond(Fond) {
   const grad = ctx.createRadialGradient(Fond.x, Fond.y, 0, Fond.x, Fond.y, Fond.r);
   grad.addColorStop(0, Fond.color);
@@ -173,9 +193,11 @@ function drawFond(Fond) {
   ctx.fill();
 }
 
+
 let last = performance.now();
 let t = 0;
 
+//boucle d'animation
 function frame(now) {
   const dt = Math.min(0.033, (now - last) / 1000);
   last = now;
@@ -203,6 +225,7 @@ function frame(now) {
   requestAnimationFrame(frame);
 }
 
+//joue qd on ouvre la page ou qd on redimensionne
 window.addEventListener('resize', resize, { passive: true });
 resize();
 initBackgroundMusic();
@@ -252,32 +275,38 @@ function setPartMessage(text, isError) {
     }, ms);
   }
 }
-
+//===============================
+//GESTION DE LOGIN ET AFFICHAGE
+//===============================
 function setCurrentUser(pseudo) {
   const el = document.getElementById('current-user');
   if (!el) return;
   el.textContent = pseudo ? `Connecté : ${pseudo}` : '';
 }
 
+//ecran après login
 function setLoggedIn(pseudo, id) {
   currentPseudo = pseudo;
-  currentJoueurId = id;
+  currentJoueurId = (id === null || id === undefined) ? null : Number(id);
   setCurrentUser(pseudo);
 
   const actions = document.getElementById('menu-actions');
   const form = document.getElementById('auth-form');
   const logout = document.getElementById('btn-logout');
   const leaderboardBtn = document.getElementById('btn-leaderboard');
-  const listGamesBtn = document.getElementById('btn-list-games');
   const createGameBtn = document.getElementById('btn-create-game');
+  const gamesDock = document.getElementById('games-dock');
   if (actions) actions.style.display = 'none';
   if (form) form.style.display = 'none';
   if (logout) logout.style.display = 'inline-block';
   if (leaderboardBtn) leaderboardBtn.style.display = 'inline-block';
-  if (listGamesBtn) listGamesBtn.style.display = 'inline-block';
   if (createGameBtn) createGameBtn.style.display = 'inline-block';
+  if (gamesDock) gamesDock.style.display = 'block';
+
+  void refreshGamesDock();
 }
 
+//ecran après logout
 function setLoggedOut() {
   currentPseudo = null;
   currentJoueurId = null;
@@ -289,21 +318,25 @@ function setLoggedOut() {
   const input = document.getElementById('pseudo');
   const logout = document.getElementById('btn-logout');
   const leaderboardBtn = document.getElementById('btn-leaderboard');
-  const listGamesBtn = document.getElementById('btn-list-games');
   const createGameBtn = document.getElementById('btn-create-game');
   const overlay = document.getElementById('leaderboard-overlay');
-  const gamesOverlay = document.getElementById('games-overlay');
+  const gamesDock = document.getElementById('games-dock');
+  const partForm = document.getElementById('part-form');
+  const partInput = document.getElementById('part-name');
   if (actions) actions.style.display = 'flex';
   if (form) form.style.display = 'none';
   if (input) input.value = '';
   if (logout) logout.style.display = 'none';
   if (leaderboardBtn) leaderboardBtn.style.display = 'none';
-  if (listGamesBtn) listGamesBtn.style.display = 'none';
   if (createGameBtn) createGameBtn.style.display = 'none';
   if (overlay) overlay.style.display = 'none';
-  if (gamesOverlay) gamesOverlay.style.display = 'none';
+  if (gamesDock) gamesDock.style.display = 'none';
+  if (partForm) partForm.style.display = 'none';
+  if (partInput) partInput.value = '';
+  setPartMessage('', false);
 }
 
+//leadearboard
 function renderLeaderboard(joueurs) {
   const container = document.getElementById('leaderboard-content');
   if (!container) return;
@@ -324,6 +357,7 @@ function renderLeaderboard(joueurs) {
   container.appendChild(ul);
 }
 
+//ouvre le leaderboard
 async function openLeaderboard() {
   if (!currentPseudo) return;
   const overlay = document.getElementById('leaderboard-overlay');
@@ -339,12 +373,13 @@ async function openLeaderboard() {
     container.textContent = 'Erreur réseau';
   }
 }
-
+//ferme le leaderboard
 function closeLeaderboard() {
   const overlay = document.getElementById('leaderboard-overlay');
   if (overlay) overlay.style.display = 'none';
 }
 
+//Form de connection ou nouveau joueur
 function showAuthForm(mode) {
   authMode = mode;
   const form = document.getElementById('auth-form');
@@ -369,16 +404,17 @@ function showPartForm() {
   setPartMessage('', false);
   input.focus();
 }
-
+//get les joueurs
 async function fetchJoueurs() {
-  const res = await fetch('/back/joueurs', { headers: { Accept: 'application/json' } });
+  const res = await fetch('./api/joueurs', { headers: { Accept: 'application/json' } });
   if (!res.ok) throw new Error(String(res.status));
   const data = await res.json();
   return Array.isArray(data) ? data : [];
 }
 
+//get les parties
 async function fetchGames() {
-  const res = await fetch('/back/games', { headers: { Accept: 'application/json' } });
+  const res = await fetch('./api/games', { headers: { Accept: 'application/json' } });
   if (!res.ok) throw new Error(String(res.status));
   const data = await res.json();
   return Array.isArray(data) ? data : [];
@@ -388,62 +424,67 @@ function renderGames(games) {
   const container = document.getElementById('games-content');
   if (!container) return;
 
+  container.innerHTML = '';
+
   if (!Array.isArray(games) || games.length === 0) {
-    container.textContent = 'Aucune partie trouvée';
+    const empty = document.createElement('div');
+    empty.className = 'games-empty';
+    empty.textContent = 'Aucune partie trouvée';
+    container.appendChild(empty);
     return;
   }
 
-  const ul = document.createElement('ul');
-  ul.className = 'leaderboard-list';
+  //========================
+  //AFFICHAGE DES PARTIES
+  //========================
   for (const game of games) {
-    const li = document.createElement('li');
-    li.style.display = 'flex';
-    li.style.justifyContent = 'space-between';
-    li.style.alignItems = 'center';
+    const card = document.createElement('div');
+    card.className = 'game-card';
 
-    const title = game?.name ? `${game.name} (ID ${game.id})` : `Partie ${game.id}`;
-    const span = document.createElement('span');
-    span.textContent = `${title} · ${game.status} · ${game.playerCount} joueur(s)`;
-    li.appendChild(span);
+    const titleText = game?.name ? `${game.name}` : `Partie ${game?.id ?? ''}`.trim();
+    const title = document.createElement('div');
+    title.className = 'game-title';
+    title.textContent = game?.id != null ? `${titleText} (ID ${game.id})` : titleText;
+    card.appendChild(title);
 
-    if (game.status === 'LOBBY') {
-       const btn = document.createElement('button');
-       btn.className = 'btn btn-small';
-       btn.textContent = 'Rejoindre';
-       btn.onclick = () => joinGameAndLobby(game.id);
-       li.appendChild(btn);
+    const meta = document.createElement('div');
+    meta.className = 'game-meta';
+    meta.textContent = `${game?.status ?? ''} · ${game?.playerCount ?? 0} joueur(s)`;
+    card.appendChild(meta);
+
+    if (game?.status === 'LOBBY') {
+      const btn = document.createElement('button');
+      btn.className = 'btn btn-small';
+      btn.textContent = 'Rejoindre';
+      btn.onclick = () => joinGameAndLobby(game.id);
+      card.appendChild(btn);
     }
 
-    ul.appendChild(li);
+    container.appendChild(card);
   }
+}
+//redresh la liste des parties
+async function refreshGamesDock() {
+  if (!currentPseudo) return;
+  const container = document.getElementById('games-content');
+  if (!container) return;
 
   container.innerHTML = '';
-  container.appendChild(ul);
-}
+  const loading = document.createElement('div');
+  loading.className = 'games-empty';
+  loading.textContent = 'Chargement...';
+  container.appendChild(loading);
 
-async function openGamesList() {
-  if (!currentPseudo) return;
-  const overlay = document.getElementById('games-overlay');
-  const container = document.getElementById('games-content');
-  if (!overlay || !container) return;
-
-  overlay.style.display = 'grid';
-  container.textContent = 'Chargement...';
   try {
     const games = await fetchGames();
     renderGames(games);
   } catch {
-    container.textContent = 'Erreur réseau';
+    loading.textContent = 'Erreur réseau';
   }
 }
 
-function closeGamesList() {
-  const overlay = document.getElementById('games-overlay');
-  if (overlay) overlay.style.display = 'none';
-}
-
 async function createGame(name) {
-  const res = await fetch('/back/games', {
+  const res = await fetch('./api/games', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
     body: JSON.stringify({ name, creatorId: currentJoueurId }),
@@ -451,25 +492,27 @@ async function createGame(name) {
   return res;
 }
 
+//ajoute une partie
 async function askCreateGame() {
   if (!currentPseudo) return;
   showPartForm();
 }
 
+//ajoute un joueur
 async function createJoueur(pseudo) {
-  const res = await fetch('/back/joueurs', {
+  const res = await fetch('./api/joueurs', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
     body: JSON.stringify({ pseudo, password: '' }),
   });
   return res;
 }
-
+//crop pseudosi trop long
 function normalizePseudo(value) {
   const s = (value ?? '').trim();
   return s.length ? s : null;
 }
-
+//Ecran de  login ou de création de compte
 function initAuthUi() {
   const loginBtn = document.getElementById('btn-login');
   const regBtn = document.getElementById('btn-register');
@@ -477,10 +520,8 @@ function initAuthUi() {
   const input = document.getElementById('pseudo');
   const logoutBtn = document.getElementById('btn-logout');
   const leaderboardBtn = document.getElementById('btn-leaderboard');
-  const listGamesBtn = document.getElementById('btn-list-games');
   const createGameBtn = document.getElementById('btn-create-game');
   const leaderboardBackBtn = document.getElementById('btn-leaderboard-back');
-  const gamesBackBtn = document.getElementById('btn-games-back');
   if (!loginBtn || !regBtn || !form || !input) return;
 
   loginBtn.addEventListener('click', () => showAuthForm('login'));
@@ -498,12 +539,6 @@ function initAuthUi() {
     });
   }
 
-  if (listGamesBtn) {
-    listGamesBtn.addEventListener('click', () => {
-      void openGamesList();
-    });
-  }
-
   if (createGameBtn) {
     createGameBtn.addEventListener('click', () => {
       void askCreateGame();
@@ -513,12 +548,6 @@ function initAuthUi() {
   if (leaderboardBackBtn) {
     leaderboardBackBtn.addEventListener('click', () => {
       closeLeaderboard();
-    });
-  }
-
-  if (gamesBackBtn) {
-    gamesBackBtn.addEventListener('click', () => {
-      closeGamesList();
     });
   }
 
@@ -583,6 +612,7 @@ if (partForm && partInput) {
         setPartMessage(`Partie créée : ${data.name ?? data.id}`, false);
         partForm.style.display = 'none';
         partInput.value = '';
+        void refreshGamesDock();
         openLobby(data.id);
         return;
       }
@@ -594,43 +624,120 @@ if (partForm && partInput) {
   });
 }
 
+//========================
+//Gestion de lobby
+//========================
+
 let lobbyTimer = null;
 let activeLobbyGameId = null;
+let lobbyLoadFailures = 0;
+let lobbyLeavingInProgress = false;
 
 async function joinGame(gameId) {
-  const res = await fetch(`/back/games/${gameId}/join?joueurId=${currentJoueurId}`, { method: 'POST' });
+  let res = await fetch(`./api/games/${gameId}/join?joueurId=${currentJoueurId}`, { method: 'POST' });
+  if (res.status === 404) {
+    // fallback si le proxy /front/api est mal routé sur ce Tomcat
+    res = await fetch(`/back/games/${gameId}/join?joueurId=${currentJoueurId}`, { method: 'POST' });
+  }
   if (!res.ok) throw new Error('Erreur join');
   return res;
 }
 
 async function joinGameAndLobby(gameId) {
-   try {
-     await joinGame(gameId);
-     closeGamesList();
-     openLobby(gameId);
-   } catch(e) {
-     alert('Erreur: impossible de rejoindre. ' + e.message);
-   }
+  // Déjà dans ce lobby -> juste ouvrir
+  if (activeLobbyGameId && Number(activeLobbyGameId) === Number(gameId)) {
+    openLobby(gameId);
+    return;
+  }
+
+  // Déjà dans un autre lobby -> quitter avant de rejoindre
+  if (activeLobbyGameId && Number(activeLobbyGameId) !== Number(gameId)) {
+    try {
+      const resLeave = await leaveGame(activeLobbyGameId);
+      if (resLeave.status !== 204 && !resLeave.ok) {
+        const t = await resLeave.text();
+        // Ne pas fermer le lobby courant si on n'a pas réellement quitté
+        setLobbyMessage(`Erreur (${resLeave.status}): ` + (t || 'Impossible de quitter la partie'));
+        return;
+      }
+    } catch {
+      setLobbyMessage('Erreur réseau: impossible de quitter la partie.');
+      return;
+    }
+
+    // Ici, leave réussi -> on peut fermer l'ancien lobby
+    closeLobby();
+  }
+
+  try {
+    await joinGame(gameId);
+    void refreshGamesDock();
+    openLobby(gameId);
+  } catch(e) {
+    alert('Erreur: impossible de rejoindre. ' + e.message);
+  }
 }
 
 async function fetchGame(gameId) {
-  const res = await fetch(`/back/games/${gameId}`);
-  if (!res.ok) throw new Error('Erreur fetch game');
+  let res = null;
+  try {
+    res = await fetch(`./api/games/${gameId}`);
+  } catch {
+    res = null;
+  }
+
+  // fallback si le proxy /front/api est instable
+  if (!res || res.status === 404 || res.status >= 500) {
+    try {
+      const backRes = await fetch(`/back/games/${gameId}`);
+      if (backRes.ok) {
+        return await backRes.json();
+      }
+      // si le fallback échoue aussi, on garde la réponse la plus informative
+      if (!res || !res.ok) {
+        res = backRes;
+      }
+    } catch {
+      // on laisse la logique d'erreur ci-dessous gérer
+    }
+  }
+
+  if (!res || !res.ok) {
+    const err = new Error('Erreur fetch game');
+    err.status = res ? res.status : 0;
+    throw err;
+  }
   return await res.json();
 }
 
 async function startGame(gameId) {
-  const res = await fetch(`/back/games/${gameId}/start?joueurId=${currentJoueurId}`, { method: 'POST' });
+  let res = await fetch(`./api/games/${gameId}/start?joueurId=${currentJoueurId}`, { method: 'POST' });
+  if (res.status === 404) {
+    // fallback si le proxy /front/api est mal routé sur ce Tomcat
+    res = await fetch(`/back/games/${gameId}/start?joueurId=${currentJoueurId}`, { method: 'POST' });
+  }
   if (!res.ok) {
      const t = await res.text();
-     alert('Erreur: ' + (t || 'Impossible de lancer la partie'));
+     alert(`Erreur (${res.status}): ` + (t || 'Impossible de lancer la partie'));
   }
+}
+
+async function leaveGame(gameId) {
+  let res = await fetch(`./api/games/${gameId}/leave?joueurId=${currentJoueurId}`, { method: 'POST' });
+  if (res.status === 404) {
+    // fallback si le proxy /front/api est mal routé sur ce Tomcat
+    res = await fetch(`/back/games/${gameId}/leave?joueurId=${currentJoueurId}`, { method: 'POST' });
+  }
+  return res;
 }
 
 function openLobby(gameId) {
   activeLobbyGameId = gameId;
+  lobbyLoadFailures = 0;
   const overlay = document.getElementById('lobby-overlay');
   if (overlay) overlay.style.display = 'grid';
+
+  setLobbyMessage('');
   
   if (lobbyTimer) clearInterval(lobbyTimer);
   updateLobby();
@@ -642,17 +749,56 @@ function closeLobby() {
   if (lobbyTimer) clearInterval(lobbyTimer);
   const overlay = document.getElementById('lobby-overlay');
   if (overlay) overlay.style.display = 'none';
+
+  setLobbyMessage('');
+}
+
+function setLobbyMessage(text) {
+  const msg = document.getElementById('lobby-message');
+  if (!msg) return;
+  msg.textContent = text || '';
+}
+
+async function quitLobby() {
+  if (lobbyLeavingInProgress) return;
+  const gameId = activeLobbyGameId;
+  if (!gameId) {
+    closeLobby();
+    return;
+  }
+
+  lobbyLeavingInProgress = true;
+  try {
+    const res = await leaveGame(gameId);
+    // 204: supprimée automatiquement ; 404: déjà supprimée/plus trouvée => considéré comme quitté
+    if (res.status === 204 || res.ok || res.status === 404) {
+      closeLobby();
+      void refreshGamesDock();
+      return;
+    }
+
+    const t = await res.text();
+    // IMPORTANT: rester sur l'écran lobby tant que le leave n'a pas réussi
+    setLobbyMessage(`Erreur (${res.status}): ` + (t || 'Impossible de quitter la partie'));
+  } catch {
+    setLobbyMessage('Erreur réseau: impossible de quitter la partie.');
+  } finally {
+    lobbyLeavingInProgress = false;
+  }
 }
 
 async function updateLobby() {
    if (!activeLobbyGameId) return;
    try {
      const game = await fetchGame(activeLobbyGameId);
+     lobbyLoadFailures = 0;
+     setLobbyMessage('');
      document.getElementById('lobby-title').textContent = `Salon: ${game.name || game.id}`;
      
      if (game.status === 'IN_PROGRESS') {
+       const gameId = activeLobbyGameId; // sauvegarder avant que closeLobby() ne le mette à null
        closeLobby();
-       alert('Partie lancée - Le jeu commence !');
+       openGamePage(gameId);
        return;
      }
      
@@ -668,7 +814,7 @@ async function updateLobby() {
      
      const btnStart = document.getElementById('btn-lobby-start');
      if (btnStart) {
-       if (game.creatorId === currentJoueurId) {
+       if (Number(game.creatorId) === Number(currentJoueurId)) {
           btnStart.style.display = 'inline-block';
           btnStart.disabled = game.playerCount < 3;
        } else {
@@ -676,13 +822,34 @@ async function updateLobby() {
        }
      }
    } catch (e) {
-     console.error(e);
+     // Ne pas fermer sur une simple erreur réseau.
+     // On ferme seulement si la partie n'existe plus.
+     const status = e?.status;
+     if (status === 404) {
+       closeLobby();
+       void refreshGamesDock();
+       return;
+     }
+     lobbyLoadFailures += 1;
+     // Evite le flash d'erreur transitoire juste après un join
+     if (lobbyLoadFailures >= 2) {
+       setLobbyMessage('Erreur réseau: impossible de charger le lobby.');
+     }
    }
 }
 
-document.getElementById('btn-lobby-quit')?.addEventListener('click', closeLobby);
+document.getElementById('btn-lobby-quit')?.addEventListener('click', () => { void quitLobby(); });
 document.getElementById('btn-lobby-start')?.addEventListener('click', () => {
     if (activeLobbyGameId) startGame(activeLobbyGameId);
 });
 
+function openGamePage(gameId) {
+  const url = new URL('./game.html', window.location.href);
+  url.searchParams.set('gameId',  gameId);
+  url.searchParams.set('joueurId', currentJoueurId);
+  url.searchParams.set('pseudo',   currentPseudo ?? '');
+  window.location.href = url.toString();
+}
+
 initAuthUi();
+setLoggedOut();

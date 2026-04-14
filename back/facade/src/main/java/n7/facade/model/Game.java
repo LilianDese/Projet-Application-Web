@@ -52,6 +52,10 @@ public class Game {
 	/** Index du joueur dont c'est le tour dans la liste players */
 	private int currentPlayerIndex;
 
+	/** Couleur active (peut différer de topCard.color après un WILD joué) */
+	@Enumerated(EnumType.STRING)
+	private CardColor currentColor;
+
 	@Column(nullable = false)
 	private String name;
 
@@ -210,6 +214,14 @@ public class Game {
 
 	public void setTopCard(Card topCard) {
 		this.topCard = topCard;
+	}
+
+	public CardColor getCurrentColor() {
+		return currentColor;
+	}
+
+	public void setCurrentColor(CardColor currentColor) {
+		this.currentColor = currentColor;
 	}
 
 	public Joueur getCreator() {
