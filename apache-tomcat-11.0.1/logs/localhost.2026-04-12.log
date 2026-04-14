@@ -1,0 +1,4 @@
+12-Apr-2026 15:08:11.045 INFO [Thread-3] org.apache.catalina.core.ApplicationContext.log Destroying Spring FrameworkServlet 'dispatcherServlet'
+12-Apr-2026 15:08:11.045 INFO [Thread-3] org.apache.catalina.core.ApplicationContext.log Closing Spring root WebApplicationContext
+12-Apr-2026 15:08:11.212 INFO [Thread-3] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+12-Apr-2026 15:08:11.212 INFO [Thread-3] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
