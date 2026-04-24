@@ -1,0 +1,411 @@
+:root {
+  --bg: #050a24; /* bleu nuit uni */
+
+  --card-w: clamp(120px, 18vw, 190px);
+  --spread: clamp(85px, 12vw, 150px);
+  --card-h: calc(var(--card-w) * 1.35);
+  --cards-top: 120px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+audio {
+  display: none;
+}
+
+#rondFond {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+
+  /* Gros flou pour le rendu “lampe à lave” */
+  filter: blur(60px) saturate(165%);
+}
+
+/* Calque de blur “par-dessus” (backdrop-filter)
+   -> si non supporté par le navigateur, ça reste simplement un voile doux */
+#blur-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+
+  background: rgba(5, 10, 36, 0.14);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* Cartes au centre (structure HTML classique) */
+.cards-center {
+  position: fixed;
+  inset: 0;
+  display: block;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Remonter les cartes */
+.cards-fan {
+  pointer-events: auto;
+  margin-top: var(--cards-top);
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+
+  width: calc(var(--card-w) * 2 + var(--spread) * 2);
+  height: var(--card-h);
+}
+
+/* Titre + boutons  */
+.cards-ui {
+  position: absolute;
+  left: 50%;
+  top: 225px;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 25;
+  pointer-events: none;
+}
+
+.cards-ui > * {
+  pointer-events: auto;
+}
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--card-w);
+  height: auto;
+  transform-origin: center;
+  user-select: none;
+  will-change: transform;
+  --x: -50%;
+  --y: -50%;
+  --rot: 0deg;
+  --scale: 1;
+  --animCarte: 10px;
+
+  /* Animé via JS  */
+  --animCarteOffset: 0px;
+  transform: translate3d(var(--x), var(--y), 0) translate3d(0, var(--animCarteOffset), 0) rotate(var(--rot))
+    scale(var(--scale));
+}
+
+.card-left {
+  z-index: 1;
+  --x: calc(-50% - var(--spread));
+  --y: -50%;
+  --rot: -12deg;
+  /*Distance flottement*/
+  --animCarte: 12px;
+}
+
+.card-right {
+  z-index: 1;
+  --x: calc(-50% + var(--spread));
+  --y: -50%;
+  --rot: 12deg;
+  /*Distance flottement*/
+  --animCarte: 10px;
+}
+
+.card-deck {
+  z-index: 2;
+  --x: -50%;
+  --y: -56%;
+  --scale: 1.15;
+  /*Distance flottement*/
+  --animCarte: 14px;
+}
+
+.title {
+  margin: 0 0 18px;
+  text-align: center;
+  color: #fff;
+  font-family: "Luckiest Guy", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 400;
+  font-size: clamp(88px, 10vw, 140px);
+  line-height: 0.98;
+  letter-spacing: 1px;
+  text-shadow:
+    0 2px 0 rgba(0, 0, 0, 0.55),
+    2px 0 0 rgba(0, 0, 0, 0.55),
+    -2px 0 0 rgba(0, 0, 0, 0.55),
+    0 -2px 0 rgba(0, 0, 0, 0.55),
+    0 0 18px rgba(0, 0, 0, 0.35);
+}
+
+.menu-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.menu-panel {
+  position: fixed;
+  left: 50%;
+  top: calc(var(--cards-top) + var(--card-h) + 130px);
+  transform: translateX(-50%);
+  z-index: 30;
+  pointer-events: none;
+}
+
+.menu-panel > * {
+  pointer-events: auto;
+}
+
+.auth-form {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 8px;
+  width: min(520px, calc(100vw - 32px));
+}
+
+.auth-panel {
+  position: fixed;
+  left: 50%;
+  bottom: 92px;
+  transform: translateX(-50%);
+  z-index: 30;
+  width: min(520px, calc(100vw - 32px));
+}
+
+.input {
+  flex: 1;
+  min-width: 140px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(5, 10, 36, 0.55);
+  color: #fff;
+  font: 16px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  outline: none;
+}
+
+.btn {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(5, 10, 36, 0.55);
+  color: #fff;
+  font: 600 15px/1 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.message {
+  min-height: 20px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.92);
+  font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  padding: 4px 12px;
+}
+
+.message.error {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 0, 0, 0.35);
+}
+
+/* HUD */
+.hud-left {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 30;
+}
+
+.volume {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(5, 10, 36, 0.55);
+  color: #fff;
+  font: 14px/1 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.volume input[type='range'] {
+  width: 160px;
+}
+
+.hud-right {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 30;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.current-user {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(5, 10, 36, 0.55);
+  color: #fff;
+  font: 600 14px/1 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  min-height: 18px;
+  min-width: 120px;
+  text-align: right;
+}
+
+.btn-small {
+  padding: 10px 12px;
+}
+
+/* Leaderboard overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.panel {
+  width: min(560px, calc(100vw - 32px));
+  max-height: min(520px, calc(100vh - 32px));
+  overflow: hidden;
+  border-radius: 14px;
+  background: rgba(5, 10, 36, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.panel-head {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.panel-title {
+  text-align: center;
+  font: 800 18px/1.1 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.panel-spacer {
+  justify-self: end;
+}
+
+.panel-body {
+  padding: 12px 14px;
+  overflow: auto;
+  max-height: calc(min(520px, calc(100vh - 32px)) - 56px);
+}
+
+.leaderboard-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.leaderboard-list li {
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 0 0 8px;
+}
+
+/* Parties (affichage permanent après connexion) */
+.games-dock {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 40;
+  width: min(980px, calc(100vw - 32px));
+  pointer-events: none;
+  display: none;
+}
+
+.games-panel {
+  width: 100%;
+  max-height: min(560px, calc(100vh - 32px));
+  pointer-events: auto;
+}
+
+.games-layout {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 14px;
+  align-items: start;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  align-content: start;
+}
+
+.games-empty {
+  grid-column: 1 / -1;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+.game-card {
+  padding: 10px 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: grid;
+  gap: 8px;
+}
+
+.game-title {
+  font: 800 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.game-meta {
+  font: 13px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.games-side {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.games-create-form {
+  width: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.games-create-form .input,
+.games-create-form .btn {
+  width: 100%;
+}

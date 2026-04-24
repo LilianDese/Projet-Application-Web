@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UNO — Partie en cours</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./game.css" />
+  </head>
+  <body>
+    <canvas id="rondFond" aria-hidden="true"></canvas>
+    <div id="blur-overlay" aria-hidden="true"></div>
+
+    <audio id="bg-music" src="assets/sons/background.mp3" loop preload="auto" aria-hidden="true"></audio>
+
+    <div class="hud-left" aria-label="Volume">
+      <label class="volume">
+        <span>Volume</span>
+        <input id="volume" type="range" min="0" max="100" value="3" />
+      </label>
+    </div>
+
+    <!-- Sélecteur de couleur (WILD) -->
+    <div id="color-picker" class="color-picker" style="display:none" aria-modal="true" role="dialog" aria-label="Choisir une couleur">
+      <div class="color-picker-panel">
+        <p>Choisir une couleur</p>
+        <div class="color-picker-btns">
+          <button class="color-btn color-btn-red"    title="Rouge"  onclick="onColorChosen('RED')"></button>
+          <button class="color-btn color-btn-blue"   title="Bleu"   onclick="onColorChosen('BLUE')"></button>
+          <button class="color-btn color-btn-green"  title="Vert"   onclick="onColorChosen('GREEN')"></button>
+          <button class="color-btn color-btn-yellow" title="Jaune"  onclick="onColorChosen('YELLOW')"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Écran de victoire -->
+    <div id="game-victory" class="game-victory" style="display:none" aria-live="assertive">
+      <div class="game-victory-inner">
+        <div id="game-victory-text"></div>
+        <button id="btn-victory-quit" class="btn btn-primary" type="button" style="margin-top:20px">Retour au menu</button>
+      </div>
+    </div>
+
+    <!-- Mise en page principale -->
+    <div class="game-layout" aria-label="Partie UNO">
+
+      <!-- En-tête -->
+      <div class="game-header">
+        <button id="btn-game-quit" class="btn btn-small" type="button">Quitter</button>
+        <div id="game-title" class="game-title">Partie</div>
+        <div id="game-direction" class="game-direction"></div>
+      </div>
+
+      <!-- Liste des joueurs -->
+      <div id="game-players" class="game-players" aria-label="Joueurs"></div>
+
+      <!-- Zone centrale : défausse + pioche -->
+      <div class="game-area">
+        <div class="game-pile-wrap">
+          <div class="game-pile-label">Défausse</div>
+          <div id="game-top-card" class="card-visual card-large card-back">?</div>
+          <div id="game-current-color" class="game-color-label"></div>
+        </div>
+        <div class="game-pile-wrap">
+          <div class="game-pile-label">Pioche</div>
+          <div class="card-visual card-large card-back">UNO</div>
+        </div>
+      </div>
+
+      <!-- Indicateur de tour -->
+      <div id="game-current-turn" class="game-turn" aria-live="polite"></div>
+
+      <!-- Main du joueur -->
+      <div class="game-hand-wrap">
+        <div id="game-hand" class="game-hand" aria-label="Vos cartes"></div>
+      </div>
+
+      <!-- Boutons d'action -->
+      <div class="game-actions">
+        <button id="btn-game-draw" class="btn btn-primary" type="button">Piocher</button>
+        <button id="btn-game-uno"  class="btn"             type="button">UNO !</button>
+      </div>
+
+    </div>
+
+    <script src="./game.js"></script>
+  </body>
+</html>
