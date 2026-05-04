@@ -55,6 +55,21 @@
 			<artifactId>spring-boot-starter-data-jpa-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- WebSocket / STOMP -->
+		<!-- Exclusion de tomcat-embed-websocket : Tomcat 11 externe fournit
+		     déjà l'API WebSocket (JSR-356). Inclure le jar embarqué crée un
+		     conflit de classes qui empêche le démarrage de l'application. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.tomcat.embed</groupId>
+					<artifactId>tomcat-embed-websocket</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
 
 	<build>

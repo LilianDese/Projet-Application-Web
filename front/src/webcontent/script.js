@@ -7,7 +7,13 @@ let authMode = null; // 'login' | 'register'
 let currentPseudo = null;
 let currentJoueurId = null;
 let messageTimer = null;
-let gamesDockTimer = null;
+
+// ===================================
+// WebSocket / STOMP
+// ===================================
+let stompClient = null;
+let gamesSubscription    = null;
+let lobbySubscription    = null;
 
 
 //=======================================
@@ -304,9 +310,8 @@ function setLoggedIn(pseudo, id) {
   if (createGameBtn) createGameBtn.style.display = 'inline-block';
   if (gamesDock) gamesDock.style.display = 'block';
 
-  void refreshGamesDock();
-  if (gamesDockTimer) clearInterval(gamesDockTimer);
-  gamesDockTimer = setInterval(refreshGamesDockSilent, 2000);
+  // Connexion WebSocket et abonnement à la liste des parties
+  connectWebSocket();
 }
 
 //ecran après logout
@@ -315,7 +320,7 @@ function setLoggedOut() {
   currentJoueurId = null;
   setCurrentUser('');
   setMessage('', false);
-  if (gamesDockTimer) clearInterval(gamesDockTimer);
+  disconnectWebSocket();
 
   const actions = document.getElementById('menu-actions');
   const form = document.getElementById('auth-form');
@@ -487,17 +492,46 @@ async function refreshGamesDock() {
   }
 }
 
+// Chargement initial unique (sans loading spinner) — ensuite les màj viennent du WebSocket
 async function refreshGamesDockSilent() {
   if (!currentPseudo) return;
   const container = document.getElementById('games-content');
   if (!container) return;
-
   try {
     const games = await fetchGames();
     renderGames(games);
   } catch {
     // on ignore l'erreur pour ne pas flasher l'écran
   }
+}
+
+// ===================================
+// WebSocket helpers (STOMP via SockJS)
+// ===================================
+function connectWebSocket() {
+  if (stompClient && stompClient.connected) return;
+
+  const socket = new SockJS('/back/ws');
+  stompClient = Stomp.over(socket);
+  stompClient.debug = () => {}; // désactive les logs verbeux
+
+  stompClient.connect({}, () => {
+    // Abonnement à la liste des parties
+    gamesSubscription = stompClient.subscribe('/topic/games', (msg) => {
+      try { renderGames(JSON.parse(msg.body)); } catch {}
+    });
+    // Chargement initial
+    void refreshGamesDockSilent();
+  }, (err) => {
+    console.warn('WebSocket déconnecté, reconnexion dans 3s…', err);
+    setTimeout(() => { if (currentPseudo) connectWebSocket(); }, 3000);
+  });
+}
+
+function disconnectWebSocket() {
+  if (gamesSubscription) { gamesSubscription.unsubscribe(); gamesSubscription = null; }
+  if (lobbySubscription) { lobbySubscription.unsubscribe(); lobbySubscription = null; }
+  if (stompClient) { try { stompClient.disconnect(); } catch {} stompClient = null; }
 }
 
 async function createGame(name) {
@@ -645,7 +679,6 @@ if (partForm && partInput) {
 //Gestion de lobby
 //========================
 
-let lobbyTimer = null;
 let activeLobbyGameId = null;
 let lobbyLoadFailures = 0;
 let lobbyLeavingInProgress = false;
@@ -753,20 +786,27 @@ function openLobby(gameId) {
   lobbyLoadFailures = 0;
   const overlay = document.getElementById('lobby-overlay');
   if (overlay) overlay.style.display = 'grid';
-
   setLobbyMessage('');
-  
-  if (lobbyTimer) clearInterval(lobbyTimer);
-  updateLobby();
-  lobbyTimer = setInterval(updateLobby, 2000);
+
+  // Chargement initial du lobby via HTTP puis abonnement WebSocket
+  void updateLobby();
+
+  if (stompClient && stompClient.connected) {
+    if (lobbySubscription) { lobbySubscription.unsubscribe(); lobbySubscription = null; }
+    lobbySubscription = stompClient.subscribe(`/topic/game/${gameId}/lobby`, (msg) => {
+      try {
+        const game = JSON.parse(msg.body);
+        applyLobbyUpdate(game);
+      } catch {}
+    });
+  }
 }
 
 function closeLobby() {
   activeLobbyGameId = null;
-  if (lobbyTimer) clearInterval(lobbyTimer);
+  if (lobbySubscription) { lobbySubscription.unsubscribe(); lobbySubscription = null; }
   const overlay = document.getElementById('lobby-overlay');
   if (overlay) overlay.style.display = 'none';
-
   setLobbyMessage('');
 }
 
@@ -804,55 +844,61 @@ async function quitLobby() {
   }
 }
 
+// Applique un état de lobby (GameResponse) reçu par WebSocket ou HTTP
+function applyLobbyUpdate(game) {
+  if (!activeLobbyGameId) return;
+  lobbyLoadFailures = 0;
+  setLobbyMessage('');
+
+  const titleEl = document.getElementById('lobby-title');
+  if (titleEl) titleEl.textContent = `Salon: ${game.name || game.id}`;
+
+  if (game.status === 'IN_PROGRESS') {
+    const gameId = activeLobbyGameId;
+    closeLobby();
+    openGamePage(gameId);
+    return;
+  }
+
+  const ul = document.getElementById('lobby-players');
+  if (ul) {
+    ul.innerHTML = '';
+    for (const p of (game.playerPseudos || [])) {
+      const li = document.createElement('li');
+      li.textContent = p;
+      ul.appendChild(li);
+    }
+  }
+
+  const btnStart = document.getElementById('btn-lobby-start');
+  if (btnStart) {
+    if (Number(game.creatorId) === Number(currentJoueurId)) {
+      btnStart.style.display = 'inline-block';
+      btnStart.disabled = game.playerCount < 3;
+    } else {
+      btnStart.style.display = 'none';
+    }
+  }
+}
+
+// Chargement initial du lobby via HTTP (premier appel seulement)
 async function updateLobby() {
-   if (!activeLobbyGameId) return;
-   try {
-     const game = await fetchGame(activeLobbyGameId);
-     lobbyLoadFailures = 0;
-     setLobbyMessage('');
-     document.getElementById('lobby-title').textContent = `Salon: ${game.name || game.id}`;
-     
-     if (game.status === 'IN_PROGRESS') {
-       const gameId = activeLobbyGameId; // sauvegarder avant que closeLobby() ne le mette à null
-       closeLobby();
-       openGamePage(gameId);
-       return;
-     }
-     
-     const ul = document.getElementById('lobby-players');
-     if (ul) {
-       ul.innerHTML = '';
-       for (const p of (game.playerPseudos || [])) {
-         const li = document.createElement('li');
-         li.textContent = p;
-         ul.appendChild(li);
-       }
-     }
-     
-     const btnStart = document.getElementById('btn-lobby-start');
-     if (btnStart) {
-       if (Number(game.creatorId) === Number(currentJoueurId)) {
-          btnStart.style.display = 'inline-block';
-          btnStart.disabled = game.playerCount < 3;
-       } else {
-          btnStart.style.display = 'none';
-       }
-     }
-   } catch (e) {
-     // Ne pas fermer sur une simple erreur réseau.
-     // On ferme seulement si la partie n'existe plus.
-     const status = e?.status;
-     if (status === 404) {
-       closeLobby();
-       void refreshGamesDock();
-       return;
-     }
-     lobbyLoadFailures += 1;
-     // Evite le flash d'erreur transitoire juste après un join
-     if (lobbyLoadFailures >= 2) {
-       setLobbyMessage('Erreur réseau: impossible de charger le lobby.');
-     }
-   }
+  if (!activeLobbyGameId) return;
+  try {
+    const game = await fetchGame(activeLobbyGameId);
+    applyLobbyUpdate(game);
+  } catch (e) {
+    const status = e?.status;
+    if (status === 404) {
+      closeLobby();
+      void refreshGamesDock();
+      return;
+    }
+    lobbyLoadFailures += 1;
+    if (lobbyLoadFailures >= 2) {
+      setLobbyMessage('Erreur réseau: impossible de charger le lobby.');
+    }
+  }
 }
 
 document.getElementById('btn-lobby-quit')?.addEventListener('click', () => { void quitLobby(); });

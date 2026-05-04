@@ -1,11 +1,14 @@
-const params       = new URLSearchParams(window.location.search);
-const activeGameId = params.get('gameId');
-const joueurId     = params.get('joueurId');
+const params        = new URLSearchParams(window.location.search);
+const activeGameId  = params.get('gameId');
+const joueurId      = params.get('joueurId');
 const currentPseudo = params.get('pseudo');
 
 if (!activeGameId || !joueurId) {
   window.location.replace('./index.html');
 }
+
+// Librairies STOMP / SockJS chargées via game.html
+let stompClient = null;
 
 const canvas = document.getElementById('rondFond');
 const ctx    = canvas.getContext('2d', { alpha: false });
@@ -136,23 +139,37 @@ function initAudio() {
 
 initAudio();
 
-let gameTimer        = null;
 let pendingWildCardId = null;
 
+// ================================================
+// WebSocket — abonnement à l'état de la partie
+// ================================================
+function connectGameSocket() {
+  const socket = new SockJS('/back/ws');
+  stompClient = Stomp.over(socket);
+  stompClient.debug = () => {};
 
-function startPolling() {
-  updateGameState();
-  gameTimer = setInterval(updateGameState, 2000);
+  stompClient.connect({}, () => {
+    // Chaque joueur s'abonne à son propre canal personnalisé
+    stompClient.subscribe(`/topic/game/${activeGameId}/player/${joueurId}`, (msg) => {
+      try { renderGameState(JSON.parse(msg.body)); } catch (e) { console.error(e); }
+    });
+    // Chargement initial via HTTP
+    void fetchAndRender();
+  }, (err) => {
+    console.warn('WebSocket déconnecté, reconnexion dans 3s…', err);
+    setTimeout(connectGameSocket, 3000);
+  });
 }
 
-async function updateGameState() {
+async function fetchAndRender() {
   if (!activeGameId || !joueurId) return;
   try {
     const res = await fetch(`./api/games/${activeGameId}/state?joueurId=${joueurId}`);
     if (!res.ok) return;
     renderGameState(await res.json());
   } catch (e) {
-    console.error('Erreur fetch state:', e);
+    console.error('Erreur fetch state initial:', e);
   }
 }
 
@@ -241,9 +258,9 @@ function renderGameState(state) {
   const btnUno = document.getElementById('btn-game-uno');
   if (btnUno)  btnUno.disabled  = !state.myTurn;
 
-  // Victoire
+  // Victoire : déconnexion propre du WebSocket
   if (state.status === 'FINISHED') {
-    if (gameTimer) { clearInterval(gameTimer); gameTimer = null; }
+    if (stompClient) { try { stompClient.disconnect(); } catch {} stompClient = null; }
     const textEl    = document.getElementById('game-victory-text');
     const victoryEl = document.getElementById('game-victory');
     if (textEl)    textEl.textContent    = state.winnerPseudo === currentPseudo ? '🎉 Vous avez gagné !' : `🏆 Victoire de ${state.winnerPseudo}`;
@@ -294,7 +311,7 @@ function onColorChosen(color) {
 
 
 document.getElementById('btn-game-quit')?.addEventListener('click', () => {
-  if (gameTimer) clearInterval(gameTimer);
+  if (stompClient) { try { stompClient.disconnect(); } catch {} stompClient = null; }
   window.location.href = './index.html';
 });
 document.getElementById('btn-game-draw')?.addEventListener('click', () => void drawCard());
@@ -303,5 +320,5 @@ document.getElementById('btn-victory-quit')?.addEventListener('click', () => {
   window.location.href = './index.html';
 });
 
-
-startPolling();
+// Démarrage : connexion WebSocket au lieu du polling
+connectGameSocket();

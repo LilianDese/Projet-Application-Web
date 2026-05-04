@@ -108,6 +108,11 @@
       </div>
     </div>
 
-    <script src="./script.js?v=2"></script>
+    <!-- WebSocket : SockJS + STOMP -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7/bundles/stomp.umd.min.js"></script>
+    <!-- Shim : expose Stomp.over() attendu par le code existant -->
+    <script>window.Stomp = StompJs.Stomp;</script>
+    <script src="./script.js?v=3"></script>
   </body>
 </html>

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,18 +50,54 @@ public class FacadeController {
 	private final GamePlayerRepository gamePlayerRepository;
 	private final CardRepository cardRepository;
 	private final HandCardRepository handCardRepository;
+	private final SimpMessagingTemplate messaging;
 
 	public FacadeController(
 			JoueurRepository joueurRepository,
 			GameRepository gameRepository,
 			GamePlayerRepository gamePlayerRepository,
 			CardRepository cardRepository,
-			HandCardRepository handCardRepository) {
+			HandCardRepository handCardRepository,
+			SimpMessagingTemplate messaging) {
 		this.joueurRepository = joueurRepository;
 		this.gameRepository = gameRepository;
 		this.gamePlayerRepository = gamePlayerRepository;
 		this.cardRepository = cardRepository;
 		this.handCardRepository = handCardRepository;
+		this.messaging = messaging;
+	}
+
+	// -------------------------------------------------------
+	// Helpers broadcast WebSocket
+	// -------------------------------------------------------
+
+	/** Diffuse la liste complète des parties à tous les clients connectés. */
+	private void broadcastGamesList() {
+		List<GameResponse> games = gameRepository.findAll().stream()
+				.map(this::toResponse)
+				.collect(Collectors.toList());
+		messaging.convertAndSend("/topic/games", games);
+	}
+
+	/**
+	 * Diffuse l'état du lobby (GameResponse) à tous les joueurs abonnés
+	 * à /topic/game/{id}/lobby.
+	 */
+	private void broadcastLobby(Game game) {
+		messaging.convertAndSend("/topic/game/" + game.getId() + "/lobby", toResponse(game));
+	}
+
+	/**
+	 * Diffuse l'état de jeu personnalisé à chaque joueur de la partie
+	 * via /topic/game/{id}/player/{joueurId}.
+	 */
+	private void broadcastGameState(Game game) {
+		if (game.getPlayers() == null) return;
+		for (GamePlayer gp : game.getPlayers()) {
+			Long jid = gp.getJoueur().getId();
+			GameStateResponse state = toStateResponse(game, jid);
+			messaging.convertAndSend("/topic/game/" + game.getId() + "/player/" + jid, state);
+		}
 	}
 
 	//@Transactional regroupe ttes les opé en db d'un coup (permet d'eviter de casser ld db)
@@ -113,8 +150,9 @@ public class FacadeController {
 			game = gameRepository.save(game);
 		}
 
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(toResponse(game));
+		GameResponse resp = toResponse(game);
+		broadcastGamesList();
+		return ResponseEntity.status(HttpStatus.CREATED).body(resp);
 	}
 
 	//permet de lister les games
@@ -160,8 +198,10 @@ public class FacadeController {
 		game.addPlayer(participation);
 		GamePlayer saved = gamePlayerRepository.save(participation);
 
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(new JoinGameResponse(saved.getId(), game.getId(), joueur.getId(), saved.getTurnOrder()));
+		JoinGameResponse joinResp = new JoinGameResponse(saved.getId(), game.getId(), joueur.getId(), saved.getTurnOrder());
+		broadcastLobby(game);
+		broadcastGamesList();
+		return ResponseEntity.status(HttpStatus.CREATED).body(joinResp);
 	}
 
 	//permet de start une game
@@ -233,6 +273,10 @@ public class FacadeController {
 		game.setStatus(GameStatus.IN_PROGRESS);
 		gameRepository.save(game);
 
+		// Notifie le lobby que la partie démarre, puis envoie l'état initial à chaque joueur
+		broadcastLobby(game);
+		broadcastGameState(game);
+		broadcastGamesList();
 		return ResponseEntity.ok(toResponse(game));
 	}
 
@@ -269,10 +313,13 @@ public class FacadeController {
 		long remaining = gamePlayerRepository.countByGameId(gameId);
 		if (remaining <= 0) {
 			gameRepository.delete(game);
+			broadcastGamesList();
 			return ResponseEntity.noContent().build();
 		}
 
 		gameRepository.save(game);
+		broadcastLobby(game);
+		broadcastGamesList();
 		return ResponseEntity.ok(toResponse(game));
 	}
 
@@ -357,12 +404,14 @@ public class FacadeController {
 		if (currentGP.getHand().isEmpty()) {
 			game.setStatus(GameStatus.FINISHED);
 			gameRepository.save(game);
+			broadcastGameState(game);
 			return ResponseEntity.ok(toStateResponse(game, joueurId));
 		}
 
 		applyCardEffect(game, sorted, card, chosenColor);
 
 		gameRepository.save(game);
+		broadcastGameState(game);
 		return ResponseEntity.ok(toStateResponse(game, joueurId));
 	}
 
@@ -401,6 +450,7 @@ public class FacadeController {
 		currentGP.setHasCalledUno(false);
 
 		gameRepository.save(game);
+		broadcastGameState(game);
 		return ResponseEntity.ok(toStateResponse(game, joueurId));
 	}
 
@@ -425,6 +475,7 @@ public class FacadeController {
 		gp.setHasCalledUno(true);
 		gamePlayerRepository.save(gp);
 
+		broadcastGameState(game);
 		return ResponseEntity.ok().build();
 	}
 
