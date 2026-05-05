@@ -56,6 +56,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Hachage de mots de passe (BCrypt) sans activer Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+		</dependency>
+
 		<!-- WebSocket / STOMP -->
 		<!-- Exclusion de tomcat-embed-websocket : Tomcat 11 externe fournit
 		     déjà l'API WebSocket (JSR-356). Inclure le jar embarqué crée un

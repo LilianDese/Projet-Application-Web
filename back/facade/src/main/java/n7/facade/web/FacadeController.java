@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,7 @@ import n7.facade.repository.GamePlayerRepository;
 import n7.facade.repository.GameRepository;
 import n7.facade.repository.HandCardRepository;
 import n7.facade.repository.JoueurRepository;
+import n7.facade.service.PlayerDisconnectService;
 import n7.facade.web.dto.CardDto;
 import n7.facade.web.dto.CreateGameRequest;
 import n7.facade.web.dto.FacadeJoueurRequest;
@@ -51,6 +53,8 @@ public class FacadeController {
 	private final CardRepository cardRepository;
 	private final HandCardRepository handCardRepository;
 	private final SimpMessagingTemplate messaging;
+	private final PlayerDisconnectService playerDisconnectService;
+	private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	public FacadeController(
 			JoueurRepository joueurRepository,
@@ -58,13 +62,15 @@ public class FacadeController {
 			GamePlayerRepository gamePlayerRepository,
 			CardRepository cardRepository,
 			HandCardRepository handCardRepository,
-			SimpMessagingTemplate messaging) {
+			SimpMessagingTemplate messaging,
+			PlayerDisconnectService playerDisconnectService) {
 		this.joueurRepository = joueurRepository;
 		this.gameRepository = gameRepository;
 		this.gamePlayerRepository = gamePlayerRepository;
 		this.cardRepository = cardRepository;
 		this.handCardRepository = handCardRepository;
 		this.messaging = messaging;
+		this.playerDisconnectService = playerDisconnectService;
 	}
 
 	// -------------------------------------------------------
@@ -102,7 +108,7 @@ public class FacadeController {
 
 	//@Transactional regroupe ttes les opé en db d'un coup (permet d'eviter de casser ld db)
 
-	//permet d'ajouter un joueur (pseudo requis 409/pseudo invalide 400)
+	//permet d'ajouter un joueur (pseudo + password requis)
 	@PostMapping("/joueurs")
 	@Transactional
 	public ResponseEntity<FacadeJoueurResponse> addJoueur(@RequestBody FacadeJoueurRequest request) {
@@ -110,20 +116,68 @@ public class FacadeController {
 		if (pseudo == null) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "pseudo requis");
 		}
+		String rawPassword = request.getPassword();
+		if (rawPassword == null || rawPassword.isBlank()) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "mot de passe requis");
+		}
 		if (joueurRepository.existsByPseudo(pseudo)) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, "pseudo déjà utilisé");
 		}
 
-		Joueur saved = joueurRepository.save(new Joueur(pseudo, request.getPassword()));
+		Joueur saved = joueurRepository.save(new Joueur(pseudo, passwordEncoder.encode(rawPassword)));
 		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(new FacadeJoueurResponse(saved.getId(), saved.getPseudo()));
+				.body(new FacadeJoueurResponse(saved.getId(), saved.getPseudo(), saved.isConnected()));
+	}
+
+	//connexion d'un joueur (refuse si déjà connecté ou mauvais mot de passe)
+	@PostMapping("/joueurs/login")
+	@Transactional
+	public ResponseEntity<FacadeJoueurResponse> loginJoueur(@RequestBody FacadeJoueurRequest request) {
+		String pseudo = normalize(request.getPseudo());
+		if (pseudo == null) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "pseudo requis");
+		}
+
+		Joueur joueur = joueurRepository.findByPseudoIgnoreCase(pseudo)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "joueur introuvable"));
+
+		String storedHash = joueur.getPassword();
+		String rawPassword = request.getPassword();
+		boolean hasStoredPassword = storedHash != null && !storedHash.isBlank();
+		boolean hasProvidedPassword = rawPassword != null && !rawPassword.isBlank();
+
+		if (hasStoredPassword) {
+			if (!hasProvidedPassword || !passwordEncoder.matches(rawPassword, storedHash)) {
+				throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "mot de passe incorrect");
+			}
+		}
+
+		if (joueur.isConnected()) {
+			throw new ResponseStatusException(HttpStatus.CONFLICT, "joueur déjà connecté");
+		}
+
+		joueur.setConnected(true);
+		joueurRepository.save(joueur);
+		return ResponseEntity.ok(new FacadeJoueurResponse(joueur.getId(), joueur.getPseudo(), joueur.isConnected()));
+	}
+
+	//déconnexion d'un joueur — le retire de toutes ses parties actives
+	@PostMapping("/joueurs/logout")
+	@Transactional
+	public ResponseEntity<Void> logoutJoueur(@RequestParam("joueurId") Long joueurId) {
+		Joueur joueur = joueurRepository.findById(joueurId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "joueur introuvable"));
+		playerDisconnectService.removeFromAllGames(joueurId);
+		joueur.setConnected(false);
+		joueurRepository.save(joueur);
+		return ResponseEntity.noContent().build();
 	}
 
 	//permet de lister les joueurs
 	@GetMapping("/joueurs")
 	public List<FacadeJoueurResponse> listJoueurs() {
 		return joueurRepository.findAll().stream()
-				.map(j -> new FacadeJoueurResponse(j.getId(), j.getPseudo()))
+				.map(j -> new FacadeJoueurResponse(j.getId(), j.getPseudo(), j.isConnected()))
 				.collect(Collectors.toList());
 	}
 

@@ -3,6 +3,7 @@ package pack;
 public class JoueurDto {
 	private Long id;
 	private String pseudo;
+	private boolean connected;
 
 	public JoueurDto() {
 	}
@@ -21,5 +22,13 @@ public class JoueurDto {
 
 	public void setPseudo(String pseudo) {
 		this.pseudo = pseudo;
+	}
+
+	public boolean isConnected() {
+		return connected;
+	}
+
+	public void setConnected(boolean connected) {
+		this.connected = connected;
 	}
 }

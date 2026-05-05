@@ -157,7 +157,7 @@ function connectGameSocket() {
   stompClient = Stomp.over(socket);
   stompClient.debug = () => {};
 
-  stompClient.connect({}, () => {
+  stompClient.connect({ joueurId: String(joueurId) }, () => {
     // Chaque joueur s'abonne à son propre canal personnalisé
     stompClient.subscribe(`/topic/game/${activeGameId}/player/${joueurId}`, (msg) => {
       try { renderGameState(JSON.parse(msg.body)); } catch (e) { console.error(e); }

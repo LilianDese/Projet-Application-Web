@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = { "/Main", "/api/joueurs", "/api/games", "/api/games/*" })
+@WebServlet(urlPatterns = { "/Main", "/api/joueurs", "/api/joueurs/*", "/api/games", "/api/games/*" })
 public class Main extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
@@ -38,8 +38,8 @@ public class Main extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String servletPath = request.getServletPath();
-        if ("/api/joueurs".equals(servletPath)) {
-            serveJoueursJson(response);
+        if (servletPath != null && servletPath.startsWith("/api/joueurs")) {
+            serveJoueursApi(request, response);
             return;
         }
 
@@ -54,8 +54,8 @@ public class Main extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String servletPath = request.getServletPath();
-        if ("/api/joueurs".equals(servletPath)) {
-            proxyCreateJoueur(request, response);
+        if (servletPath != null && servletPath.startsWith("/api/joueurs")) {
+            proxyJoueursApi(request, response);
             return;
         }
 
@@ -110,6 +110,17 @@ public class Main extends HttpServlet {
         objectMapper.writeValue(response.getOutputStream(), joueurs);
     }
 
+    private void serveJoueursApi(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // GET /api/joueurs -> list
+        String pathInfo = getJoueursPathInfo(request);
+        if (pathInfo == null || "/".equals(pathInfo) || pathInfo.isBlank()) {
+            serveJoueursJson(response);
+            return;
+        }
+
+        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+    }
+
     private void serveGamesApi(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // /api/games           -> list
         // /api/games/{id}      -> get
@@ -132,6 +143,29 @@ public class Main extends HttpServlet {
             return;
         }
         proxyGetGame(gameId.longValue(), response);
+    }
+
+    private void proxyJoueursApi(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        // POST /api/joueurs        -> create
+        // POST /api/joueurs/login  -> login
+        // POST /api/joueurs/logout -> logout
+        String pathInfo = getJoueursPathInfo(request);
+        if (pathInfo == null || "/".equals(pathInfo) || pathInfo.isBlank()) {
+            proxyCreateJoueur(request, response);
+            return;
+        }
+
+        String normalized = pathInfo.startsWith("/") ? pathInfo.substring(1) : pathInfo;
+        if ("login".equals(normalized)) {
+            proxyLoginJoueur(request, response);
+            return;
+        }
+        if ("logout".equals(normalized)) {
+            proxyLogoutJoueur(request, response);
+            return;
+        }
+
+        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
     }
 
     private void proxyGamesApi(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -208,6 +242,24 @@ public class Main extends HttpServlet {
         }
 
         String rest = servletPath.substring("/api/games".length());
+        return (rest == null || rest.isBlank()) ? "/" : rest;
+    }
+
+    private static String getJoueursPathInfo(HttpServletRequest request) {
+        String pathInfo = request.getPathInfo();
+        if (pathInfo != null) {
+            return pathInfo;
+        }
+
+        String servletPath = request.getServletPath();
+        if (servletPath == null) {
+            return null;
+        }
+        if (!servletPath.startsWith("/api/joueurs")) {
+            return null;
+        }
+
+        String rest = servletPath.substring("/api/joueurs".length());
         return (rest == null || rest.isBlank()) ? "/" : rest;
     }
 
@@ -493,41 +545,83 @@ public class Main extends HttpServlet {
 
     private void proxyCreateJoueur(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setCharacterEncoding("UTF-8");
-
-        JoueurCreateRequest body;
+        String rawBody;
         try {
-            body = objectMapper.readValue(request.getInputStream(), JoueurCreateRequest.class);
+            rawBody = new String(request.getInputStream().readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.setContentType("text/plain");
-            response.getWriter().write("invalid json");
+            response.getWriter().write("invalid request");
             return;
         }
+        forwardRawJsonPost(BACK_BASE_URL + "/joueurs", rawBody, response);
+    }
 
+    private void proxyLoginJoueur(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+        String rawBody;
         try {
-            javax.ws.rs.core.Response backResponse = facade.addJoueur(body);
-            int status = backResponse.getStatus();
+            rawBody = new String(request.getInputStream().readAllBytes(), java.nio.charset.StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.setContentType("text/plain");
+            response.getWriter().write("invalid request");
+            return;
+        }
+        forwardRawJsonPost(BACK_BASE_URL + "/joueurs/login", rawBody, response);
+    }
+
+    private void forwardRawJsonPost(String url, String rawBody, HttpServletResponse response) throws IOException {
+        java.net.HttpURLConnection conn = null;
+        try {
+            conn = (java.net.HttpURLConnection) new java.net.URL(url).openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setDoOutput(true);
+            byte[] bodyBytes = rawBody.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+            conn.setRequestProperty("Content-Length", String.valueOf(bodyBytes.length));
+            conn.getOutputStream().write(bodyBytes);
+
+            int status = conn.getResponseCode();
             response.setStatus(status);
             response.setContentType("application/json");
-            String payload = null;
-            try {
-                payload = backResponse.readEntity(String.class);
-            } catch (Exception e) {
-                payload = "";
-            } finally {
-                try {
-                    backResponse.close();
-                } catch (Exception e) {
-                    // ignore
+
+            java.io.InputStream is = (status < 400) ? conn.getInputStream() : conn.getErrorStream();
+            if (is != null) {
+                byte[] respBytes = is.readAllBytes();
+                if (respBytes.length > 0) {
+                    response.getWriter().write(new String(respBytes, java.nio.charset.StandardCharsets.UTF_8));
                 }
-            }
-            if (payload != null && !payload.isBlank()) {
-                response.getWriter().write(payload);
             }
         } catch (Exception e) {
             response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
             response.setContentType("text/plain");
             response.getWriter().write("backend unavailable");
+        } finally {
+            if (conn != null) conn.disconnect();
+        }
+    }
+
+    private void proxyLogoutJoueur(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Long joueurId = parseLongQueryParam(request, "joueurId");
+        if (joueurId == null) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.setContentType("text/plain");
+            response.getWriter().write("joueurId requis");
+            return;
+        }
+
+        javax.ws.rs.core.Response backResponse = null;
+        try {
+            backResponse = facade.logoutJoueur(joueurId.longValue());
+            pipeBackResponse(backResponse, response, "text/plain");
+        } catch (Exception e) {
+            response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
+            response.setContentType("text/plain");
+            response.getWriter().write("backend unavailable");
+        } finally {
+            closeQuietly(backResponse);
         }
     }
 }

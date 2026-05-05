@@ -1,7 +1,7 @@
 # Local runtime databases
 /DB/*
 !/DB/.gitkeep
-
+/.claude
 # HSQLDB artifacts
 /DB/**/*.lck
 /DB/**/*.log

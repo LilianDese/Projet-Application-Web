@@ -326,7 +326,11 @@ function setLoggedIn(pseudo, id) {
 }
 
 //ecran après logout
-function setLoggedOut() {
+function setLoggedOut(options = {}) {
+  const notifyServer = options.notifyServer === true;
+  if (notifyServer) {
+    sendLogoutSignal();
+  }
   currentPseudo = null;
   currentJoueurId = null;
   setCurrentUser('');
@@ -336,6 +340,7 @@ function setLoggedOut() {
   const actions = document.getElementById('menu-actions');
   const form = document.getElementById('auth-form');
   const input = document.getElementById('pseudo');
+  const passInput = document.getElementById('password');
   const logout = document.getElementById('btn-logout');
   const leaderboardBtn = document.getElementById('btn-leaderboard');
   const createGameBtn = document.getElementById('btn-create-game');
@@ -346,6 +351,7 @@ function setLoggedOut() {
   if (actions) actions.style.display = 'flex';
   if (form) form.style.display = 'none';
   if (input) input.value = '';
+  if (passInput) passInput.value = '';
   if (logout) logout.style.display = 'none';
   if (leaderboardBtn) leaderboardBtn.style.display = 'none';
   if (createGameBtn) createGameBtn.style.display = 'none';
@@ -521,12 +527,13 @@ async function refreshGamesDockSilent() {
 // ===================================
 function connectWebSocket() {
   if (stompClient && stompClient.connected) return;
+  if (!currentJoueurId) return;
 
   const socket = new SockJS(`${BACK_BASE_PATH}/ws`);
   stompClient = Stomp.over(socket);
   stompClient.debug = () => {}; // désactive les logs verbeux
 
-  stompClient.connect({}, () => {
+  stompClient.connect({ joueurId: String(currentJoueurId) }, () => {
     // Abonnement à la liste des parties
     gamesSubscription = stompClient.subscribe('/topic/games', (msg) => {
       try { renderGames(JSON.parse(msg.body)); } catch {}
@@ -561,13 +568,37 @@ async function askCreateGame() {
 }
 
 //ajoute un joueur
-async function createJoueur(pseudo) {
+async function createJoueur(pseudo, password) {
   const res = await fetch('./api/joueurs', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({ pseudo, password: '' }),
+    body: JSON.stringify({ pseudo, password }),
   });
   return res;
+}
+
+async function loginJoueur(pseudo, password) {
+  const res = await fetch('./api/joueurs/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ pseudo, password }),
+  });
+  return res;
+}
+
+async function logoutJoueur() {
+  if (!currentJoueurId) return null;
+  return await fetch(`./api/joueurs/logout?joueurId=${currentJoueurId}`, { method: 'POST' });
+}
+
+function sendLogoutSignal() {
+  if (!currentJoueurId) return;
+  const url = `./api/joueurs/logout?joueurId=${currentJoueurId}`;
+  if (navigator.sendBeacon) {
+    const ok = navigator.sendBeacon(url);
+    if (ok) return;
+  }
+  fetch(url, { method: 'POST', keepalive: true }).catch(() => {});
 }
 //crop pseudosi trop long
 function normalizePseudo(value) {
@@ -591,7 +622,7 @@ function initAuthUi() {
 
   if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
-      setLoggedOut();
+      setLoggedOut({ notifyServer: true });
     });
   }
 
@@ -620,32 +651,40 @@ function initAuthUi() {
       setMessage('Pseudo requis', true);
       return;
     }
+    const passwordInput = document.getElementById('password');
+    const password = passwordInput ? passwordInput.value : '';
+    if (!password) {
+      setMessage('Mot de passe requis', true);
+      return;
+    }
 
     try {
       if (authMode === 'login') {
-        const joueurs = await fetchJoueurs();
-        const joueur = joueurs.find((j) => (j?.pseudo ?? '').toLowerCase() === pseudo.toLowerCase());
-        if (!joueur) {
-          setMessage('Pseudo introuvable', true);
+        const res = await loginJoueur(pseudo, password);
+        if (res.status === 200) {
+          const data = await res.json();
+          setLoggedIn(data.pseudo, data.id);
+          setMessage('Connexion OK', false);
           return;
         }
-        setLoggedIn(joueur.pseudo, joueur.id);
-        setMessage('Connexion OK', false);
+        if (res.status === 404) { setMessage('Pseudo introuvable', true); return; }
+        if (res.status === 401) { setMessage('Mot de passe incorrect', true); return; }
+        if (res.status === 409) { setMessage('Joueur déjà connecté', true); return; }
+        const txt = await res.text();
+        setMessage(`Erreur (${res.status}) ${txt || ''}`.trim(), true);
         return;
       }
 
       if (authMode === 'register') {
-        const res = await createJoueur(pseudo);
+        const res = await createJoueur(pseudo, password);
         if (res.status === 201) {
           const data = await res.json();
           setLoggedIn(data.pseudo, data.id);
           setMessage('Joueur créé', false);
           return;
         }
-        if (res.status === 409) {
-          setMessage('Pseudo déjà utilisé', true);
-          return;
-        }
+        if (res.status === 409) { setMessage('Pseudo déjà utilisé', true); return; }
+        if (res.status === 400) { setMessage('Pseudo et mot de passe requis', true); return; }
         const txt = await res.text();
         setMessage(`Erreur (${res.status}) ${txt || ''}`.trim(), true);
         return;

@@ -2,6 +2,7 @@ C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\mai
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\config\HsqldbSchemaFix.java
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\config\HsqldbShutdown.java
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\config\WebSocketConfig.java
+C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\config\WebSocketPresenceTracker.java
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\FacadeApplication.java
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\model\Card.java
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\model\CardColor.java
@@ -20,6 +21,7 @@ C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\mai
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\repository\GameRuleRepository.java
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\repository\HandCardRepository.java
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\repository\JoueurRepository.java
+C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\service\PlayerDisconnectService.java
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\ServletInitializer.java
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\web\dto\CardDto.java
 C:\Users\cocos\Desktop\projet_web_app\Projet-Application-Web\back\facade\src\main\java\n7\facade\web\dto\CreateGameRequest.java

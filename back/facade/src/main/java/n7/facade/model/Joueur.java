@@ -29,6 +29,8 @@ public class Joueur {
 
 	private int gamesPlayed;
 
+	private boolean connected;
+
 	/** Participations de ce joueur aux différentes parties */
 	@OneToMany(mappedBy = "joueur", fetch = FetchType.LAZY)
 	private List<GamePlayer> participations;
@@ -89,6 +91,14 @@ public class Joueur {
 
 	public void setGamesPlayed(int gamesPlayed) {
 		this.gamesPlayed = gamesPlayed;
+	}
+
+	public boolean isConnected() {
+		return connected;
+	}
+
+	public void setConnected(boolean connected) {
+		this.connected = connected;
 	}
 
 	public List<GamePlayer> getParticipations() {

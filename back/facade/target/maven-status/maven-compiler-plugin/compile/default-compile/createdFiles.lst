@@ -1,5 +1,7 @@
+n7\facade\service\PlayerDisconnectService.class
 n7\facade\model\GameRule.class
 n7\facade\repository\GameRepository.class
+n7\facade\config\WebSocketConfig$1.class
 n7\facade\web\dto\PlayerStateDto.class
 n7\facade\model\ChatMessage.class
 n7\facade\repository\JoueurRepository.class
@@ -9,6 +11,7 @@ n7\facade\repository\ChatMessageRepository.class
 n7\facade\config\WebSocketConfig.class
 n7\facade\web\dto\GameStateResponse.class
 n7\facade\repository\HandCardRepository.class
+n7\facade\config\WebSocketPresenceTracker.class
 n7\facade\model\GameStatus.class
 n7\facade\repository\CardRepository.class
 n7\facade\model\HandCard.class

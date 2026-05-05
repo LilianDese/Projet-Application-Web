@@ -28,6 +28,18 @@ public interface FacadeClient {
 	@Produces("application/json")
 	Response addJoueur(JoueurCreateRequest request);
 
+	//connexion d'un joueur
+	@POST
+	@Path("/joueurs/login")
+	@Consumes("application/json")
+	@Produces("application/json")
+	Response loginJoueur(JoueurCreateRequest request);
+
+	//déconnexion d'un joueur
+	@POST
+	@Path("/joueurs/logout")
+	Response logoutJoueur(@QueryParam("joueurId") long joueurId);
+
 	//recupère toutes les parties
 	@GET
 	@Path("/games")
