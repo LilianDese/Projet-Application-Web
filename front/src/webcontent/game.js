@@ -10,6 +10,14 @@ if (!activeGameId || !joueurId) {
 // Librairies STOMP / SockJS chargées via game.html
 let stompClient = null;
 
+function getBackBasePath() {
+  const path = window.location.pathname || '';
+  const match = path.match(/^(.*)\/front(?:\/|$)/);
+  return match ? `${match[1] || ''}/back` : '/back';
+}
+
+const BACK_BASE_PATH = getBackBasePath();
+
 const canvas = document.getElementById('rondFond');
 const ctx    = canvas.getContext('2d', { alpha: false });
 const BG     = '#050a24';
@@ -145,7 +153,7 @@ let pendingWildCardId = null;
 // WebSocket — abonnement à l'état de la partie
 // ================================================
 function connectGameSocket() {
-  const socket = new SockJS('/back/ws');
+  const socket = new SockJS(`${BACK_BASE_PATH}/ws`);
   stompClient = Stomp.over(socket);
   stompClient.debug = () => {};
 

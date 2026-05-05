@@ -18,7 +18,7 @@ rm -rf tmp
 
 # Move wars to Tomcat webapps
 echo "Moving wars to Tomcat webapps..."
-cp back/facade/target/back.war apache-tomcat-11.0.1/webapps/back.war
-mv front.war apache-tomcat-11.0.1/webapps/
+cp back/facade/target/back.war C:/Users/cocos/tools/tomcat/apache-tomcat-11.0.21/webapps/back.war
+mv front.war C:/Users/cocos/tools/tomcat/apache-tomcat-11.0.21/webapps/
 
 echo "Build and deployment complete."

@@ -1,0 +1,21 @@
+#Pour demarrer postgresql sous windows
+#faire ça dans un terminal en tant qu'administrateur
+
+net start postgresql-x64-1x 
+
+x = version de postgresql (actuellement 18)
+
+#setup postgresql
+
+A. Créer l'utilisateur (rôle) attendu par le projet
+
+Faites un clic-droit sur Login/Group Roles > Create > Login/Group Role...
+Dans l'onglet General, mettez le nom : theo_armaghan
+Dans l'onglet Definition, mettez le mot de passe : clarou
+Dans l'onglet Privileges, cochez la case Can login? (Yes) et Superuser (pour éviter les soucis de droits). Cliquez sur Save.
+B. Créer la base de données
+
+Faites un clic-droit sur Databases > Create > Database...
+Dans l'onglet General, nommez-la : uno_db
+Toujours dans cet onglet, mettez comme Owner : theo_armaghan
+Cliquez sur Save.

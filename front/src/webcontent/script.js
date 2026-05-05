@@ -15,6 +15,14 @@ let stompClient = null;
 let gamesSubscription    = null;
 let lobbySubscription    = null;
 
+function getBackBasePath() {
+  const path = window.location.pathname || '';
+  const match = path.match(/^(.*)\/front(?:\/|$)/);
+  return match ? `${match[1] || ''}/back` : '/back';
+}
+
+const BACK_BASE_PATH = getBackBasePath();
+
 
 //=======================================
 //MUSIQUE
@@ -310,6 +318,9 @@ function setLoggedIn(pseudo, id) {
   if (createGameBtn) createGameBtn.style.display = 'inline-block';
   if (gamesDock) gamesDock.style.display = 'block';
 
+  // Chargement immédiat des parties via HTTP (sans attendre la socket)
+  void refreshGamesDockSilent();
+
   // Connexion WebSocket et abonnement à la liste des parties
   connectWebSocket();
 }
@@ -511,7 +522,7 @@ async function refreshGamesDockSilent() {
 function connectWebSocket() {
   if (stompClient && stompClient.connected) return;
 
-  const socket = new SockJS('/back/ws');
+  const socket = new SockJS(`${BACK_BASE_PATH}/ws`);
   stompClient = Stomp.over(socket);
   stompClient.debug = () => {}; // désactive les logs verbeux
 
@@ -687,7 +698,7 @@ async function joinGame(gameId) {
   let res = await fetch(`./api/games/${gameId}/join?joueurId=${currentJoueurId}`, { method: 'POST' });
   if (res.status === 404) {
     // fallback si le proxy /front/api est mal routé sur ce Tomcat
-    res = await fetch(`/back/games/${gameId}/join?joueurId=${currentJoueurId}`, { method: 'POST' });
+    res = await fetch(`${BACK_BASE_PATH}/games/${gameId}/join?joueurId=${currentJoueurId}`, { method: 'POST' });
   }
   if (!res.ok) throw new Error('Erreur join');
   return res;
@@ -739,7 +750,7 @@ async function fetchGame(gameId) {
   // fallback si le proxy /front/api est instable
   if (!res || res.status === 404 || res.status >= 500) {
     try {
-      const backRes = await fetch(`/back/games/${gameId}`);
+      const backRes = await fetch(`${BACK_BASE_PATH}/games/${gameId}`);
       if (backRes.ok) {
         return await backRes.json();
       }
@@ -764,7 +775,7 @@ async function startGame(gameId) {
   let res = await fetch(`./api/games/${gameId}/start?joueurId=${currentJoueurId}`, { method: 'POST' });
   if (res.status === 404) {
     // fallback si le proxy /front/api est mal routé sur ce Tomcat
-    res = await fetch(`/back/games/${gameId}/start?joueurId=${currentJoueurId}`, { method: 'POST' });
+    res = await fetch(`${BACK_BASE_PATH}/games/${gameId}/start?joueurId=${currentJoueurId}`, { method: 'POST' });
   }
   if (!res.ok) {
      const t = await res.text();
@@ -776,7 +787,7 @@ async function leaveGame(gameId) {
   let res = await fetch(`./api/games/${gameId}/leave?joueurId=${currentJoueurId}`, { method: 'POST' });
   if (res.status === 404) {
     // fallback si le proxy /front/api est mal routé sur ce Tomcat
-    res = await fetch(`/back/games/${gameId}/leave?joueurId=${currentJoueurId}`, { method: 'POST' });
+    res = await fetch(`${BACK_BASE_PATH}/games/${gameId}/leave?joueurId=${currentJoueurId}`, { method: 'POST' });
   }
   return res;
 }
