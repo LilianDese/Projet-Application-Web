@@ -1,11 +1,22 @@
-const params       = new URLSearchParams(window.location.search);
-const activeGameId = params.get('gameId');
-const joueurId     = params.get('joueurId');
+const params        = new URLSearchParams(window.location.search);
+const activeGameId  = params.get('gameId');
+const joueurId      = params.get('joueurId');
 const currentPseudo = params.get('pseudo');
 
 if (!activeGameId || !joueurId) {
   window.location.replace('./index.html');
 }
+
+// Librairies STOMP / SockJS chargées via game.html
+let stompClient = null;
+
+function getBackBasePath() {
+  const path = window.location.pathname || '';
+  const match = path.match(/^(.*)\/front(?:\/|$)/);
+  return match ? `${match[1] || ''}/back` : '/back';
+}
+
+const BACK_BASE_PATH = getBackBasePath();
 
 const canvas = document.getElementById('rondFond');
 const ctx    = canvas.getContext('2d', { alpha: false });
@@ -136,23 +147,41 @@ function initAudio() {
 
 initAudio();
 
-let gameTimer        = null;
 let pendingWildCardId = null;
 
+// ================================================
+// WebSocket — abonnement à l'état de la partie
+// ================================================
+function connectGameSocket() {
+  const socket = new SockJS(`${BACK_BASE_PATH}/ws`);
+  stompClient = Stomp.over(socket);
+  stompClient.debug = () => {};
 
-function startPolling() {
-  updateGameState();
-  gameTimer = setInterval(updateGameState, 2000);
+  stompClient.connect({ joueurId: String(joueurId) }, () => {
+    // Chaque joueur s'abonne à son propre canal personnalisé
+    stompClient.subscribe(`/topic/game/${activeGameId}/player/${joueurId}`, (msg) => {
+      try { renderGameState(JSON.parse(msg.body)); } catch (e) { console.error(e); }
+    });
+    // Abonnement au chat
+    stompClient.subscribe(`/topic/game/${activeGameId}/chat`, (msg) => {
+      try { onChatMessageReceived(JSON.parse(msg.body)); } catch (e) { console.error(e); }
+    });
+    // Chargement initial via HTTP
+    void fetchAndRender();
+  }, (err) => {
+    console.warn('WebSocket déconnecté, reconnexion dans 3s…', err);
+    setTimeout(connectGameSocket, 3000);
+  });
 }
 
-async function updateGameState() {
+async function fetchAndRender() {
   if (!activeGameId || !joueurId) return;
   try {
     const res = await fetch(`./api/games/${activeGameId}/state?joueurId=${joueurId}`);
     if (!res.ok) return;
     renderGameState(await res.json());
   } catch (e) {
-    console.error('Erreur fetch state:', e);
+    console.error('Erreur fetch state initial:', e);
   }
 }
 
@@ -241,13 +270,19 @@ function renderGameState(state) {
   const btnUno = document.getElementById('btn-game-uno');
   if (btnUno)  btnUno.disabled  = !state.myTurn;
 
-  // Victoire
+  // Victoire : déconnexion propre du WebSocket
   if (state.status === 'FINISHED') {
-    if (gameTimer) { clearInterval(gameTimer); gameTimer = null; }
+    if (stompClient) { try { stompClient.disconnect(); } catch {} stompClient = null; }
     const textEl    = document.getElementById('game-victory-text');
     const victoryEl = document.getElementById('game-victory');
     if (textEl)    textEl.textContent    = state.winnerPseudo === currentPseudo ? '🎉 Vous avez gagné !' : `🏆 Victoire de ${state.winnerPseudo}`;
     if (victoryEl) victoryEl.style.display = 'flex';
+  }
+
+  // Historique du chat (au premier chargement)
+  if (!window.chatLoaded && state.chatHistory && state.chatHistory.length > 0) {
+    state.chatHistory.forEach(onChatMessageReceived);
+    window.chatLoaded = true;
   }
 }
 
@@ -294,7 +329,7 @@ function onColorChosen(color) {
 
 
 document.getElementById('btn-game-quit')?.addEventListener('click', () => {
-  if (gameTimer) clearInterval(gameTimer);
+  if (stompClient) { try { stompClient.disconnect(); } catch {} stompClient = null; }
   window.location.href = './index.html';
 });
 document.getElementById('btn-game-draw')?.addEventListener('click', () => void drawCard());
@@ -303,5 +338,48 @@ document.getElementById('btn-victory-quit')?.addEventListener('click', () => {
   window.location.href = './index.html';
 });
 
+// ================================================
+// Chat en ligne
+// ================================================
+function onChatMessageReceived(msg) {
+  const container = document.getElementById('chat-messages');
+  if (!container) return;
 
-startPolling();
+  const div = document.createElement('div');
+  div.className = 'chat-msg';
+  
+  const now = new Date(msg.sentAt);
+  const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  div.innerHTML = `
+    <span class="chat-msg-time">[${time}]</span>
+    <span class="chat-msg-pseudo">${msg.pseudo}</span>:
+    <span class="chat-msg-content"></span>
+  `;
+  div.querySelector('.chat-msg-content').textContent = msg.content;
+  
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function sendChatMessage(content) {
+  if (!stompClient || !stompClient.connected || !content.trim()) return;
+  stompClient.send(`/app/game/${activeGameId}/chat`, {}, JSON.stringify({
+    joueurId: Number(joueurId),
+    content: content.trim()
+  }));
+}
+
+document.getElementById('chat-form')?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const input = document.getElementById('chat-input');
+  if (!input) return;
+  const content = input.value;
+  if (content.trim()) {
+    sendChatMessage(content);
+    input.value = '';
+  }
+});
+
+// Démarrage : connexion WebSocket au lieu du polling
+connectGameSocket();

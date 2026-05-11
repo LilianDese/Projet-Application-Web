@@ -43,6 +43,7 @@ import n7.facade.web.dto.GameResponse;
 import n7.facade.web.dto.GameStateResponse;
 import n7.facade.web.dto.JoinGameResponse;
 import n7.facade.web.dto.PlayerStateDto;
+import n7.facade.web.dto.ChatMessageResponse;
 
 @RestController
 public class FacadeController {
@@ -655,6 +656,11 @@ public class FacadeController {
 					.findFirst()
 					.orElse("Inconnu");
 		}
+		
+		List<ChatMessageResponse> history = (game.getChatMessages() == null) ? new ArrayList<>() :
+				game.getChatMessages().stream()
+						.map(m -> new ChatMessageResponse(m.getId(), m.getJoueur().getPseudo(), m.getContent(), m.getSentAt()))
+						.collect(Collectors.toList());
 
 		GameStateResponse resp = new GameStateResponse();
 		resp.setGameId(game.getId());
@@ -668,6 +674,7 @@ public class FacadeController {
 		resp.setMyHand(myHand);
 		resp.setPlayers(playerStates);
 		resp.setWinnerPseudo(winnerPseudo);
+		resp.setChatHistory(history);
 		return resp;
 	}
 

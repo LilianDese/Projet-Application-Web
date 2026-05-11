@@ -83,8 +83,23 @@
         <button id="btn-game-uno"  class="btn"             type="button">UNO !</button>
       </div>
 
+      <!-- Chat en ligne -->
+      <div id="game-chat" class="game-chat">
+        <div class="chat-header">Chat de la partie</div>
+        <div id="chat-messages" class="chat-messages"></div>
+        <form id="chat-form" class="chat-form">
+          <input id="chat-input" type="text" placeholder="Message..." autocomplete="off" />
+          <button type="submit" class="btn btn-small">Envoyer</button>
+        </form>
+      </div>
+
     </div>
 
-    <script src="./game.js"></script>
+    <!-- WebSocket : SockJS + STOMP -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7/bundles/stomp.umd.min.js"></script>
+    <!-- Shim : expose Stomp.over() attendu par le code existant -->
+    <script>window.Stomp = StompJs.Stomp;</script>
+    <script src="./game.js?v=5"></script>
   </body>
 </html>

@@ -162,6 +162,10 @@ function connectGameSocket() {
     stompClient.subscribe(`/topic/game/${activeGameId}/player/${joueurId}`, (msg) => {
       try { renderGameState(JSON.parse(msg.body)); } catch (e) { console.error(e); }
     });
+    // Abonnement au chat
+    stompClient.subscribe(`/topic/game/${activeGameId}/chat`, (msg) => {
+      try { onChatMessageReceived(JSON.parse(msg.body)); } catch (e) { console.error(e); }
+    });
     // Chargement initial via HTTP
     void fetchAndRender();
   }, (err) => {
@@ -274,6 +278,12 @@ function renderGameState(state) {
     if (textEl)    textEl.textContent    = state.winnerPseudo === currentPseudo ? '🎉 Vous avez gagné !' : `🏆 Victoire de ${state.winnerPseudo}`;
     if (victoryEl) victoryEl.style.display = 'flex';
   }
+
+  // Historique du chat (au premier chargement)
+  if (!window.chatLoaded && state.chatHistory && state.chatHistory.length > 0) {
+    state.chatHistory.forEach(onChatMessageReceived);
+    window.chatLoaded = true;
+  }
 }
 
 function onCardClick(card) {
@@ -326,6 +336,49 @@ document.getElementById('btn-game-draw')?.addEventListener('click', () => void d
 document.getElementById('btn-game-uno')?.addEventListener('click',  () => void callUno());
 document.getElementById('btn-victory-quit')?.addEventListener('click', () => {
   window.location.href = './index.html';
+});
+
+// ================================================
+// Chat en ligne
+// ================================================
+function onChatMessageReceived(msg) {
+  const container = document.getElementById('chat-messages');
+  if (!container) return;
+
+  const div = document.createElement('div');
+  div.className = 'chat-msg';
+  
+  const now = new Date(msg.sentAt);
+  const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  div.innerHTML = `
+    <span class="chat-msg-time">[${time}]</span>
+    <span class="chat-msg-pseudo">${msg.pseudo}</span>:
+    <span class="chat-msg-content"></span>
+  `;
+  div.querySelector('.chat-msg-content').textContent = msg.content;
+  
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function sendChatMessage(content) {
+  if (!stompClient || !stompClient.connected || !content.trim()) return;
+  stompClient.send(`/app/game/${activeGameId}/chat`, {}, JSON.stringify({
+    joueurId: Number(joueurId),
+    content: content.trim()
+  }));
+}
+
+document.getElementById('chat-form')?.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const input = document.getElementById('chat-input');
+  if (!input) return;
+  const content = input.value;
+  if (content.trim()) {
+    sendChatMessage(content);
+    input.value = '';
+  }
 });
 
 // Démarrage : connexion WebSocket au lieu du polling

@@ -7,7 +7,21 @@ let authMode = null; // 'login' | 'register'
 let currentPseudo = null;
 let currentJoueurId = null;
 let messageTimer = null;
-let gamesDockTimer = null;
+
+// ===================================
+// WebSocket / STOMP
+// ===================================
+let stompClient = null;
+let gamesSubscription    = null;
+let lobbySubscription    = null;
+
+function getBackBasePath() {
+  const path = window.location.pathname || '';
+  const match = path.match(/^(.*)\/front(?:\/|$)/);
+  return match ? `${match[1] || ''}/back` : '/back';
+}
+
+const BACK_BASE_PATH = getBackBasePath();
 
 
 //=======================================
@@ -304,22 +318,29 @@ function setLoggedIn(pseudo, id) {
   if (createGameBtn) createGameBtn.style.display = 'inline-block';
   if (gamesDock) gamesDock.style.display = 'block';
 
-  void refreshGamesDock();
-  if (gamesDockTimer) clearInterval(gamesDockTimer);
-  gamesDockTimer = setInterval(refreshGamesDockSilent, 2000);
+  // Chargement immédiat des parties via HTTP (sans attendre la socket)
+  void refreshGamesDockSilent();
+
+  // Connexion WebSocket et abonnement à la liste des parties
+  connectWebSocket();
 }
 
 //ecran après logout
-function setLoggedOut() {
+function setLoggedOut(options = {}) {
+  const notifyServer = options.notifyServer === true;
+  if (notifyServer) {
+    sendLogoutSignal();
+  }
   currentPseudo = null;
   currentJoueurId = null;
   setCurrentUser('');
   setMessage('', false);
-  if (gamesDockTimer) clearInterval(gamesDockTimer);
+  disconnectWebSocket();
 
   const actions = document.getElementById('menu-actions');
   const form = document.getElementById('auth-form');
   const input = document.getElementById('pseudo');
+  const passInput = document.getElementById('password');
   const logout = document.getElementById('btn-logout');
   const leaderboardBtn = document.getElementById('btn-leaderboard');
   const createGameBtn = document.getElementById('btn-create-game');
@@ -330,6 +351,7 @@ function setLoggedOut() {
   if (actions) actions.style.display = 'flex';
   if (form) form.style.display = 'none';
   if (input) input.value = '';
+  if (passInput) passInput.value = '';
   if (logout) logout.style.display = 'none';
   if (leaderboardBtn) leaderboardBtn.style.display = 'none';
   if (createGameBtn) createGameBtn.style.display = 'none';
@@ -487,17 +509,47 @@ async function refreshGamesDock() {
   }
 }
 
+// Chargement initial unique (sans loading spinner) — ensuite les màj viennent du WebSocket
 async function refreshGamesDockSilent() {
   if (!currentPseudo) return;
   const container = document.getElementById('games-content');
   if (!container) return;
-
   try {
     const games = await fetchGames();
     renderGames(games);
   } catch {
     // on ignore l'erreur pour ne pas flasher l'écran
   }
+}
+
+// ===================================
+// WebSocket helpers (STOMP via SockJS)
+// ===================================
+function connectWebSocket() {
+  if (stompClient && stompClient.connected) return;
+  if (!currentJoueurId) return;
+
+  const socket = new SockJS(`${BACK_BASE_PATH}/ws`);
+  stompClient = Stomp.over(socket);
+  stompClient.debug = () => {}; // désactive les logs verbeux
+
+  stompClient.connect({ joueurId: String(currentJoueurId) }, () => {
+    // Abonnement à la liste des parties
+    gamesSubscription = stompClient.subscribe('/topic/games', (msg) => {
+      try { renderGames(JSON.parse(msg.body)); } catch {}
+    });
+    // Chargement initial
+    void refreshGamesDockSilent();
+  }, (err) => {
+    console.warn('WebSocket déconnecté, reconnexion dans 3s…', err);
+    setTimeout(() => { if (currentPseudo) connectWebSocket(); }, 3000);
+  });
+}
+
+function disconnectWebSocket() {
+  if (gamesSubscription) { gamesSubscription.unsubscribe(); gamesSubscription = null; }
+  if (lobbySubscription) { lobbySubscription.unsubscribe(); lobbySubscription = null; }
+  if (stompClient) { try { stompClient.disconnect(); } catch {} stompClient = null; }
 }
 
 async function createGame(name) {
@@ -516,13 +568,37 @@ async function askCreateGame() {
 }
 
 //ajoute un joueur
-async function createJoueur(pseudo) {
+async function createJoueur(pseudo, password) {
   const res = await fetch('./api/joueurs', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({ pseudo, password: '' }),
+    body: JSON.stringify({ pseudo, password }),
   });
   return res;
+}
+
+async function loginJoueur(pseudo, password) {
+  const res = await fetch('./api/joueurs/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ pseudo, password }),
+  });
+  return res;
+}
+
+async function logoutJoueur() {
+  if (!currentJoueurId) return null;
+  return await fetch(`./api/joueurs/logout?joueurId=${currentJoueurId}`, { method: 'POST' });
+}
+
+function sendLogoutSignal() {
+  if (!currentJoueurId) return;
+  const url = `./api/joueurs/logout?joueurId=${currentJoueurId}`;
+  if (navigator.sendBeacon) {
+    const ok = navigator.sendBeacon(url);
+    if (ok) return;
+  }
+  fetch(url, { method: 'POST', keepalive: true }).catch(() => {});
 }
 //crop pseudosi trop long
 function normalizePseudo(value) {
@@ -546,7 +622,7 @@ function initAuthUi() {
 
   if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
-      setLoggedOut();
+      setLoggedOut({ notifyServer: true });
     });
   }
 
@@ -575,32 +651,40 @@ function initAuthUi() {
       setMessage('Pseudo requis', true);
       return;
     }
+    const passwordInput = document.getElementById('password');
+    const password = passwordInput ? passwordInput.value : '';
+    if (!password) {
+      setMessage('Mot de passe requis', true);
+      return;
+    }
 
     try {
       if (authMode === 'login') {
-        const joueurs = await fetchJoueurs();
-        const joueur = joueurs.find((j) => (j?.pseudo ?? '').toLowerCase() === pseudo.toLowerCase());
-        if (!joueur) {
-          setMessage('Pseudo introuvable', true);
+        const res = await loginJoueur(pseudo, password);
+        if (res.status === 200) {
+          const data = await res.json();
+          setLoggedIn(data.pseudo, data.id);
+          setMessage('Connexion OK', false);
           return;
         }
-        setLoggedIn(joueur.pseudo, joueur.id);
-        setMessage('Connexion OK', false);
+        if (res.status === 404) { setMessage('Pseudo introuvable', true); return; }
+        if (res.status === 401) { setMessage('Mot de passe incorrect', true); return; }
+        if (res.status === 409) { setMessage('Joueur déjà connecté', true); return; }
+        const txt = await res.text();
+        setMessage(`Erreur (${res.status}) ${txt || ''}`.trim(), true);
         return;
       }
 
       if (authMode === 'register') {
-        const res = await createJoueur(pseudo);
+        const res = await createJoueur(pseudo, password);
         if (res.status === 201) {
           const data = await res.json();
           setLoggedIn(data.pseudo, data.id);
           setMessage('Joueur créé', false);
           return;
         }
-        if (res.status === 409) {
-          setMessage('Pseudo déjà utilisé', true);
-          return;
-        }
+        if (res.status === 409) { setMessage('Pseudo déjà utilisé', true); return; }
+        if (res.status === 400) { setMessage('Pseudo et mot de passe requis', true); return; }
         const txt = await res.text();
         setMessage(`Erreur (${res.status}) ${txt || ''}`.trim(), true);
         return;
@@ -645,7 +729,6 @@ if (partForm && partInput) {
 //Gestion de lobby
 //========================
 
-let lobbyTimer = null;
 let activeLobbyGameId = null;
 let lobbyLoadFailures = 0;
 let lobbyLeavingInProgress = false;
@@ -654,7 +737,7 @@ async function joinGame(gameId) {
   let res = await fetch(`./api/games/${gameId}/join?joueurId=${currentJoueurId}`, { method: 'POST' });
   if (res.status === 404) {
     // fallback si le proxy /front/api est mal routé sur ce Tomcat
-    res = await fetch(`/back/games/${gameId}/join?joueurId=${currentJoueurId}`, { method: 'POST' });
+    res = await fetch(`${BACK_BASE_PATH}/games/${gameId}/join?joueurId=${currentJoueurId}`, { method: 'POST' });
   }
   if (!res.ok) throw new Error('Erreur join');
   return res;
@@ -706,7 +789,7 @@ async function fetchGame(gameId) {
   // fallback si le proxy /front/api est instable
   if (!res || res.status === 404 || res.status >= 500) {
     try {
-      const backRes = await fetch(`/back/games/${gameId}`);
+      const backRes = await fetch(`${BACK_BASE_PATH}/games/${gameId}`);
       if (backRes.ok) {
         return await backRes.json();
       }
@@ -731,7 +814,7 @@ async function startGame(gameId) {
   let res = await fetch(`./api/games/${gameId}/start?joueurId=${currentJoueurId}`, { method: 'POST' });
   if (res.status === 404) {
     // fallback si le proxy /front/api est mal routé sur ce Tomcat
-    res = await fetch(`/back/games/${gameId}/start?joueurId=${currentJoueurId}`, { method: 'POST' });
+    res = await fetch(`${BACK_BASE_PATH}/games/${gameId}/start?joueurId=${currentJoueurId}`, { method: 'POST' });
   }
   if (!res.ok) {
      const t = await res.text();
@@ -743,7 +826,7 @@ async function leaveGame(gameId) {
   let res = await fetch(`./api/games/${gameId}/leave?joueurId=${currentJoueurId}`, { method: 'POST' });
   if (res.status === 404) {
     // fallback si le proxy /front/api est mal routé sur ce Tomcat
-    res = await fetch(`/back/games/${gameId}/leave?joueurId=${currentJoueurId}`, { method: 'POST' });
+    res = await fetch(`${BACK_BASE_PATH}/games/${gameId}/leave?joueurId=${currentJoueurId}`, { method: 'POST' });
   }
   return res;
 }
@@ -753,20 +836,27 @@ function openLobby(gameId) {
   lobbyLoadFailures = 0;
   const overlay = document.getElementById('lobby-overlay');
   if (overlay) overlay.style.display = 'grid';
-
   setLobbyMessage('');
-  
-  if (lobbyTimer) clearInterval(lobbyTimer);
-  updateLobby();
-  lobbyTimer = setInterval(updateLobby, 2000);
+
+  // Chargement initial du lobby via HTTP puis abonnement WebSocket
+  void updateLobby();
+
+  if (stompClient && stompClient.connected) {
+    if (lobbySubscription) { lobbySubscription.unsubscribe(); lobbySubscription = null; }
+    lobbySubscription = stompClient.subscribe(`/topic/game/${gameId}/lobby`, (msg) => {
+      try {
+        const game = JSON.parse(msg.body);
+        applyLobbyUpdate(game);
+      } catch {}
+    });
+  }
 }
 
 function closeLobby() {
   activeLobbyGameId = null;
-  if (lobbyTimer) clearInterval(lobbyTimer);
+  if (lobbySubscription) { lobbySubscription.unsubscribe(); lobbySubscription = null; }
   const overlay = document.getElementById('lobby-overlay');
   if (overlay) overlay.style.display = 'none';
-
   setLobbyMessage('');
 }
 
@@ -804,55 +894,61 @@ async function quitLobby() {
   }
 }
 
+// Applique un état de lobby (GameResponse) reçu par WebSocket ou HTTP
+function applyLobbyUpdate(game) {
+  if (!activeLobbyGameId) return;
+  lobbyLoadFailures = 0;
+  setLobbyMessage('');
+
+  const titleEl = document.getElementById('lobby-title');
+  if (titleEl) titleEl.textContent = `Salon: ${game.name || game.id}`;
+
+  if (game.status === 'IN_PROGRESS') {
+    const gameId = activeLobbyGameId;
+    closeLobby();
+    openGamePage(gameId);
+    return;
+  }
+
+  const ul = document.getElementById('lobby-players');
+  if (ul) {
+    ul.innerHTML = '';
+    for (const p of (game.playerPseudos || [])) {
+      const li = document.createElement('li');
+      li.textContent = p;
+      ul.appendChild(li);
+    }
+  }
+
+  const btnStart = document.getElementById('btn-lobby-start');
+  if (btnStart) {
+    if (Number(game.creatorId) === Number(currentJoueurId)) {
+      btnStart.style.display = 'inline-block';
+      btnStart.disabled = game.playerCount < 3;
+    } else {
+      btnStart.style.display = 'none';
+    }
+  }
+}
+
+// Chargement initial du lobby via HTTP (premier appel seulement)
 async function updateLobby() {
-   if (!activeLobbyGameId) return;
-   try {
-     const game = await fetchGame(activeLobbyGameId);
-     lobbyLoadFailures = 0;
-     setLobbyMessage('');
-     document.getElementById('lobby-title').textContent = `Salon: ${game.name || game.id}`;
-     
-     if (game.status === 'IN_PROGRESS') {
-       const gameId = activeLobbyGameId; // sauvegarder avant que closeLobby() ne le mette à null
-       closeLobby();
-       openGamePage(gameId);
-       return;
-     }
-     
-     const ul = document.getElementById('lobby-players');
-     if (ul) {
-       ul.innerHTML = '';
-       for (const p of (game.playerPseudos || [])) {
-         const li = document.createElement('li');
-         li.textContent = p;
-         ul.appendChild(li);
-       }
-     }
-     
-     const btnStart = document.getElementById('btn-lobby-start');
-     if (btnStart) {
-       if (Number(game.creatorId) === Number(currentJoueurId)) {
-          btnStart.style.display = 'inline-block';
-          btnStart.disabled = game.playerCount < 3;
-       } else {
-          btnStart.style.display = 'none';
-       }
-     }
-   } catch (e) {
-     // Ne pas fermer sur une simple erreur réseau.
-     // On ferme seulement si la partie n'existe plus.
-     const status = e?.status;
-     if (status === 404) {
-       closeLobby();
-       void refreshGamesDock();
-       return;
-     }
-     lobbyLoadFailures += 1;
-     // Evite le flash d'erreur transitoire juste après un join
-     if (lobbyLoadFailures >= 2) {
-       setLobbyMessage('Erreur réseau: impossible de charger le lobby.');
-     }
-   }
+  if (!activeLobbyGameId) return;
+  try {
+    const game = await fetchGame(activeLobbyGameId);
+    applyLobbyUpdate(game);
+  } catch (e) {
+    const status = e?.status;
+    if (status === 404) {
+      closeLobby();
+      void refreshGamesDock();
+      return;
+    }
+    lobbyLoadFailures += 1;
+    if (lobbyLoadFailures >= 2) {
+      setLobbyMessage('Erreur réseau: impossible de charger le lobby.');
+    }
+  }
 }
 
 document.getElementById('btn-lobby-quit')?.addEventListener('click', () => { void quitLobby(); });

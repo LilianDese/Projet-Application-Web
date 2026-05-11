@@ -29,6 +29,7 @@ public class Joueur {
 
 	private int gamesPlayed;
 
+	@Column(nullable = false, columnDefinition = "boolean default false")
 	private boolean connected;
 
 	/** Participations de ce joueur aux différentes parties */

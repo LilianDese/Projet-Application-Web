@@ -25,6 +25,8 @@ public class GameStateResponse {
     private List<PlayerStateDto> players;
     /** Pseudo du vainqueur, null si la partie est en cours */
     private String winnerPseudo;
+    /** Historique des messages du chat */
+    private List<ChatMessageResponse> chatHistory;
 
     public GameStateResponse() {}
 
@@ -60,4 +62,7 @@ public class GameStateResponse {
 
     public String getWinnerPseudo() { return winnerPseudo; }
     public void setWinnerPseudo(String winnerPseudo) { this.winnerPseudo = winnerPseudo; }
+
+    public List<ChatMessageResponse> getChatHistory() { return chatHistory; }
+    public void setChatHistory(List<ChatMessageResponse> chatHistory) { this.chatHistory = chatHistory; }
 }

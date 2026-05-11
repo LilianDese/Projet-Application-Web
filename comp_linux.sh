@@ -18,7 +18,13 @@ rm -rf tmp
 
 # Move wars to Tomcat webapps
 echo "Moving wars to Tomcat webapps..."
-cp back/facade/target/back.war C:/Users/cocos/tools/tomcat/apache-tomcat-11.0.21/webapps/back.war
-mv front.war C:/Users/cocos/tools/tomcat/apache-tomcat-11.0.21/webapps/
+TOMCAT_DIR="apache-tomcat-11.0.1"
+if [ -d "$TOMCAT_DIR" ]; then
+    cp back/facade/target/back.war "$TOMCAT_DIR/webapps/back.war"
+    mv front.war "$TOMCAT_DIR/webapps/front.war"
+    echo "Wars moved to $TOMCAT_DIR/webapps/"
+else
+    echo "Error: $TOMCAT_DIR not found. Wars not moved."
+fi
 
 echo "Build and deployment complete."

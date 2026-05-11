@@ -44,6 +44,7 @@
     <div class="auth-panel" aria-label="Connexion">
       <form id="auth-form" class="auth-form" style="display:none" autocomplete="off">
         <input id="pseudo" class="input" type="text" placeholder="Pseudo" />
+        <input id="password" class="input" type="password" placeholder="Mot de passe" />
         <button id="btn-submit" class="btn btn-primary" type="submit">Valider</button>
       </form>
       <div id="auth-message" class="message" aria-live="polite"></div>
@@ -108,6 +109,11 @@
       </div>
     </div>
 
-    <script src="./script.js?v=2"></script>
+    <!-- WebSocket : SockJS + STOMP -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7/bundles/stomp.umd.min.js"></script>
+    <!-- Shim : expose Stomp.over() attendu par le code existant -->
+    <script>window.Stomp = StompJs.Stomp;</script>
+    <script src="./script.js?v=5"></script>
   </body>
 </html>
